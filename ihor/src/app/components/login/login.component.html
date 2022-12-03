@@ -1,0 +1,48 @@
+<div id="background">
+  <div id="container">
+
+    <h1>Login</h1>
+
+    <form [formGroup]="loginForm" (ngSubmit)="login()">
+
+      <mat-form-field appearance="outline" id="email">
+        <mat-label>Email</mat-label>
+        <input matInput type="email" placeholder="name@example.com" name="email" formControlName="email">
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" id="password">
+        <mat-label>Password</mat-label>
+        <input matInput [type]="hide ? 'password' : 'text'" name="password" formControlName="password">
+        <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
+          [attr.aria-pressed]="hide">
+          <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+        </button>
+      </mat-form-field>
+
+      <p id="keepLogin">
+        <mat-checkbox formControlName="keepLogin" id="keepLogin-label">Keep me logged in</mat-checkbox>
+      </p>
+
+      <button type="submit" mat-raised-button id="loginbtn">LOGIN</button>
+
+      <p id="forgotPass">Forgot password</p>
+
+      <div id="separator">
+        <hr>
+        <span>or login with</span>
+        <hr>
+      </div>
+
+      <div id="difLogin">
+        <i class="fa fa-google sn-icon" aria-hidden="true" (click)="toGoogle()"></i>
+        <i class="fa fa-facebook-square sn-icon" aria-hidden="true" (click)="toFacebook()"></i>  
+      </div>
+
+      <div id="toSignup">
+        <p>Don't have an account?</p>
+        <p id="signup" (click)="toSignup()">Sign up</p>
+      </div>
+
+    </form>
+  </div>
+</div>

@@ -1,0 +1,87 @@
+#navbar{
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 999;
+    width: 100%;
+    height: 60px;
+    background: #FFE32B;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: center;
+    gap: 20px;
+}
+#logo{
+    width: 40px;
+    height: 40px;
+}
+#title{
+
+    font-family: 'Inter';
+    font-weight: 400;
+    font-size: 20px;
+    margin-top: 0;
+    margin-bottom: 0;
+    letter-spacing: 0.3px;
+
+    color: #000000;
+    -webkit-text-stroke: 1px #567D92;
+    
+}
+.navbar-button{
+    box-sizing: border-box;
+    
+    font-size: 16px;
+    font-weight: 800;
+    font-family: 'Nunito';
+    letter-spacing: 0.3px;
+    
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 8px;
+    padding: 8px;
+    
+    margin: 10px;
+    width: 94px;
+    height: 35px;
+    min-width: 94px;
+    
+}
+#login-button, #sign-up-button
+{
+    color: white;
+    background-color: rgba(38, 50, 56, 0.5);
+}
+#pre-div{
+    box-sizing: content-box;
+    width: 10%;
+}
+#mid-div{
+    box-sizing: content-box;
+    width: 55%;
+}
+#idd{
+    position: fixed;
+    top: 200px;
+    left: 200px;
+}
+
+@media (max-width: 500px) {
+    
+    #navbar{
+        gap: 5px;
+    }
+    #pre-div{
+        width: 5%;
+    }
+    #mid-div{
+        width: 5%;
+    }
+    .navbar-button{
+        box-sizing: border-box;
+        font-size: 14px;
+        width: 75px;
+        min-width: 75px;
+        
+    }
+  }
