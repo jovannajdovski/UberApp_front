@@ -1,1 +1,36 @@
-<p>signup works!</p>
+<div id="background">
+    <div id="container">
+  
+      <h1>Sign up</h1>
+
+      <form>
+
+        <button mat-raised-button class="btn btn-margin btn-blue">
+          <mat-icon class="btn-icon">facebook</mat-icon>
+          <span class="btn-text">Sign up with Facebook</span>
+        </button>
+  
+        <button mat-raised-button class="btn btn-margin btn-red">
+          <mat-icon class="btn-icon">G</mat-icon>
+          <span class="btn-text">Sign up with Google</span>
+        </button>
+  
+        <div id="separator">
+          <hr>
+          <span>or</span>
+          <hr>
+        </div>
+  
+        <button mat-raised-button class="btn btn-yellow">
+          <mat-icon class="btn-icon">mail</mat-icon>
+          <span class="btn-text">Sign up with mail</span>
+        </button>
+
+        <div id="toSignup">
+          <p>Don't have an account?</p>
+          <p id="signup" (click)="toSignup()">Sign up</p>
+        </div>
+  
+      </form>
+    </div>
+  </div>

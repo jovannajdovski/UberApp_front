@@ -40,8 +40,6 @@ h1 {
     /* margin-bottom: auto; */
 }
 
-
-
 form {
     margin: 40px;
     margin-top: 20px;
@@ -70,7 +68,6 @@ form {
 /* #keepLogin {
     background-color: white !important;
 } */
-
 
 #loginbtn {
     background: #FFE32B;
@@ -136,8 +133,6 @@ form {
     cursor: pointer;
     margin: 0 5px;
 }
-
-
 
   @media only screen and (max-height: 900px) {
     #container {
