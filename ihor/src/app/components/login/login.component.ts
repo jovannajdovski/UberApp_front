@@ -37,6 +37,4 @@ export class LoginComponent {
   toSignup() {
     this.router.navigate(['/signup']);
   }
-
-
 }
