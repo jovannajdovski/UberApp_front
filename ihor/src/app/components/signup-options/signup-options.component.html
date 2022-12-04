@@ -1,0 +1,29 @@
+<form>
+
+    <button mat-raised-button class="btn btn-margin btn-blue">
+      <mat-icon class="btn-icon">facebook</mat-icon>
+      <span class="btn-text">Sign up with Facebook</span>
+    </button>
+
+    <button mat-raised-button class="btn btn-margin btn-red">
+      <mat-icon class="btn-icon btn-icon btn-icon-google">G</mat-icon>
+      <span class="btn-text">Sign up with Google</span>
+    </button>
+
+    <div id="separator">
+      <hr>
+      <span>or</span>
+      <hr>
+    </div>
+
+    <button mat-raised-button class="btn btn-yellow" (click)="signUpWithEmail()">
+      <mat-icon class="btn-icon">mail</mat-icon>
+      <span class="btn-text">Sign up with mail</span>
+    </button>
+
+    <div id="toLogin">
+      <p>Already have an account?</p>
+      <p id="login" (click)="toLogin()">Log in</p>
+    </div>
+
+  </form>

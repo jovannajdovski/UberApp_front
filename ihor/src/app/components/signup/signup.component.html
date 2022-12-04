@@ -1,1 +1,10 @@
-<p>signup works!</p>
+<div id="background">
+    <div id="container">
+  
+      <h1>Sign up</h1>
+        
+      <app-signup-options id="content" (signUpWithEmailEvent)="showSignUpForm()" *ngIf="showSignUpOptions"></app-signup-options>
+      <app-signup-form id="content" (signUpWithEmailEvent)="showSignUpForm()" *ngIf="!showSignUpOptions"></app-signup-form>
+      <!-- <ng-template #signupForm><app-signup-form id="content"></app-signup-form></ng-template> -->
+    </div>
+  </div>
