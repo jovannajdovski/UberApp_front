@@ -1,40 +1,18 @@
-import { Component } from '@angular/core';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
-import { LoginService } from 'src/app/services/login/login.service';
+import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-signup',
   templateUrl: './signup.component.html',
   styleUrls: ['./signup.component.css']
 })
-export class SignupComponent {
-  hide=true;
+export class SignupComponent implements OnInit {
+  showSignUpOptions = true;
 
-  loginForm = new FormGroup({
-    email: new FormControl(),
-    password: new FormControl(),
-    keepLogin: new FormControl(),
-    region: new FormControl('', [Validators.required]),
-  });
+  constructor() {}
 
-  constructor(private loginService: LoginService, private router: Router) {}
+  ngOnInit(): void {}
 
-  login() {
-    if (this.loginForm.valid) {
-          this.router.navigate(['/signup']);
-    }
-  }
-
-  toFacebook() {
-    window.location.href="https://www.facebook.com/";
-  }
-
-  toGoogle() {
-    window.location.href="https://accounts.google.com";
-  }
-
-  toSignup() {
-    this.router.navigate(['/signup']);
+  showSignUpForm() {
+    this.showSignUpOptions = false;
   }
 }
