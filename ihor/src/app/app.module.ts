@@ -14,6 +14,7 @@ import { SignupComponent } from './components/signup/signup.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { SignupOptionsComponent } from './components/signup-options/signup-options.component';
 import { SignupFormComponent } from './components/signup-form/signup-form.component';
+import { ErrorStateMatcher, ShowOnDirtyErrorStateMatcher } from '@angular/material/core';
 
 @NgModule({
   declarations: [
@@ -23,6 +24,7 @@ import { SignupFormComponent } from './components/signup-form/signup-form.compon
     NavbarComponent,
     SignupOptionsComponent,
     SignupFormComponent
+    
   ],
   imports: [
     BrowserModule,
@@ -31,12 +33,12 @@ import { SignupFormComponent } from './components/signup-form/signup-form.compon
     BrowserAnimationsModule,
     MaterialModule,
     AppRoutingModule,
-    // FlexLayoutModule,
+    //FlexLayoutModule,
     ReactiveFormsModule,
     HttpClientModule,
     FormsModule
   ],
-  providers: [],
+  providers: [{provide: ErrorStateMatcher, useClass: ShowOnDirtyErrorStateMatcher}],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -51,12 +51,22 @@ form {
     text-align: center;
 }
 
-#email, #password{
-    margin: 5px 0;
+#email,
+#password {
+    margin: 10px 0;
 }
 
-#email input, #password input{
+#email input,
+#password input {
     height: 45px;
+    color: white;
+}
+
+.input-error {
+    color: rgb(255, 103, 103);
+}
+
+.correct {
     color: white;
 }
 
@@ -65,13 +75,12 @@ form {
     margin: 5px 0 20px 0;
 }
 
-/* #keepLogin {
-    background-color: white !important;
-} */
 
 #loginbtn {
-    background: #FFE32B;
-    box-shadow: 0px 8px 20px rgba(78, 96, 255, 0.16);
+    transition: all .5s ease;
+    background: #282E33;
+    border: 3px solid #FFE32B;
+    box-shadow: 0px 4px 4px rgba(255, 248, 54, 0.397);
     border-radius: 8px;
     height: 45px;
 
@@ -80,6 +89,14 @@ form {
     letter-spacing: 0.3px;
     font-weight: 800;
     font-size: 16px;
+    color: #FFE32B;
+}
+
+#loginbtn:hover {
+    transform: translateY(-0.25em);
+    background: #FFE32B;
+    border: 1px solid rgba(#000, .05);
+    box-shadow: 0px 4px 4px rgba(15, 15, 15, 0.397);
     color: #282E33;
 }
 
@@ -134,23 +151,29 @@ form {
     margin: 0 5px;
 }
 
-  @media only screen and (max-height: 900px) {
+mat-error {
+    font-size: small;
+}
+
+@media only screen and (max-height: 900px) {
     #container {
         height: 87%;
         margin-top: 80px;
     }
-  }
-  @media only screen and (max-width: 600px) {
+}
+
+@media only screen and (max-width: 600px) {
     #container {
-      height: 100%;
-      width: 100%;
-      border-radius: 0px;
-      margin-top: 0;
-      margin-bottom: 0;
+        height: 100%;
+        width: 100%;
+        border-radius: 0px;
+        margin-top: 0;
+        margin-bottom: 0;
     }
+
     h1 {
         margin-top: 120px;
         margin-bottom: 10px;
         /* margin-bottom: auto; */
     }
-  }
+}

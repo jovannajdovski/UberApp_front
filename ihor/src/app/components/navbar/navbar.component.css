@@ -47,10 +47,17 @@
     min-width: 94px;
     
 }
+
 #login-button, #sign-up-button
 {
     color: white;
     background-color: rgba(38, 50, 56, 0.5);
+}
+
+#login-button:hover, #sign-up-button:hover
+{
+    color: rgba(38, 50, 56, 0.5);
+    background-color: white;
 }
 #pre-div{
     box-sizing: content-box;

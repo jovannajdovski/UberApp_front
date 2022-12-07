@@ -3,8 +3,8 @@
     <img id="logo" src="../../../assets/logo.png" alt="Ihor logo">
     <h1 id="title">Ihor</h1>
     <div id="mid-div"></div>
-    <button mat-raised-button class="navbar-button" id="login-button">Log in</button>
-    <button mat-raised-button class="navbar-button" id="sign-up-button">Sign up</button>
+    <button mat-raised-button class="navbar-button" (click)="toLogin()" id="login-button" *ngIf="showLogin">Log in</button>
+    <button mat-raised-button class="navbar-button" (click)="toSignup()" id="sign-up-button" *ngIf="showSignup">Sign up</button>
     
 </div>
   
