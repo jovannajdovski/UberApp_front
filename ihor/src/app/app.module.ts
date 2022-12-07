@@ -24,6 +24,7 @@ import { ErrorStateMatcher, ShowOnDirtyErrorStateMatcher } from '@angular/materi
     NavbarComponent,
     SignupOptionsComponent,
     SignupFormComponent
+    
   ],
   imports: [
     BrowserModule,
@@ -32,7 +33,7 @@ import { ErrorStateMatcher, ShowOnDirtyErrorStateMatcher } from '@angular/materi
     BrowserAnimationsModule,
     MaterialModule,
     AppRoutingModule,
-    // FlexLayoutModule,
+    //FlexLayoutModule,
     ReactiveFormsModule,
     HttpClientModule,
     FormsModule
