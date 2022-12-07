@@ -23,6 +23,7 @@ import { SignupFormComponent } from './components/signup-form/signup-form.compon
     NavbarComponent,
     SignupOptionsComponent,
     SignupFormComponent
+    
   ],
   imports: [
     BrowserModule,
@@ -31,7 +32,7 @@ import { SignupFormComponent } from './components/signup-form/signup-form.compon
     BrowserAnimationsModule,
     MaterialModule,
     AppRoutingModule,
-    // FlexLayoutModule,
+    //FlexLayoutModule,
     ReactiveFormsModule,
     HttpClientModule,
     FormsModule
