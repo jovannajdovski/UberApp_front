@@ -4,7 +4,6 @@ import { ErrorStateMatcher } from '@angular/material/core';
 import { Router } from '@angular/router';
 import { LoginService } from 'src/app/services/login/login.service';
 
-
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -27,8 +26,10 @@ export class LoginComponent {
 
 
   login() {
+    const email= this.loginForm.value.email;
+    const password= this.loginForm.value.password;
     if (this.loginForm.valid) {
-          this.router.navigate(['signup']);
+          this.loginService.getUser(email as string,password as string);
     }
   }
 
