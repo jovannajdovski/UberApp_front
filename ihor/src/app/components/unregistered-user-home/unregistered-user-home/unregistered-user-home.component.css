@@ -1,0 +1,22 @@
+#forma{
+    width: 300px;
+    height: 660px;
+    background-color: wheat;
+    margin: 20px;
+}
+
+app-map{
+    height: 660px;
+    width: 65%;
+    position: relative;
+    margin: 20px;
+}
+
+#container{
+    display: flex;
+    margin-top: 70px;
+    margin-left: 50px;
+    align-items: center;
+    flex-wrap: wrap;
+    justify-content:space-around
+}
