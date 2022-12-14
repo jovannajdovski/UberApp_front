@@ -64,15 +64,23 @@ form {
 
 .input-error {
     color: rgb(255, 103, 103);
+    font-size: 1rem;
 }
 
-.correct {
-    color: white;
+.login-error {
+    color: rgb(255, 103, 103);
+    font-size: 0.8rem;
+    position: relative;
+    top: 0.5rem;
 }
 
 #keepLogin {
     align-self: flex-start;
     margin: 5px 0 20px 0;
+}
+
+.mat-form-field-appearance-outline.mat-form-field-invalid.ng-touched{
+    color: rgb(255, 103, 103);
 }
 
 
@@ -149,10 +157,6 @@ form {
     font-weight: bold;
     cursor: pointer;
     margin: 0 5px;
-}
-
-mat-error {
-    font-size: small;
 }
 
 @media only screen and (max-height: 900px) {

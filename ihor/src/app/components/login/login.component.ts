@@ -1,52 +1,48 @@
-import { Component } from '@angular/core';
-import { FormGroup, FormControl, Validators, FormGroupDirective, NgForm, EmailValidator } from '@angular/forms';
-import { ErrorStateMatcher } from '@angular/material/core';
+import { HttpErrorResponse } from '@angular/common/http';
+import { Component, OnInit } from '@angular/core';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { LoginService } from 'src/app/services/login/login.service';
-
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
-
-
-export class LoginComponent {
+export class LoginComponent implements OnInit {
   hide=true;
 
   loginForm = new FormGroup({
-    email: new FormControl('',[Validators.email,Validators.required]),
+    email: new FormControl('',[Validators.email, Validators.required]),
     password: new FormControl('',[Validators.minLength(6), Validators.required]),
     keepLogin: new FormControl(),
   });
-
+  hasError = false;
 
   constructor(private loginService: LoginService, private router: Router) {}
 
-
+  ngOnInit(): void {}
 
   login() {
-    if (this.loginForm.valid) {
-          this.router.navigate(['signup']);
+    const login : Login = {
+      email: this.loginForm.value.email,
+      password: this.loginForm.value.password,
     }
-  }
 
-
-  getErrorMessage() {
-    if (this.loginForm.controls['email'].hasError('required')) {
-      return 'You must enter a value';
-    }   
-
-    return this.loginForm.controls['email'].hasError('email') ? 'Not a valid email' : '';
-  }
-
-  getErrorMessagePassword() {
-    if (this.loginForm.controls['password'].hasError('required')) {
-      return 'You must enter a value';
-    }   
-
-    return this.loginForm.controls['password'].hasError('minlength') ? 'Not a valid password' : '';
+    if (this.loginForm.valid) {
+      this.loginService.login(login).subscribe({
+        next: (result) => {
+          localStorage.setItem('user', JSON.stringify(result.jwt));
+          this.loginService.setUser();
+          alert("Successfull login");
+        },
+        error: (error) => {
+          if (error instanceof HttpErrorResponse) {
+            this.hasError = true;
+          }
+        },
+      });
+    }
   }
 
   toFacebook() {
@@ -60,4 +56,9 @@ export class LoginComponent {
   toSignup() {
     this.router.navigate(['/signup']);
   }
+}
+
+export interface Login {
+  email?: string | null;
+  password?: string | null;
 }

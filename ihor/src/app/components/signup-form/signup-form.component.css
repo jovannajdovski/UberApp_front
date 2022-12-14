@@ -27,6 +27,22 @@ form {
     width: 48%;
 }
 
+.input-error {
+    color: rgb(255, 103, 103);
+    font-size: 0.8rem;
+}
+
+.signup-error {
+    color: rgb(255, 103, 103);
+    font-size: 0.8rem;
+    position: relative;
+    top: 0.5rem;
+}
+
+.mat-form-field-appearance-outline.mat-form-field-invalid.ng-touched{
+    color: rgb(255, 103, 103);
+}
+
 #loginbtn {
     transition: all .5s ease;
     background: #282E33;

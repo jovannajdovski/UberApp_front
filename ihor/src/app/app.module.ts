@@ -15,6 +15,7 @@ import { NavbarComponent } from './components/navbar/navbar.component';
 import { SignupOptionsComponent } from './components/signup-options/signup-options.component';
 import { SignupFormComponent } from './components/signup-form/signup-form.component';
 import { ErrorStateMatcher, ShowOnDirtyErrorStateMatcher } from '@angular/material/core';
+import { ToastrModule } from 'ngx-toastr';
 
 @NgModule({
   declarations: [
