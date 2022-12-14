@@ -13,30 +13,34 @@ import { LoginService } from 'src/app/services/login/login.service';
 
 
 export class LoginComponent {
-  hide=true;
+  hide = true;
 
   loginForm = new FormGroup({
-    email: new FormControl('',[Validators.email,Validators.required]),
-    password: new FormControl('',[Validators.minLength(6), Validators.required]),
+    email: new FormControl('', [Validators.email, Validators.required]),
+    password: new FormControl('', [Validators.minLength(6), Validators.required]),
     keepLogin: new FormControl(),
   });
 
 
-  constructor(private loginService: LoginService, private router: Router) {}
+  constructor(private loginService: LoginService, private router: Router) { }
 
 
 
   login() {
     if (this.loginForm.valid) {
-          this.router.navigate(['signup']);
+      this.router.navigate(['signup']);
     }
+  }
+
+  toForgot() {
+    this.router.navigate(['/forgot-password']);
   }
 
 
   getErrorMessage() {
     if (this.loginForm.controls['email'].hasError('required')) {
       return 'You must enter a value';
-    }   
+    }
 
     return this.loginForm.controls['email'].hasError('email') ? 'Not a valid email' : '';
   }
@@ -44,17 +48,17 @@ export class LoginComponent {
   getErrorMessagePassword() {
     if (this.loginForm.controls['password'].hasError('required')) {
       return 'You must enter a value';
-    }   
+    }
 
     return this.loginForm.controls['password'].hasError('minlength') ? 'Not a valid password' : '';
   }
 
   toFacebook() {
-    window.location.href="https://www.facebook.com/";
+    window.location.href = "https://www.facebook.com/";
   }
 
   toGoogle() {
-    window.location.href="https://accounts.google.com";
+    window.location.href = "https://accounts.google.com";
   }
 
   toSignup() {

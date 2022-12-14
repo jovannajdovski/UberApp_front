@@ -21,6 +21,9 @@ import { SignupFormComponent } from './components/signup-form/signup-form.compon
 import { ErrorStateMatcher, ShowOnDirtyErrorStateMatcher } from '@angular/material/core';
 import { UnregisteredUserHomeComponent } from './components/unregistered-user-home/unregistered-user-home/unregistered-user-home.component';
 import { MapComponent } from './components/map/map/map.component';
+import { ForgotPasswordComponent } from './components/forgot-password/forgot-password.component';
+import { PasswordChangedComponent } from './components/password-changed/password-changed.component';
+import { ResetPasswordComponent } from './components/reset-password/reset-password.component';
 
 @NgModule({
   declarations: [
@@ -31,7 +34,10 @@ import { MapComponent } from './components/map/map/map.component';
     SignupOptionsComponent,
     SignupFormComponent,
     UnregisteredUserHomeComponent,
-    MapComponent
+    MapComponent,
+    ForgotPasswordComponent,
+    PasswordChangedComponent,
+    ResetPasswordComponent,
     
   ],
   imports: [
