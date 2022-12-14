@@ -13,14 +13,15 @@ export class RouteFormComponent {
     start: new FormControl('',[Validators.required]),
     final: new FormControl('',[Validators.required]),
   });
-
-  constructor(private routeService: RouteService, private router: Router) {}
+  constructor(private routeService: RouteService, private router: Router) {
+  }
 
   back(): void {
   }
   estimate() {
     const start= this.routeForm.value.start;
     const final= this.routeForm.value.final;
+    this.routeService.setRoute(start || '', final||'');
     if (this.routeForm.valid) {
         this.router.navigate(['/routes']);
     }

@@ -45,13 +45,6 @@ h1 {
     font-size: 36px;
     line-height: 24px;
 }
-.input-error {
-    color: rgb(255, 103, 103);
-}
-
-.correct {
-    color: white;
-}
 #routeList{
     display: flex;
     flex-direction: column;
@@ -83,13 +76,6 @@ h1 {
 }
 #addresses{
     width: 300px;
-}
-#estimatedData
-{
-    
-}
-#start, #final, #time, #distance{
-
 }
 #icon{
     width: 50px;

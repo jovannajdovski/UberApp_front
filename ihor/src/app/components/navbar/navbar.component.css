@@ -38,9 +38,7 @@
     letter-spacing: 0.3px;
     
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-    border-radius: 8px;
     padding: 8px;
-    
     
     width: 94px;
     height: 35px;
@@ -50,20 +48,30 @@
 
 #login-button, #sign-up-button, #sign-out-button
 {
+    border-radius: 8px;
     margin: 10px;
     color: white;
     background-color: rgba(38, 50, 56, 0.5);
 }
-#home-button, #inbox-button, #history-button,#profile-button
+#home-button,#inbox-button, #history-button,#profile-button
 {
+    border-radius: 0;
     margin: 10px 0;
     color: white;
     background-color: rgba(38, 50, 56, 0.5);
 }
+#home-button{
+    border-radius: 8px 0 0 8px;
+    color: rgba(38, 50, 56, 0.5);
+    background-color: white;
+}
+#profile-button{
+    border-radius: 0 8px 8px 0;
+}
 #currentRideBtn{
     box-sizing: border-box;
     
-    font-size: 20px;
+    font-size: 18px;
     font-weight: 800;
     font-family: 'Nunito';
     letter-spacing: 0.3px;

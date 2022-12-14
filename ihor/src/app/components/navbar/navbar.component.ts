@@ -1,5 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { Router } from '@angular/router';
+import { RouteService } from "src/app/services/route/route.service";
 
 @Component({
     selector: 'app-navbar',
@@ -7,14 +8,17 @@ import { Router } from '@angular/router';
     styleUrls: ['./navbar.component.css']
 })
 export class NavbarComponent implements OnInit{
-    constructor(private router: Router) {}
+    constructor(private routeService: RouteService, private router: Router) {}
     showLogin=true;
     showSignup=true;
+    driver=false;
+    unregisteredUser=true;
     ngOnInit(): void {
-        
+        this.driver=this.routeService.driverNavbar;
+        this.unregisteredUser=this.routeService.unregisteredUserNavbar;
     }
-    driver=true;
-    unregisteredUser=false;
+    
+    driverHome=true;
     toLogin() {
         this.showSignup=true;
         this.showLogin=true;
