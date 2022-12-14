@@ -15,6 +15,7 @@ import { NavbarComponent } from './components/navbar/navbar.component';
 import { SignupOptionsComponent } from './components/signup-options/signup-options.component';
 import { SignupFormComponent } from './components/signup-form/signup-form.component';
 import { ErrorStateMatcher, ShowOnDirtyErrorStateMatcher } from '@angular/material/core';
+import { RouteFormComponent } from './components/route-form/route-form/route-form.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,8 @@ import { ErrorStateMatcher, ShowOnDirtyErrorStateMatcher } from '@angular/materi
     SignupComponent,
     NavbarComponent,
     SignupOptionsComponent,
-    SignupFormComponent
+    SignupFormComponent,
+    RouteFormComponent
     
   ],
   imports: [
