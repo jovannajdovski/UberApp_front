@@ -5,27 +5,37 @@
 
     <form [formGroup]="loginForm" (ngSubmit)="login()">
 
-      <mat-form-field appearance="outline" id="email" [ngClass]="!loginForm.controls['email'].valid && loginForm.controls['email'].touched ? 'input-error' : 'correct'">
+      <mat-form-field appearance="outline" id="email">
         <mat-label>Email</mat-label>
         <input matInput type="email" placeholder="name@example.com" name="email" formControlName="email" required>
-        <mat-error [ngClass]="!loginForm.controls['email'].valid && loginForm.controls['email'].touched ? 'input-error' : 'correct'" *ngIf="loginForm.get('email')">{{getErrorMessage()}}</mat-error>
+        <mat-hint *ngIf="loginForm.get('email')?.invalid && loginForm.get('email')?.touched" >
+          <span *ngIf="loginForm.get('email')?.errors?.['email']" class="input-error" >Email must be in correct format</span>
+          <span *ngIf="loginForm.get('email')?.errors?.['required']" class="input-error" >Email is required</span>
+        </mat-hint>
       </mat-form-field>
 
-      <mat-form-field appearance="outline" id="password" [ngClass]="!loginForm.controls['password'].valid && loginForm.controls['password'].touched ? 'input-error' : 'correct'">
+      <mat-form-field appearance="outline" id="password">
         <mat-label>Password</mat-label>
         <input matInput [type]="hide ? 'password' : 'text'" name="password" formControlName="password">
         <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
           [attr.aria-pressed]="hide">
           <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
         </button>
-        <mat-error [ngClass]="!loginForm.controls['password'].valid && loginForm.controls['password'].touched ? 'input-error' : 'correct'" *ngIf="loginForm.get('password')">{{getErrorMessagePassword()}}</mat-error>
+        <mat-hint *ngIf="loginForm.get('password')?.invalid && loginForm.get('password')?.touched" >
+          <span *ngIf="loginForm.get('password')?.errors?.['minlength']" class="input-error" >Password must contain atleast 6 characters</span>
+          <span *ngIf="loginForm.get('password')?.errors?.['required']" class="input-error" >Password is required</span>
+        </mat-hint>
       </mat-form-field>
 
       <p id="keepLogin">
         <mat-checkbox formControlName="keepLogin" id="keepLogin-label">Keep me logged in</mat-checkbox>
       </p>
 
-      <button type="submit" id="loginbtn">LOGIN</button>
+      <button [disabled]="!loginForm.valid" type="submit" id="loginbtn">LOGIN</button>
+
+      <mat-hint *ngIf="hasError" >
+        <span class="login-error" >Wrong username or password</span>
+      </mat-hint>
 
       <p id="forgotPass">Forgot password</p>
 
@@ -44,7 +54,7 @@
         <p>Don't have an account?</p>
         <p id="signup" (click)="toSignup()">Sign up</p>
       </div>
-
     </form>
+
   </div>
 </div>
