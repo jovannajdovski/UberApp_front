@@ -13,6 +13,8 @@ export class NavbarComponent implements OnInit{
     ngOnInit(): void {
         
     }
+    driver=true;
+    unregisteredUser=false;
     toLogin() {
         this.showSignup=true;
         this.showLogin=true;

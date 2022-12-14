@@ -15,15 +15,14 @@ export class RouteFormComponent {
   });
 
   constructor(private routeService: RouteService, private router: Router) {}
-  choosedLocations=false;
+
   back(): void {
   }
   estimate() {
-    this.choosedLocations=true;
     const start= this.routeForm.value.start;
     const final= this.routeForm.value.final;
     if (this.routeForm.valid) {
-        //TODO
+        this.router.navigate(['/routes']);
     }
   }
   getErrorMessage() {

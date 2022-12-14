@@ -1,0 +1,26 @@
+<div id="content">
+<div class="container">
+
+    <h1>Estimate price</h1>
+    <div id="topEmptySpace"></div>
+    <form [formGroup]="routeForm" (ngSubmit)="estimate()">
+
+      <mat-form-field appearance="outline" id="startLoc" >
+        <mat-label>Start location</mat-label>
+        <input matInput type="text" name="start" formControlName="start" required>
+        <mat-error [ngClass]="!routeForm.controls['start'].valid && routeForm.controls['start'].touched ? 'input-error' : 'correct'" *ngIf="routeForm.get('start')">{{getErrorMessage()}}</mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" id="finalLoc" >
+        <mat-label>Final location</mat-label>
+        <input matInput type="text" name="final" formControlName="final" required>
+        <mat-error [ngClass]="!routeForm.controls['final'].valid && routeForm.controls['final'].touched ? 'input-error' : 'correct'" *ngIf="routeForm.get('final')">{{getErrorMessage()}}</mat-error>
+      </mat-form-field>
+
+      <div id="bottomEmptySpace"></div>
+      <button type="submit" id="estimateBtn">Estimate</button>
+
+    </form>
+</div>
+<div id="map"></div>
+</div>
