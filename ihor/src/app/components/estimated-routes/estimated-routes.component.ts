@@ -7,12 +7,17 @@ import { RouteService } from 'src/app/services/route/route.service';
 })
 
 export class EstimatedRoutesComponent {
-    private adresa1: string;
-    private adresa2:string;
+    private adresa1="";
+    private adresa2="";
     public routes: { start: string, final : string, time: string, distance : string }[]
+
     constructor(private routeService:RouteService){
-      this.adresa1=routeService.getRoute().start;
-      this.adresa2=routeService.getRoute().final;
+      this.routeService.selectedStart$.subscribe((value) => {
+        this.adresa1=value
+      });
+      this.routeService.selectedFinal$.subscribe((value) => {
+        this.adresa2=value;
+      });
       this.routes= [
         {
           start: this.adresa1,

@@ -27,6 +27,7 @@ import { MapComponent } from './components/map/map/map.component';
 import { ForgotPasswordComponent } from './components/forgot-password/forgot-password.component';
 import { PasswordChangedComponent } from './components/password-changed/password-changed.component';
 import { ResetPasswordComponent } from './components/reset-password/reset-password.component';
+import { UnregisteredUserRoutesComponent } from './components/unregistered-user-routes/unregistered-user-routes.component';
 
 @NgModule({
   declarations: [
@@ -43,7 +44,8 @@ import { ResetPasswordComponent } from './components/reset-password/reset-passwo
     MapComponent,
     ForgotPasswordComponent,
     PasswordChangedComponent,
-    ResetPasswordComponent    
+    ResetPasswordComponent,
+    UnregisteredUserRoutesComponent    
   ],
   imports: [
     BrowserModule,

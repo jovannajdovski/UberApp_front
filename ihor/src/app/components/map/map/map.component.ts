@@ -4,6 +4,7 @@ import 'leaflet-routing-machine'
 import { MarkerService } from 'src/app/services/map/marker.service';
 import { ShapeService } from 'src/app/services/map/shape.service';
 import { MapService } from 'src/app/services/map/map.service';
+import { RouteService } from 'src/app/services/route/route.service';
 
 
 let greenIcon = L.icon({
@@ -52,6 +53,7 @@ L.Marker.prototype.options.icon = iconDefault;
 })
 export class MapComponent implements AfterViewInit {
   constructor(
+    private routeService: RouteService,
     private mapService: MapService,
     private markerService: MarkerService,
     private shapeService: ShapeService
@@ -60,7 +62,15 @@ export class MapComponent implements AfterViewInit {
   private map: any;
   private states:any;
 
-  ngOnInit(): void {}
+  
+  private long1=0;
+  private long2=0;
+  private lat1=0;
+  private lat2=0;
+  private res: any;
+
+  ngOnInit(): void {
+  }
 
   private initMap(): void {
     this.map = L.map('map', {
@@ -155,9 +165,20 @@ export class MapComponent implements AfterViewInit {
   ngAfterViewInit(): void {
     this.initMap();
     this.markerService.makeVehicleMarkers(this.map, redIcon);
+    this.routeService.selectedStart$.subscribe((value) => {
+      this.res = this.mapService.search(value);
+      this.long1=this.res[0].lon;
+      this.lat1=this.res[0].lat;
+    });
+    this.routeService.selectedFinal$.subscribe((value) => {
+      this.res = this.mapService.search(value);
+      this.long2=this.res[0].lon;
+      this.lat2=this.res[0].lat;
+      this.route();
+    });
   }
 
-  route(lat1:number, lng1:number, lat2:number, lng2:number): void {
+  route(): void {
     L.Routing.control({
       router: L.Routing.osrmv1({
           serviceUrl: `http://router.project-osrm.org/route/v1/`
@@ -175,8 +196,8 @@ export class MapComponent implements AfterViewInit {
       show: true,
       routeWhileDragging: false,
       waypoints: [
-          L.latLng(lat1, lng1),
-          L.latLng(lat2, lng2)
+          L.latLng(this.lat1, this.long1),
+          L.latLng(this.lat2, this.long2)
       ]
     }).addTo(this.map);
   }

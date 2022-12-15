@@ -9,6 +9,7 @@ import { UnregisteredUserHomeComponent } from 'src/app/components/unregistered-u
 import { ForgotPasswordComponent } from 'src/app/components/forgot-password/forgot-password.component';
 import { PasswordChangedComponent } from 'src/app/components/password-changed/password-changed.component';
 import { ResetPasswordComponent } from 'src/app/components/reset-password/reset-password.component';
+import { UnregisteredUserRoutesComponent } from 'src/app/components/unregistered-user-routes/unregistered-user-routes.component';
 
 const routes: Routes = [
   {path:'login', component: LoginComponent},
@@ -16,6 +17,7 @@ const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
   {path: 'driver', canActivate:[], component:DriverHomeComponent},
   {path:'home', component: UnregisteredUserHomeComponent},
+  {path:'routes', canActivate:[], component: UnregisteredUserRoutesComponent},
   {path:'forgot-password', component: ForgotPasswordComponent},
   {path:'password-changed', component: PasswordChangedComponent},
   {path:'reset-password', component: ResetPasswordComponent}
