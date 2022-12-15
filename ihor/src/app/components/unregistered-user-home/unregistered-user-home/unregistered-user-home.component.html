@@ -1,4 +1,5 @@
 <div id="container">
-    <app-route-form></app-route-form>
+    <app-route-form *ngIf="!selectedRoute"></app-route-form>
+    <app-estimated-routes *ngIf="selectedRoute"></app-estimated-routes>
     <app-map></app-map>
 </div>

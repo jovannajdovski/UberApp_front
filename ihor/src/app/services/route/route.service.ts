@@ -11,7 +11,10 @@ export class RouteService {
   selectedStart$ = this.start$.asObservable();
 
   private final$ = new BehaviorSubject<any>({});
-  selectedFinal$ = this.start$.asObservable();
+  selectedFinal$ = this.final$.asObservable();
+
+  private route$ = new BehaviorSubject<any>({});
+  selectedRoute$ = this.route$.asObservable();
 
   setStart(start: any) {
     this.start$.next(start);
@@ -19,13 +22,12 @@ export class RouteService {
   setFinal(final: any) {
     this.final$.next(final);
   }
-
-  public driverNavbar= false;
-  public unregisteredUserNavbar=true;
-  constructor(private http: HttpClient) { }
+  public mapOpensCount=0;
+  constructor(private http: HttpClient) {this.route$.next(false);}
 
   public setRoute(start: string, final: string){
     this.setStart(start);
     this.setFinal(final);
+    this.route$.next(true);
   }
 }

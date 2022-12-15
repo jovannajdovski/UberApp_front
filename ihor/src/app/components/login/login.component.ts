@@ -30,6 +30,7 @@ export class LoginComponent {
     const password= this.loginForm.value.password;
     if (this.loginForm.valid) {
           this.loginService.getUser(email as string,password as string);
+          this.router.navigate(['/driver']);
     }
   }
 

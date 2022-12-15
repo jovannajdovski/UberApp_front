@@ -2,12 +2,12 @@
     <div id="pre-div"></div>
     <img id="logo" src="../../../assets/logo.png" alt="Ihor logo">
     <h1 id="title">Ihor</h1>
-    <div id="unregisteredUser" *ngIf="unregisteredUser">
+    <div id="unregisteredUser" *ngIf="loggedUser.unregisteredUser">
         <div id="mid-div"></div>
         <button mat-raised-button class="navbar-button" (click)="toLogin()" id="login-button" *ngIf="showLogin">Log in</button>
         <button mat-raised-button class="navbar-button" (click)="toSignup()" id="sign-up-button" *ngIf="showSignup">Sign up</button>
     </div>
-    <div id="driver" *ngIf="driver">
+    <div id="driver" *ngIf="loggedUser.driver">
         <div id="driver-left-div"></div>
         <button mat-raised-button id="currentRideBtn" >CURRENT RIDE</button>
         <div id="driver-mid-div"></div>

@@ -10,8 +10,7 @@ import { RouteService } from 'src/app/services/route/route.service';
 })
 export class DriverHomeComponent {
   constructor(private routeService: RouteService ){
-    routeService.driverNavbar=true;
-    routeService.unregisteredUserNavbar=false;
+
   }
   color="#FFFFFF"
 }

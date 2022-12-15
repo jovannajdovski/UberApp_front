@@ -163,19 +163,24 @@ export class MapComponent implements AfterViewInit {
   }
 
   ngAfterViewInit(): void {
-    this.initMap();
+    this.initMap(); 
     this.markerService.makeVehicleMarkers(this.map, redIcon);
-    this.routeService.selectedStart$.subscribe((value) => {
-      this.res = this.mapService.search(value);
-      this.long1=this.res[0].lon;
-      this.lat1=this.res[0].lat;
-    });
-    this.routeService.selectedFinal$.subscribe((value) => {
-      this.res = this.mapService.search(value);
-      this.long2=this.res[0].lon;
-      this.lat2=this.res[0].lat;
-      this.route();
-    });
+    if(this.routeService.mapOpensCount>0)
+    {
+      this.routeService.selectedStart$.subscribe((value) => {
+        this.res = this.mapService.search(value);
+        this.long1=this.res[0].lon;
+        this.lat1=this.res[0].lat;
+      });
+      this.routeService.selectedFinal$.subscribe((value) => {
+        this.res = this.mapService.search(value);
+        this.long2=this.res[0].lon;
+        this.lat2=this.res[0].lat;
+        this.route();
+      });
+    }
+    else this.routeService.mapOpensCount=1;
+    
   }
 
   route(): void {
