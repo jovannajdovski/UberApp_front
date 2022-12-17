@@ -11,42 +11,72 @@
     border: 1px solid rgba(255, 255, 255, 0.25);
     border-radius: 10px;
     filter: drop-shadow(0px 4px 4px rgba(64, 58, 16, 0.5));
-    display: inline-flex;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content:space-between;
+    gap:5%;
+}
+#items{
+    position: relative;
+    display: flex;
     flex-direction: column;
     flex-wrap: nowrap;
     align-items: center;
     justify-content:center;
-    gap:3%;
+    gap:0%;
+}
+.notification{
+    position: relative;
+    background: #1F2428;
+    padding: 10px;
+    border: 0.5px solid rgba(255, 255, 255, 0.25);
+    
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: center;
+    justify-content:center;
+    gap:5%;
+    
+    width:300px;
+    height: 130px;
+    margin: auto;
+}
+.new-ride{
+    height: 220px;
 }
 .row-div{
     box-sizing: border-box;
     width: 400px;
-    height: 30%;
+    height: 15%;
     
     display: flex;
     flex-direction: row;
     justify-content: center;
     align-items: center;
-    gap: 20%;
+    gap: 3%;
 }
 .basic-text{
-    width: 300px;
     justify-self: start;
-    font-family: 'Nunito';
+    font-family: 'Inter';
     font-style: normal;
     font-weight: 600;
-    font-size: 24px;
-    line-height: 16px;
+    font-size: 14px;
 }
-#remained-time{
-    color: #52D45A;
-    font-family: 'Nunito';
-    font-style: normal;
-    font-weight: 600;
-    font-size: 32px;
-    line-height: 16px;
+#addresses{
+    width: 150px;
+}
+#timestamp, #time, #cash{
+    width: 50px;
+}
+#timestamp{
+    font-weight: 300;
+    color: rgba(255, 255, 255, 0.7);
 }
 h1 {
+    position: relative;
     font: 'Inter';
     -webkit-text-stroke: 1px #567D92;
     letter-spacing: 0.5px;
@@ -54,25 +84,18 @@ h1 {
     font-weight: 400;
     font-size: 36px;
     line-height: 40px;
-    margin-top: 0;
-}
-.ride{
-    gap: 7%;
-    height: 15%;
 }
 
-
-#topEmptySpace
-{
-    height: 10%;
-}
 #icon{
     width: 50px;
 }
 img{
-    height: 40px;
+    height: 60px;
+}
+.small-icon{
+    height: 30px
 }
 #route-img{
-    height: 70px;
-    margin-left: -20px;
+    height: 50px;
+    margin-left: 0px;
 }
