@@ -26,7 +26,6 @@ export class RouteFormComponent {
       const start= this.routeForm.value.start;
       const final= this.routeForm.value.final;
       this.routeService.setRoute(start || '', final||'');
-      this.router.navigate(['/routes']);
     }
   }
   getErrorMessage() {
