@@ -27,6 +27,10 @@ import { MapComponent } from './components/map/map/map.component';
 import { ForgotPasswordComponent } from './components/forgot-password/forgot-password.component';
 import { PasswordChangedComponent } from './components/password-changed/password-changed.component';
 import { ResetPasswordComponent } from './components/reset-password/reset-password.component';
+import { InboxComponent } from './components/inbox/inbox.component';
+import { NotificationsComponent } from './components/notifications/notifications.component';
+import { MessagesComponent } from './components/messages/messages.component';
+import { ChatComponent } from './components/chat/chat.component';
 
 @NgModule({
   declarations: [
@@ -43,7 +47,11 @@ import { ResetPasswordComponent } from './components/reset-password/reset-passwo
     MapComponent,
     ForgotPasswordComponent,
     PasswordChangedComponent,
-    ResetPasswordComponent   
+    ResetPasswordComponent,
+    InboxComponent,
+    NotificationsComponent,
+    MessagesComponent,
+    ChatComponent   
   ],
   imports: [
     BrowserModule,

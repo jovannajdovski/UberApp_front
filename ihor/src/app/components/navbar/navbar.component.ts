@@ -44,4 +44,8 @@ export class NavbarComponent implements OnInit{
         this.router.navigate(['/signup']);
     
     }
+    toInbox(){
+        this.router.navigate(['/inbox']);
+        
+    }
 }
