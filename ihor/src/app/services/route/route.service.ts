@@ -13,6 +13,12 @@ export class RouteService {
   private final$ = new BehaviorSubject<any>({});
   selectedFinal$ = this.final$.asObservable();
 
+  private startPoint$ = new BehaviorSubject<any>({});
+  selectedStartPoint$ = this.startPoint$.asObservable();
+
+  private finalPoint$ = new BehaviorSubject<any>({});
+  selectedFinalPoint$ = this.finalPoint$.asObservable();
+
   private route$ = new BehaviorSubject<any>({});
   selectedRoute$ = this.route$.asObservable();
 
@@ -22,7 +28,13 @@ export class RouteService {
   setFinal(final: any) {
     this.final$.next(final);
   }
-  public mapOpensCount=0;
+
+  setStartPoint(start: any) {
+    this.startPoint$.next(start);
+  }
+  setFinalPoint(final: any) {
+    this.finalPoint$.next(final);
+  }
   constructor(private http: HttpClient) {this.route$.next(false);}
 
   public setRoute(start: string, final: string){
