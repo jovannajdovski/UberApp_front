@@ -30,9 +30,11 @@ export class RouteService {
   }
 
   setStartPoint(start: any) {
+    console.log("set start");
     this.startPoint$.next(start);
   }
   setFinalPoint(final: any) {
+    console.log("set final");
     this.finalPoint$.next(final);
   }
   constructor(private http: HttpClient) {this.route$.next(false);}

@@ -108,23 +108,40 @@ export class MapComponent implements AfterViewInit {
 
   registerOnClick(): void {
     this.map.on('click', (e: any) => {
+      console.log("fff");
       if (startMarker != undefined || endMarker != undefined) {
         this.markerService.removeMarkers(this.map);
         const coord = e.latlng;
         const lat = coord.lat;
         const lng = coord.lng;
-        // this.mapService.reverseSearch(lat, lng).subscribe((res) => {
-        //   console.log(res.display_name);
-        // });
-        
+
         if (Object.keys(startMarker).length === 0) {
-          startMarker = L.marker([lat, lng],{draggable:true}).addTo(this.map);
-          this.routeService.setStartPoint({lat:lat, lon:lng});
+          startMarker = L.marker([lat, lng], { draggable: true });
+
+          (startMarker as L.Marker).on('dragend', (event: any) => {
+            const cord = event.target._latlng;
+            const latdrag = cord.lat;
+            const lngdrag = cord.lng;
+            this.routeService.setStartPoint({ lat: latdrag, lon: lngdrag });
+          });
+
+          (startMarker as L.Marker).addTo(this.map);
+          this.routeService.setStartPoint({ lat: lat, lon: lng });
           return;
         };
+
         if (Object.keys(endMarker).length === 0) {
-          endMarker = L.marker([lat, lng],{draggable:true}).addTo(this.map);
-          this.routeService.setFinalPoint({lat:lat, lon:lng});
+          endMarker = L.marker([lat, lng], { draggable: true });
+
+          (endMarker as L.Marker).on('dragend', (event: any) => {
+            const cord = event.target._latlng;
+            const latdrag = cord.lat;
+            const lngdrag = cord.lng;
+            this.routeService.setFinalPoint({ lat: latdrag, lon: lngdrag });
+          });
+
+          (endMarker as L.Marker).addTo(this.map);
+          this.routeService.setFinalPoint({ lat: lat, lon: lng });
           return;
         };
       }
@@ -133,14 +150,14 @@ export class MapComponent implements AfterViewInit {
 
   }
 
-  removePointMarkers(){
+  removePointMarkers() {
     if (Object.keys(startMarker).length !== 0) {
       this.map.removeLayer(startMarker);
     };
     if (Object.keys(endMarker).length !== 0) {
       this.map.removeLayer(endMarker);
     };
-    
+
   }
 
   ngAfterViewInit(): void {
@@ -185,7 +202,7 @@ export class MapComponent implements AfterViewInit {
         styles: [{ color: '#fff821', weight: 7 }],
         extendToWaypoints: false,
         missingRouteTolerance: 0,
-        addWaypoints:false
+        addWaypoints: false
       },
       fitSelectedRoutes: false,
       altLineOptions: {
@@ -206,7 +223,7 @@ export class MapComponent implements AfterViewInit {
       let line = L.Routing.line(r);
       let bounds = line.getBounds();
       this.map.fitBounds(bounds);
-  });
+    });
   }
 
 
