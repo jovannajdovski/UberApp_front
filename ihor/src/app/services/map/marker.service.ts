@@ -13,8 +13,12 @@ export class MarkerService {
 
   vehicles: string = '/assets/data/vehicles.json';
 
+  private markers: Array<L.Marker>;
+
   constructor(private http: HttpClient,
-    private popupService: PopupService) { }
+    private popupService: PopupService) {
+      this.markers = new Array<L.Marker>;
+     }
 
   getVehicleCoord(): Observable<string> {
     return this.http.get(environment.apiHost + 'driver/vehicle', {
@@ -31,6 +35,7 @@ export class MarkerService {
           const marker = L.marker([lat, lon], {icon: redIcon});
           marker.bindPopup(this.popupService.makeVehiclePopup(v));
           marker.addTo(map);
+          this.markers.push(marker);
         }
       },
       error: (error) => {},
@@ -44,7 +49,14 @@ export class MarkerService {
         const marker = L.marker([lat, lon],{icon: redIcon});
         marker.bindPopup(this.popupService.makeVehiclePopup(v));
         marker.addTo(map);
+        this.markers.push(marker);
       }
+    });
+  }
+
+  removeMarkers(map: L.Map){
+    this.markers.forEach(function(marker){
+      map.removeLayer(marker);
     });
   }
 
