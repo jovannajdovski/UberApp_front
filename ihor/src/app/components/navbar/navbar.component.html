@@ -11,7 +11,7 @@
         <div id="driver-left-div"></div>
         <button mat-raised-button id="currentRideBtn" >CURRENT RIDE</button>
         <div id="driver-mid-div"></div>
-        <button mat-raised-button class="navbar-button"  id="home-button" >Home</button>
+        <button mat-raised-button class="navbar-button"  (click)="toHome()" id="home-button" >Home</button>
         <button mat-raised-button class="navbar-button"  (click)="toInbox()" id="inbox-button">Inbox</button>
         <button mat-raised-button class="navbar-button"  id="history-button">History</button>
         <button mat-raised-button class="navbar-button"  id="profile-button">Profile</button>

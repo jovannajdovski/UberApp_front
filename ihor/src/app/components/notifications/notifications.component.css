@@ -11,41 +11,151 @@
     border: 1px solid rgba(255, 255, 255, 0.25);
     border-radius: 10px;
     filter: drop-shadow(0px 4px 4px rgba(64, 58, 16, 0.5));
-    display: flex;
+    /*display: flex;
     flex-direction: column;
-    flex-wrap: wrap;
+    flex-wrap: wrap;*/
     align-items: center;
-    justify-content:space-between;
-    gap:5%;
+    justify-content:center;
+    /*gap:5%;*/
 }
 #items{
     position: relative;
-    display: flex;
+    left: 200px;
+    display: inline-block;
     flex-direction: column;
     flex-wrap: nowrap;
     align-items: center;
     justify-content:center;
     gap:0%;
 }
+.icon {
+    grid-row: 1/7;
+    grid-column: 1;
+    margin: auto auto;
+}
+.header {
+    grid-row: 1;
+    grid-column: 2/7;
+    font-style: bold;
+    font-weight: 400;
+    font-size: 18px;
+    margin: auto 0;
+}
+.timestamp {
+        grid-row: 1;
+        grid-column: 7;
+}
+.ride-icon {
+    grid-row: 2/4;
+    grid-column: 2; 
+    margin-left: 10px;
+}
+.start {
+    grid-row: 2;
+    grid-column: 3/7;
+    margin: auto 0 auto 15px ;
+}
+.final {
+    grid-row: 3;
+    grid-column: 3/7;
+    margin: auto 0 auto 15px ;
+}
+.cash-icon {
+    grid-row: 4;
+    grid-column: 2;
+    margin: auto 0 auto 10px; 
+}
+.cash {
+    grid-row: 4;
+    grid-column: 3;
+    margin: auto 0 auto 10px; 
+}
+.time-icon {
+    grid-row: 4;
+    grid-column: 4; 
+    margin: auto 0 auto 30px; 
+}
+.time {
+    grid-row: 4;
+    grid-column: 5/7;
+    margin: auto 0 auto 40px;
+}
+.hr{
+    grid-row: 5;
+    grid-column: 2/8;
+    color: #FFFFFF;
+    height: 1%;
+    width: 100%;
+}
+.accept-btn {
+    grid-row: 6;
+    grid-column: 2/5;
+    background: #52D45A;
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    border-radius: 20px;
+    z-index: 5;
+    color: #FFFFFF;
+    height: 25px;
+}
+.reject-btn {
+    grid-row: 6;
+    grid-column: 5/8;
+    background: rgba(255, 0, 0, 0.25);
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    border-radius: 20px;
+    z-index: 5;
+    color: #FFFFFF;
+    height: 25px;
+}
+.reason {
+    grid-row: 7;
+    grid-column: 2/8; 
+    background: #1F2428;
+    border: 1px solid #808080;  
+    border-radius: 8px;
+    font-family: 'Nunito';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 20px;
+    height: 24px;
+    width: 100%;
+    color: #FFFFFF;
+}
+.empty{
+    grid-row: 2/5;
+    grid-column: 7;
+}
+
+
+/*grid-template-areas:
+    'icon header header header header header timestamp'
+    'icon ride-icon start start start start empty'
+    'icon ride-icon final final final final empty'
+    'icon cash-icon cash time-icon time time empty'
+    'icon accept-btn accept-btn accept-btn reject-btn reject-btn reject-btn'
+    'icon reason reason reason reason reason reason';
+*/
 .notification{
     position: relative;
     background: #1F2428;
-    padding: 10px;
+    padding: 5px;
     border: 0.5px solid rgba(255, 255, 255, 0.25);
     
-    display: flex;
-    flex-direction: row;
-    flex-wrap: nowrap;
-    align-items: center;
-    justify-content:center;
-    gap:5%;
-    
-    width:300px;
-    height: 130px;
+    width:85%;
+    height: 140px;
     margin: auto;
 }
+#gridContainer{
+    display: grid;
+    grid-template-columns: 20% 10% 10% 10% 10% 10% 10%;
+    grid-template-rows: 20% 12% 12% 20% 10% 20% 20%;
+    
+    row-gap: 2%;
+    column-gap: 2%;
+}
 .new-ride{
-    height: 220px;
+    height: 240px;
 }
 .row-div{
     box-sizing: border-box;
@@ -60,9 +170,9 @@
 }
 .basic-text{
     justify-self: start;
-    font-family: 'Inter';
+    font-family: 'Nunito';
     font-style: normal;
-    font-weight: 600;
+    font-weight: 400;
     font-size: 14px;
 }
 #addresses{
@@ -77,6 +187,7 @@
 }
 h1 {
     position: relative;
+    display: flex;
     font: 'Inter';
     -webkit-text-stroke: 1px #567D92;
     letter-spacing: 0.5px;
@@ -84,16 +195,20 @@ h1 {
     font-weight: 400;
     font-size: 36px;
     line-height: 40px;
+    justify-content: center;
 }
 
 #icon{
     width: 50px;
 }
 img{
-    height: 60px;
+    height: 50px;
 }
-.small-icon{
-    height: 30px
+.small-img{
+    height: 20px
+}
+.med-img{
+    height: 50px;
 }
 #route-img{
     height: 50px;

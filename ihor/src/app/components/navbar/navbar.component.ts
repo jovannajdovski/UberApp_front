@@ -48,4 +48,7 @@ export class NavbarComponent implements OnInit{
         this.router.navigate(['/inbox']);
         
     }
+    toHome(){
+        this.router.navigate(['/driver']);
+    }
 }
