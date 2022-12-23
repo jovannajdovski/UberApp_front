@@ -12,7 +12,8 @@ export class RideRejectionService {
   constructor(private http: HttpClient) { }
 
   reject(request: any, rideId: number): Observable<RideRejectionResponse>{
-    return this.http.post<RideRejectionResponse>(environment.apiHost+'ride/'+rideId+'/cancel',request);
+    console.log("eggwd");
+    return this.http.post<RideRejectionResponse>(environment.apiHost+'ride/'+rideId+'/cancel',{request});
   }
 }
  
