@@ -27,7 +27,14 @@ export class RouteFormComponent {
     this.routeService.selectedStartPoint$.subscribe((value) => {
       this.mapService.reverseSearch(value.lat,value.lon).subscribe({
         next: (result) => {
-          this.startString = result.address.road+" "+result.address.house_number+", "+result.address.city_district;
+          console.log(result);
+          if(result.address.road === undefined){
+            this.startString = result.address.city_district;
+          } else if(result.address.house_number === undefined){
+            this.startString = result.address.road+", "+result.address.city_district;
+          } else {
+            this.startString = result.address.road+" "+result.address.house_number+", "+result.address.city_district;
+          }
           console.log(this.startString);
           this.routeForm.get("start")?.setValue(this.startString);
         }
@@ -38,7 +45,14 @@ export class RouteFormComponent {
     this.routeService.selectedFinalPoint$.subscribe((value) => {
       this.mapService.reverseSearch(value.lat,value.lon).subscribe({
         next: (result) => {
-          this.endString = result.address.road+" "+result.address.house_number+", "+result.address.city_district;
+          console.log(result);
+          if(result.address.road === undefined){
+            this.endString = result.address.city_district;
+          } else if(result.address.house_number === undefined){
+            this.endString = result.address.road+", "+result.address.city_district;
+          } else {
+            this.endString = result.address.road+" "+result.address.house_number+", "+result.address.city_district;
+          }
           console.log(this.endString);
           this.routeForm.get("final")?.setValue(this.endString);
         }

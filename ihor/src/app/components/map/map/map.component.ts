@@ -127,6 +127,8 @@ export class MapComponent implements AfterViewInit {
 
           (startMarker as L.Marker).addTo(this.map);
           this.routeService.setStartPoint({ lat: lat, lon: lng });
+          this.long1 = (startMarker as L.Marker).getLatLng().lng;
+          this.lat1 = (startMarker as L.Marker).getLatLng().lat;
           return;
         };
 
@@ -142,6 +144,8 @@ export class MapComponent implements AfterViewInit {
 
           (endMarker as L.Marker).addTo(this.map);
           this.routeService.setFinalPoint({ lat: lat, lon: lng });
+          this.long2 = (endMarker as L.Marker).getLatLng().lng;
+          this.lat2 = (endMarker as L.Marker).getLatLng().lat;
           return;
         };
       }
@@ -171,23 +175,30 @@ export class MapComponent implements AfterViewInit {
 
   findRoute(): void {
     this.routeService.selectedStart$.subscribe((value) => {
-      this.mapService.search(value).subscribe({
-        next: (result) => {
-          this.long1 = result[0].lon;
-          this.lat1 = result[0].lat;
-        }
-      });
+      if (Object.keys(startMarker).length === 0) {
+        this.mapService.search(value).subscribe({
+          next: (result) => {
+            this.long1 = result[0].lon;
+            this.lat1 = result[0].lat;
+          }
+        });
+      }
 
     });
     this.routeService.selectedFinal$.subscribe((value) => {
-      this.mapService.search(value).subscribe({
-        next: (result) => {
-          this.long2 = result[0].lon;
-          this.lat2 = result[0].lat;
-          this.drawRoute();
-        }
-      })
+      if (Object.keys(endMarker).length === 0) {
+        this.mapService.search(value).subscribe({
+          next: (result) => {
+            this.long2 = result[0].lon;
+            this.lat2 = result[0].lat;
+            this.drawRoute();
+          }
+        });
+      } else{
+        this.drawRoute();
+      }
     });
+
   }
 
   drawRoute(): void {
