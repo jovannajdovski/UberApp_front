@@ -1,0 +1,28 @@
+
+<div class="container">
+
+    <h1>Possible routes</h1>
+    <div id="topEmptySpace"></div>
+    <mat-selection-list #routeList [multiple]="false" id="routeList">
+        <mat-list-option *ngFor="let route of routes" [value]="route" id="routeContainer">
+          <div id="route">
+            <div id="icon">
+              <img src="../../../assets/images/route.png" alt="Icon">
+            </div>
+            <div id="addresses">
+                <div matListItemLine id="start">{{route.start}}</div>
+                <div matListItemLine id="final">{{route.final}}</div>
+            </div>
+            <div id="estimatedData">
+              <div matListItemLine id="time">{{route.time}}</div>
+              <div matListItemLine id="distance">{{route.distance}}</div>
+            </div>
+          </div>
+          </mat-list-option>
+      </mat-selection-list>
+      <p>
+        Option selected: {{routeList.selectedOptions.hasValue() ? routeList.selectedOptions.selected[0].value.final : 'fdhtrhtrj'}}
+      </p>
+    
+</div>
+    

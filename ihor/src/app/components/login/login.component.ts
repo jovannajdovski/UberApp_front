@@ -19,7 +19,7 @@ export class LoginComponent implements OnInit {
   });
   hasError = false;
 
-  constructor(private loginService: LoginService, private router: Router) {}
+  constructor(private loginService: LoginService, private router: Router) { }
 
   ngOnInit(): void {}
 
@@ -44,13 +44,17 @@ export class LoginComponent implements OnInit {
       });
     }
   }
+  
+  toForgot() {
+    this.router.navigate(['/forgot-password']);
+  }
 
   toFacebook() {
-    window.location.href="https://www.facebook.com/";
+    window.location.href = "https://www.facebook.com/";
   }
 
   toGoogle() {
-    window.location.href="https://accounts.google.com";
+    window.location.href = "https://accounts.google.com";
   }
 
   toSignup() {
