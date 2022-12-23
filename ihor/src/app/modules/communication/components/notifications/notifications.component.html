@@ -1,0 +1,77 @@
+<div id="container">
+    <h1>Notifications</h1>
+        <div *ngFor="let notification of notifications" [ngSwitch]="notification.type" [ngClass]="notification.type===notificationType.NEW_RIDE ? 'notification new-ride' : 'notification'">
+            <div *ngSwitchCase="notificationType.NEW_RIDE">
+                <div id="gridContainer">
+                    <div class="icon">
+                        <img src="../../../../../assets/images/car_icon.png" alt="Icon">
+                    </div>
+                    <p class="header">NEW RIDE</p>
+                    <div class="ride-icon">
+                        <img class="med-img" src="../../../assets/images/route.png" alt="Icon">
+                    </div>
+                    <p class="start basic-text">{{notification.ride.address1}}</p>
+                    <p class="final basic-text">{{notification.ride.address2}}</p>
+                    <p id="timestamp" class="basic-text">{{notification.timestamp}}</p>
+                    <div class="cash-icon">
+                        <img class="small-img" src="../../../assets/images/cash.png" alt="Icon">
+                    </div> 
+                    <p class="cash basic-text">{{notification.ride.cash}}</p>       
+                    <div class="time-icon">
+                        <img class="small-img" src="../../../assets/images/clock.png" alt="Icon">
+                    </div>     
+                    <p class="time basic-text">{{notification.ride.time}}</p>
+                    <hr class="hr">
+                    <button class="accept-btn" (click)="acceptRide()">ACCEPT</button>
+                    <button class="reject-btn" (click)="rejectRide()">REJECT</button>
+                    <input placeholder="Rejection reason" class="reason" [(ngModel)]="reason">
+                    <div class="empty"></div>
+                </div>
+                
+
+                <!--<div id="icon">
+                    <img src="../../../assets/images/car_icon.png" alt="Icon">
+                </div>
+                <div id="data">
+                    <div class="row-div">
+                        <div class="icon">
+                            <img id="route-img" src="../../../assets/images/route.png" alt="Icon">
+                        </div>
+                        <div id="addresses">
+                            <p class="basic-text">{{notification.ride.address1}}</p>
+                            <p class="basic-text">{{notification.ride.address2}}</p>
+                        </div>
+                        <p id="timestamp" class="basic-text">{{notification.timestamp}}</p>
+                    </div>
+                    <div class="row-div">
+                        <div class="icon">
+                            <img class="small-icon" src="../../../assets/images/cash.png" alt="Icon">
+                        </div>
+                        <p id="cash" class="basic-text">{{notification.ride.cash}}<p>
+                        <div class="icon">
+                            <img class="small-icon" src="../../../assets/images/clock.png" alt="Icon">
+                        </div>
+                        <p id="time" class="basic-text">{{notification.ride.time}}<p>
+                    </div>
+                </div>--->
+            </div>
+            <div *ngSwitchCase="notificationType.REMINDER">
+                <div class="icon">
+                    <img src="../../../assets/images/info.png" alt="Icon">
+                </div>
+                <div class="data">
+                    
+                </div>
+            </div>
+            <div *ngSwitchCase="notificationType.RIDE_REJECTION">
+                <div class="icon">
+                    <img src="../../../assets/images/rejection.png" alt="Icon">
+                </div>
+                <div class="data">
+                    
+                </div>
+            </div>
+        </div>
+</div>
+
+    

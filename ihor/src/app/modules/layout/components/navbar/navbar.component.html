@@ -1,0 +1,22 @@
+<div id="navbar">
+    <div id="pre-div"></div>
+    <img id="logo" src="../../../../../assets/logo.png" alt="Ihor logo">
+    <h1 id="title">Ihor</h1>
+    <div id="unregisteredUser" *ngIf="loggedUser.unregisteredUser">
+        <div id="mid-div"></div>
+        <button mat-raised-button class="navbar-button" (click)="toLogin()" id="login-button" *ngIf="showLogin">Log in</button>
+        <button mat-raised-button class="navbar-button" (click)="toSignup()" id="sign-up-button" *ngIf="showSignup">Sign up</button>
+    </div>
+    <div id="driver" *ngIf="loggedUser.driver">
+        <div id="driver-left-div"></div>
+        <button mat-raised-button id="currentRideBtn" >CURRENT RIDE</button>
+        <div id="driver-mid-div"></div>
+        <button mat-raised-button class="navbar-button"  (click)="toHome()" id="home-button" >Home</button>
+        <button mat-raised-button class="navbar-button"  (click)="toInbox()" id="inbox-button">Inbox</button>
+        <button mat-raised-button class="navbar-button"  id="history-button">History</button>
+        <button mat-raised-button class="navbar-button"  id="profile-button">Profile</button>
+        <div id="driver-right-div"></div>
+        <button mat-raised-button class="navbar-button"  id="sign-out-button" >Sign out</button>
+    </div>
+</div>
+  

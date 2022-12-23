@@ -8,65 +8,37 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule, NgModel, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 
-import { MarkerService } from './services/map/marker.service';
-import { PopupService } from './services/map/popup.service';
-import { ShapeService } from './services/map/shape.service';
+import { MarkerService } from './modules/map/services/map/marker.service';
+import { PopupService } from './modules/map/services/map/popup.service';
+import { ShapeService } from './modules/map/services/map/shape.service';
 
 import { AppComponent } from './app.component';
-import { LoginComponent } from './components/login/login.component';
-import { SignupComponent } from './components/signup/signup.component';
-import { NavbarComponent } from './components/navbar/navbar.component';
-import { SignupOptionsComponent } from './components/signup-options/signup-options.component';
-import { SignupFormComponent } from './components/signup-form/signup-form.component';
-import { ErrorStateMatcher, ShowOnDirtyErrorStateMatcher } from '@angular/material/core';
-import { RouteFormComponent } from './components/route-form/route-form.component';
-import { EstimatedRoutesComponent } from './components/estimated-routes/estimated-routes.component';
-import { DriverHomeComponent } from './components/driver-home/driver-home.component';
-import { UnregisteredUserHomeComponent } from './components/unregistered-user-home/unregistered-user-home/unregistered-user-home.component';
-import { MapComponent } from './components/map/map/map.component';
-import { ForgotPasswordComponent } from './components/forgot-password/forgot-password.component';
-import { PasswordChangedComponent } from './components/password-changed/password-changed.component';
-import { ResetPasswordComponent } from './components/reset-password/reset-password.component';
-import { InboxComponent } from './components/inbox/inbox.component';
-import { NotificationsComponent } from './components/notifications/notifications.component';
-import { MessagesComponent } from './components/messages/messages.component';
-import { ChatComponent } from './components/chat/chat.component';
+import { AccountModule } from './modules/account/account.module';
+import { AdministratorModule } from './modules/administrator/administrator.module';
+import { AuthModule } from './modules/auth/auth.module';
+import { CommunicationModule } from './modules/communication/communication.module';
+import { DriverModule } from './modules/driver/driver.module';
+import { LayoutModule } from '@angular/cdk/layout';
+import { MapModule } from './modules/map/map.module';
+import { PassengerModule } from './modules/passenger/passenger.module';
+import { UnregisteredUserModule } from './modules/unregistered-user/unregistered-user.module';
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    LoginComponent,
-    SignupComponent,
-    NavbarComponent,
-    SignupOptionsComponent,
-    SignupFormComponent,
-    RouteFormComponent,
-    EstimatedRoutesComponent,
-    DriverHomeComponent,
-    UnregisteredUserHomeComponent,
-    MapComponent,
-    ForgotPasswordComponent,
-    PasswordChangedComponent,
-    ResetPasswordComponent,
-    InboxComponent,
-    NotificationsComponent,
-    MessagesComponent,
-    ChatComponent   
-  ],
+  declarations: [AppComponent],
   imports: [
-    BrowserModule,
-    AppRoutingModule,
-    MaterialModule,
-    BrowserAnimationsModule,
-    MaterialModule,
-    AppRoutingModule,
-    //FlexLayoutModule,
-    ReactiveFormsModule,
-    HttpClientModule,
-    FormsModule,
+    AccountModule,
+    AdministratorModule,
+    AuthModule,
+    CommunicationModule,
+    DriverModule,
+    LayoutModule,
+    MapModule,
+    PassengerModule,
+    UnregisteredUserModule,
+    AppRoutingModule
   ],
   providers: [
-    {provide: ErrorStateMatcher, useClass: ShowOnDirtyErrorStateMatcher},
+    // {provide: ErrorStateMatcher, useClass: ShowOnDirtyErrorStateMatcher},
     MarkerService,
     PopupService,
     ShapeService
