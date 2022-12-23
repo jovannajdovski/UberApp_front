@@ -1,0 +1,73 @@
+@use '@angular/material' as mat;
+
+@include mat.core();
+
+$ihor-primary-palette: (
+ 50: #f5fbff,
+ 100: #f0f6fc,
+ 200: #eaf1f6,
+ 300: #dde3e9,
+ 400: #bac1c6,
+ 500: #9ca2a7,
+ 600: #73797e,
+ 700: #5f6469,
+ 800: #40454a,
+ 900: #1f2428,
+ contrast: (
+   50: rgba(black, 0.87),
+   100: rgba(black, 0.87),
+   200: rgba(black, 0.87),
+   300: white,
+   // ... continues to 900
+ )
+);
+
+$ihor-secondary-palette: (
+ 50: #fffce6,
+ 100: #fff6c1,
+ 200: #fff097,
+ 300: #ffeb6e,
+ 400: #fee64c,
+ 500: #ffe32b,
+ 600: #fdd027,
+ 700: #fbb821,
+ 800: #f89f1b,
+ 900: #f47510,
+ contrast: (
+   50: rgba(black, 0.87),
+   100: rgba(black, 0.87),
+   200: rgba(black, 0.87),
+   300: white,
+   // ... continues to 900
+ )
+);
+
+$my-primary: mat.define-palette($ihor-primary-palette, 500);
+$my-accent: mat.define-palette($ihor-secondary-palette, 200, 100, 400);
+
+// The "warn" palette is optional and defaults to red if not specified.
+$my-warn: mat.define-palette(mat.$red-palette);
+
+$my-theme: mat.define-light-theme((
+ color: (
+   primary: $my-primary,
+   accent: $my-accent,
+   warn: $my-warn,
+ ),
+ typography: mat.define-typography-config(),
+ density: 0,
+));
+
+@include mat.form-field-theme($my-theme);
+@include mat.button-theme($my-theme);
+
+
+// $my-mat-form-field-accent: mat.define-palette(mat.$yellow-palette, A200, A100, A400);
+// $my-mat-form-field-theme: mat.define-light-theme((
+//  color: (
+//    primary: $my-mat-form-field-accent,
+//    accent: $my-mat-form-field-accent
+//  )
+// ));
+
+// @include mat.form-field-theme($my-mat-form-field-theme);

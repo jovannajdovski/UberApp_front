@@ -15,12 +15,37 @@ form {
 }
 
 .field {
-    margin: 5px 0;
+    margin: 0.3em 0;
 }
 
-.field input {
-    height: 45px;
-    color: white;
+//input outline color
+::ng-deep .mat-form-field-appearance-outline.ng-valid div {
+    border-color: white!important;
+}
+
+//input outline color
+::ng-deep .mat-form-field-appearance-outline.ng-pristine div {
+    border-color: white!important;
+}
+
+//change color of label
+::ng-deep .mat-form-field-appearance-outline.ng-valid mat-label {
+    color: white !important;
+}
+
+//change color of label
+::ng-deep .mat-form-field-appearance-outline.ng-pristine mat-label {
+    color: white !important;
+}
+
+//change color of input
+::ng-deep .mat-form-field-appearance-outline input {
+    color: white !important;
+}
+
+//change color of placeholder
+::ng-deep .mat-form-field-appearance-outline input::placeholder {
+    color: gray !important;
 }
 
 .field-small {
@@ -28,7 +53,6 @@ form {
 }
 
 .input-error {
-    color: rgb(255, 103, 103);
     font-size: 0.8rem;
 }
 
@@ -37,10 +61,6 @@ form {
     font-size: 0.8rem;
     position: relative;
     top: 0.5rem;
-}
-
-.mat-form-field-appearance-outline.mat-form-field-invalid.ng-touched{
-    color: rgb(255, 103, 103);
 }
 
 #loginbtn {
