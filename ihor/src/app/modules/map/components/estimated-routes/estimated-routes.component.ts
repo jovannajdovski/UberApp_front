@@ -25,8 +25,8 @@ export class EstimatedRoutesComponent {
         console.log(value.length);
         value.forEach((element: any) => {
           console.log(element);
-          let distance = this.toKM(element.summary.totalDistance)
-          let time = this.toMinutes(element.summary.totalDistance)
+          const distance = this.toKM(element.summary.totalDistance)
+          const time = this.toMinutes(element.summary.totalDistance)
           this.estimatedRoutes.push({
             name:element.name,
             time:time,
@@ -38,7 +38,7 @@ export class EstimatedRoutesComponent {
     }
     
     toKM(disInMeters:number){
-      let distance = Math.floor(disInMeters/100);
+      const distance = Math.floor(disInMeters/100);
       return distance/10+" km";
     }
 
