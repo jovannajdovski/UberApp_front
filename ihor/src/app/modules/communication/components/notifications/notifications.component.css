@@ -18,16 +18,20 @@
     justify-content:center;
     /*gap:5%;*/
 }
-#items{
+h1 {
     position: relative;
-    left: 200px;
-    display: inline-block;
-    flex-direction: column;
-    flex-wrap: nowrap;
-    align-items: center;
-    justify-content:center;
-    gap:0%;
+    display: flex;
+    font: 'Inter';
+    -webkit-text-stroke: 1px #567D92;
+    letter-spacing: 0.5px;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 36px;
+    line-height: 40px;
+    justify-content: left;
+    margin-left: 50px;
 }
+
 .icon {
     grid-row: 1/7;
     grid-column: 1;
@@ -157,17 +161,6 @@
 .new-ride{
     height: 240px;
 }
-.row-div{
-    box-sizing: border-box;
-    width: 400px;
-    height: 15%;
-    
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-    gap: 3%;
-}
 .basic-text{
     justify-self: start;
     font-family: 'Nunito';
@@ -185,19 +178,6 @@
     font-weight: 300;
     color: rgba(255, 255, 255, 0.7);
 }
-h1 {
-    position: relative;
-    display: flex;
-    font: 'Inter';
-    -webkit-text-stroke: 1px #567D92;
-    letter-spacing: 0.5px;
-    font-style: normal;
-    font-weight: 400;
-    font-size: 36px;
-    line-height: 40px;
-    justify-content: center;
-}
-
 #icon{
     width: 50px;
 }
