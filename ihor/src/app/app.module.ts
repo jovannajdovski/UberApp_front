@@ -18,7 +18,7 @@ import { AdministratorModule } from './modules/administrator/administrator.modul
 import { AuthModule } from './modules/auth/auth.module';
 import { CommunicationModule } from './modules/communication/communication.module';
 import { DriverModule } from './modules/driver/driver.module';
-import { LayoutModule } from '@angular/cdk/layout';
+import { LayoutModule } from './modules/layout/layout.module';
 import { MapModule } from './modules/map/map.module';
 import { PassengerModule } from './modules/passenger/passenger.module';
 import { UnregisteredUserModule } from './modules/unregistered-user/unregistered-user.module';
@@ -26,6 +26,10 @@ import { UnregisteredUserModule } from './modules/unregistered-user/unregistered
 @NgModule({
   declarations: [AppComponent],
   imports: [
+    BrowserModule,
+    AppRoutingModule,
+    BrowserAnimationsModule,
+    HttpClientModule,
     AccountModule,
     AdministratorModule,
     AuthModule,
@@ -34,8 +38,7 @@ import { UnregisteredUserModule } from './modules/unregistered-user/unregistered
     LayoutModule,
     MapModule,
     PassengerModule,
-    UnregisteredUserModule,
-    AppRoutingModule
+    UnregisteredUserModule
   ],
   providers: [
     // {provide: ErrorStateMatcher, useClass: ShowOnDirtyErrorStateMatcher},
