@@ -22,6 +22,12 @@ export class RouteService {
   private route$ = new BehaviorSubject<any>({});
   selectedRoute$ = this.route$.asObservable();
 
+  private estimatedRoutes$ = new BehaviorSubject<any>({});
+  selectedEstimatedRoutes$ = this.estimatedRoutes$.asObservable();
+
+  private routeSelect$ = new BehaviorSubject<any>({});
+  selectedRouteSelect$ = this.routeSelect$.asObservable();
+
   setStart(start: any) {
     this.start$.next(start);
   }
@@ -30,11 +36,22 @@ export class RouteService {
   }
 
   setStartPoint(start: any) {
+    console.log("set start");
     this.startPoint$.next(start);
   }
   setFinalPoint(final: any) {
+    console.log("set final");
     this.finalPoint$.next(final);
   }
+
+  setEstimatedRoutes(routes: any) {
+    this.estimatedRoutes$.next(routes);
+  }
+
+  setRouteSelect(route: any) {
+    this.routeSelect$.next(route);
+  }
+  
   constructor(private http: HttpClient) {this.route$.next(false);}
 
   public setRoute(start: string, final: string){
