@@ -47,7 +47,7 @@ export class EstimatedRoutesComponent {
       if (time===0){
         time=1;
       }
-      return time+" min";
+      return time +" min";
     }
 
     selectRoute(i:number){
