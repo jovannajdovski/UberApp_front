@@ -10,8 +10,6 @@ import { RideRejectionService, RideRejectionResponse } from 'src/app/services/ri
 })
 
 export class NotificationsComponent {
-  private adresa1="";
-  private adresa2="";
   public reason='';
   //private rideRejectionResponse: Observable<RideRejectionResponse>;
   public notifications: { ride: Ride, timestamp: string, type: NotificationType }[]
