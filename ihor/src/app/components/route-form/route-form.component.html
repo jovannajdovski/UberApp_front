@@ -7,7 +7,14 @@
 
       <mat-form-field appearance="outline" id="startLoc" >
         <mat-label>Start location</mat-label>
-        <input matInput type="text" name="start" formControlName="start">
+        <input matInput type="text" name="start" formControlName="start" [matAutocomplete]="auto">
+
+        <mat-autocomplete #auto="matAutocomplete">
+          <mat-option *ngFor="let option of options" [value]="option">
+            {{option}}
+          </mat-option>
+        </mat-autocomplete>
+
         <mat-error [ngClass]="!routeForm.controls['start'].valid && routeForm.controls['start'].touched ? 'input-error' : 'correct'" *ngIf="routeForm.get('start')">{{getErrorMessage()}}</mat-error>
       </mat-form-field>
 

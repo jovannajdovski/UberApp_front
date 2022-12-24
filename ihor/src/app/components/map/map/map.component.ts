@@ -57,17 +57,22 @@ export class MapComponent implements AfterViewInit {
     private mapService: MapService,
     private markerService: MarkerService,
     private shapeService: ShapeService
-  ) { }
+  ) {
+    this.disableMarkers = false;
+  }
 
   private map: any;
-  private states: any;
 
+  private disableMarkers: boolean;
 
   private long1 = 0;
   private long2 = 0;
   private lat1 = 0;
   private lat2 = 0;
-  private res: any;
+
+  private waypointsNoDrag: any;
+
+  private routes: any;
 
   ngOnInit(): void {
   }
@@ -108,48 +113,49 @@ export class MapComponent implements AfterViewInit {
 
   registerOnClick(): void {
     this.map.on('click', (e: any) => {
-      console.log("fff");
-      if (startMarker != undefined || endMarker != undefined) {
-        this.markerService.removeMarkers(this.map);
-        const coord = e.latlng;
-        const lat = coord.lat;
-        const lng = coord.lng;
+      console.log(this.disableMarkers);
+      if (!this.disableMarkers) {
+        if (startMarker != undefined || endMarker != undefined) {
+          this.markerService.removeMarkers(this.map);
+          const coord = e.latlng;
+          const lat = coord.lat;
+          const lng = coord.lng;
 
-        if (Object.keys(startMarker).length === 0) {
-          startMarker = L.marker([lat, lng], { draggable: true });
+          if (Object.keys(startMarker).length === 0) {
+            startMarker = L.marker([lat, lng], { draggable: true });
 
-          (startMarker as L.Marker).on('dragend', (event: any) => {
-            const cord = event.target._latlng;
-            const latdrag = cord.lat;
-            const lngdrag = cord.lng;
-            this.routeService.setStartPoint({ lat: latdrag, lon: lngdrag });
-          });
+            (startMarker as L.Marker).on('dragend', (event: any) => {
+              const cord = event.target._latlng;
+              const latdrag = cord.lat;
+              const lngdrag = cord.lng;
+              this.routeService.setStartPoint({ lat: latdrag, lon: lngdrag });
+            });
 
-          (startMarker as L.Marker).addTo(this.map);
-          this.routeService.setStartPoint({ lat: lat, lon: lng });
-          this.long1 = (startMarker as L.Marker).getLatLng().lng;
-          this.lat1 = (startMarker as L.Marker).getLatLng().lat;
-          return;
-        };
+            (startMarker as L.Marker).addTo(this.map);
+            this.routeService.setStartPoint({ lat: lat, lon: lng });
+            this.long1 = (startMarker as L.Marker).getLatLng().lng;
+            this.lat1 = (startMarker as L.Marker).getLatLng().lat;
+            return;
+          };
 
-        if (Object.keys(endMarker).length === 0) {
-          endMarker = L.marker([lat, lng], { draggable: true });
+          if (Object.keys(endMarker).length === 0) {
+            endMarker = L.marker([lat, lng], { draggable: true });
 
-          (endMarker as L.Marker).on('dragend', (event: any) => {
-            const cord = event.target._latlng;
-            const latdrag = cord.lat;
-            const lngdrag = cord.lng;
-            this.routeService.setFinalPoint({ lat: latdrag, lon: lngdrag });
-          });
+            (endMarker as L.Marker).on('dragend', (event: any) => {
+              const cord = event.target._latlng;
+              const latdrag = cord.lat;
+              const lngdrag = cord.lng;
+              this.routeService.setFinalPoint({ lat: latdrag, lon: lngdrag });
+            });
 
-          (endMarker as L.Marker).addTo(this.map);
-          this.routeService.setFinalPoint({ lat: lat, lon: lng });
-          this.long2 = (endMarker as L.Marker).getLatLng().lng;
-          this.lat2 = (endMarker as L.Marker).getLatLng().lat;
-          return;
-        };
+            (endMarker as L.Marker).addTo(this.map);
+            this.routeService.setFinalPoint({ lat: lat, lon: lng });
+            this.long2 = (endMarker as L.Marker).getLatLng().lng;
+            this.lat2 = (endMarker as L.Marker).getLatLng().lat;
+            return;
+          };
+        }
       }
-
     });
 
   }
@@ -194,9 +200,10 @@ export class MapComponent implements AfterViewInit {
             this.drawRoute();
           }
         });
-      } else{
+      } else {
         this.drawRoute();
       }
+
     });
 
   }
@@ -204,6 +211,13 @@ export class MapComponent implements AfterViewInit {
   drawRoute(): void {
     this.markerService.removeMarkers(this.map);
     this.removePointMarkers();
+
+
+    this.waypointsNoDrag = [
+      L.latLng(this.lat1, this.long1),
+      L.latLng(this.lat2, this.long2)
+    ];
+
     let route = L.Routing.control({
       router: L.Routing.osrmv1({
         serviceUrl: `http://router.project-osrm.org/route/v1/`
@@ -213,20 +227,26 @@ export class MapComponent implements AfterViewInit {
         styles: [{ color: '#fff821', weight: 7 }],
         extendToWaypoints: false,
         missingRouteTolerance: 0,
-        addWaypoints: false
+        addWaypoints: false,
       },
+
       fitSelectedRoutes: false,
       altLineOptions: {
         styles: [{ color: '#949494', weight: 7 }],
         extendToWaypoints: false,
         missingRouteTolerance: 0
       },
-      show: true,
+      show: false,
       routeWhileDragging: false,
-      waypoints: [
-        L.latLng(this.lat1, this.long1),
-        L.latLng(this.lat2, this.long2)
-      ]
+      waypoints: this.waypointsNoDrag,
+      plan: L.Routing.plan(this.waypointsNoDrag, {
+        createMarker: function (i, wp) {
+          return L.marker(wp.latLng, {
+            draggable: false
+          });
+        }
+      }),
+
     }).addTo(this.map);
 
     route.on('routeselected', (e) => {
@@ -235,9 +255,21 @@ export class MapComponent implements AfterViewInit {
       let bounds = line.getBounds();
       this.map.fitBounds(bounds);
     });
+
+    route.on('routesfound', (e) => {
+      this.routes = e.routes;
+      this.routeService.setEstimatedRoutes(e.routes);
+    });
+
+    this.routeService.selectedRouteSelect$.subscribe((value) => {
+      console.log(value);
+      
+      //this.routes[value].selectRoute;
+      
+    });
+
+    this.disableMarkers = true;
   }
-
-
 
 
 }

@@ -16,22 +16,41 @@
     font-size: 16px;
     color: #FFFFFF;
 }
+
+.heading{
+    flex: 1;
+    margin-top: 30px;
+}
 h1 {
     font-family: 'nunito';
     font-style: normal;
     font-weight: 400;
     font-size: 36px;
     line-height: 24px;
+    
+    
 }
+
+.route-plan{
+    border: 4px solid #f5d629;
+    margin: 5px;
+    padding: 5px;
+    font-family: 'nunito';
+    font-size: 22px;
+    text-align: center;
+}
+
 #routeList{
     display: flex;
     flex-direction: column;
+    flex: 3;
     align-items: flex-start;
     padding: 0px;
 
     width: 367px;
 
     background: #1F2428;
+    margin-bottom: 40px;
 }
 #routeContainer{
     
@@ -53,11 +72,20 @@ h1 {
     height: 10%;
 }
 #addresses{
-    width: 300px;
+    width: 70%;
+}
+#estimatedData{
+    width: 20%;
+    text-align: right;
 }
 #icon{
-    width: 50px;
+    width: 10%;
 }
 img{
     height: 30px;
+}
+
+.selection{
+    display: none;
+    margin-bottom: 40px;
 }

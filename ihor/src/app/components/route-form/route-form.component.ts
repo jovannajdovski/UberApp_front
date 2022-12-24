@@ -1,27 +1,50 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { MapService } from 'src/app/services/map/map.service';
 import { RouteService } from 'src/app/services/route/route.service';
+import {map, startWith} from 'rxjs/operators';
+import {Observable} from 'rxjs';
 
 @Component({
   selector: 'app-route-form',
   templateUrl: './route-form.component.html',
   styleUrls: ['./route-form.component.css']
 })
-export class RouteFormComponent {
+export class RouteFormComponent{
+
   routeForm = new FormGroup({
     start: new FormControl('',[Validators.required]),
     final: new FormControl('',[Validators.required]),
   });
+
   finished=false;
+
   public startString:string="";
   public endString:string="";
+
   constructor(private routeService: RouteService,
      private mapService: MapService,private router: Router) {
     this.finished=false;
     this.getTextFromMap();
   }
+
+  options: string[] = ['One', 'Two', 'Three'];
+  // filteredOptions: Observable<string[]> | undefined;
+
+  // ngOnInit() {
+  //   this.filteredOptions = this.routeForm.get('start')?.valueChanges.pipe(
+  //     startWith(''),
+  //     map(value => this._filter(value || '')),
+  //   );
+  // }
+
+  // private _filter(value: string): string[] {
+  //   const filterValue = value.toLowerCase();
+
+  //   return this.options.filter(option => option.toLowerCase().includes(filterValue));
+  // }
+
 
   getTextFromMap(){
     this.routeService.selectedStartPoint$.subscribe((value) => {

@@ -7,38 +7,50 @@ import { RouteService } from 'src/app/services/route/route.service';
 })
 
 export class EstimatedRoutesComponent {
-    private adresa1="";
-    private adresa2="";
-    public routes: { start: string, final : string, time: string, distance : string }[]
+    public addressStart="";
+    public addressEnd="";
+
+    public estimatedRoutes: { name: string, time: string, distance : string }[]
 
     constructor(private routeService:RouteService){
+      this.estimatedRoutes= [];
       this.routeService.selectedStart$.subscribe((value) => {
-        this.adresa1=value
+        this.addressStart=value
       });
       this.routeService.selectedFinal$.subscribe((value) => {
-        this.adresa2=value;
+        this.addressEnd=value;
       });
-      this.routes= [
-        {
-          start: this.adresa1,
-          final: this.adresa2,
-          time: '5 min',
-          distance: '2 km'
-        },
-        {
-          start: this.adresa1,
-          final: this.adresa2,
-          time: '5 min',
-          distance: '2 km'
-        },
-        {
-          start: this.adresa1,
-          final: this.adresa2,
-          time: '5 min',
-          distance: '2 km'
-        },
-      ];
+
+      this.routeService.selectedEstimatedRoutes$.subscribe((value) => {
+        console.log(value.length);
+        value.forEach((element: any) => {
+          console.log(element);
+          let distance = this.toKM(element.summary.totalDistance)
+          let time = this.toMinutes(element.summary.totalDistance)
+          this.estimatedRoutes.push({
+            name:element.name,
+            time:time,
+            distance: distance
+          })
+        });
+      });
+      
     }
     
+    toKM(disInMeters:number){
+      let distance = Math.floor(disInMeters/100);
+      return distance/10+" km";
+    }
 
+    toMinutes(timeInS:number){
+      let time = Math.round(timeInS/600);
+      if (time===0){
+        time=1;
+      }
+      return time+" min";
+    }
+
+    selectRoute(i:number){
+      this.routeService.setRouteSelect(i);
+    }
 }
