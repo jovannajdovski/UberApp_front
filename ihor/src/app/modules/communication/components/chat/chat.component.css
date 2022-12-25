@@ -11,12 +11,16 @@
 }
 #empty{
     font: 'Inter';
-    -webkit-text-stroke: 0.5px #567D92;
+    -webkit-text-stroke: 0.7px #567D92;
     letter-spacing: 0.5px;
     font-style: normal;
     font-weight: 400;
-    font-size: 25px;
+    font-size: 28px;
     color: white;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
 }
 #chat{
     width: 100%;
@@ -65,6 +69,7 @@ input{
     left: 94%;
     margin: 0 auto 10px auto;
     height:45px;
+    cursor: pointer;
 }
 .myself{
     background: #FFE32B;

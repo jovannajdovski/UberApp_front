@@ -2,9 +2,7 @@
     <h1>Chat</h1>
     <input placeholder="Search" class="search" >
     <div *ngFor="let chat of chats" class="chat">
-        <!--ako je panic panic img se prikazuje-->
-        
-        <div id="gridContainer">
+        <div id="gridContainer" (click)="redirectTo(chat)">
             <div class="icon">
                 <img src="../../../assets/images/car_icon.png" alt="Icon">
             </div>
