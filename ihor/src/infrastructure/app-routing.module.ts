@@ -1,9 +1,12 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { PasswordChangedComponent } from 'src/app/modules/account/components/password-changed/password-changed.component';
+import { ProfileComponent } from 'src/app/modules/account/components/profile/profile.component';
 import { LoginComponent } from 'src/app/modules/auth/components/login/login.component';
 import { InboxComponent } from 'src/app/modules/communication/components/inbox/inbox.component';
 import { DriverHomeComponent } from 'src/app/modules/driver/components/driver-home/driver-home.component';
+import { VehicleDataComponent } from 'src/app/modules/driver/components/vehicle-data/vehicle-data.component';
+import { FavoriteRoutesComponent } from 'src/app/modules/passenger/components/favorite-routes/favorite-routes.component';
 import { ForgotPasswordComponent } from 'src/app/modules/unregistered-user/components/forgot-password/forgot-password.component';
 import { ResetPasswordComponent } from 'src/app/modules/unregistered-user/components/reset-password/reset-password.component';
 import { SignupComponent } from 'src/app/modules/unregistered-user/components/signup/signup.component';
@@ -18,7 +21,10 @@ const routes: Routes = [
   {path:'home', component: UnregisteredUserHomeComponent},
   {path:'forgot-password', component: ForgotPasswordComponent},
   {path:'password-changed', component: PasswordChangedComponent},
-  {path:'reset-password', component: ResetPasswordComponent}
+  {path:'reset-password', component: ResetPasswordComponent},
+  {path:'profile', component: ProfileComponent},
+  {path:'favorite-routes', component: FavoriteRoutesComponent},
+  {path:'vehicle-data', component: VehicleDataComponent}
 ];
 
 @NgModule({

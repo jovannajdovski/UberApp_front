@@ -1,0 +1,71 @@
+.container {
+    box-sizing: border-box;
+    width: 500px;
+    height: 600px;
+    background: #282E33;
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    border-radius: 10px;
+    filter: drop-shadow(0px 4px 4px rgba(64, 58, 16, 0.5));
+    
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    font-weight: 400;
+    font-size: 16px;
+    color: #FFFFFF;
+}
+
+.heading{
+    margin-top: 30px;
+    width: 80%;
+}
+
+h1 {
+    font-family: 'nunito';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 36px;
+    line-height: 24px;
+    text-align: left;
+}
+
+
+#routeList{
+    display: flex;
+    flex-direction: column;
+    flex-flow: wrap;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 0px;
+
+    width: 80%;
+    max-height: 60%;
+    background: #1F2428;
+    margin-bottom: 40px;
+
+    overflow-y: auto;
+
+}
+#routeContainer{
+    
+    height: 60px;
+    /* padding: 0px 16px; */
+    border: 0.2px solid #282E33;
+}
+#route{
+    transition: none;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: flex-start;
+    gap: 15px;
+    height: auto;
+}
+
+
+.iconify{
+    font-size: 1.5em;
+    color: yellow;
+}

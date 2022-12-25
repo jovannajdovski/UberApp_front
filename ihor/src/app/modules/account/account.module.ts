@@ -2,12 +2,14 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { PasswordChangedComponent } from './components/password-changed/password-changed.component';
 import { MaterialModule } from 'src/infrastructure/material.module';
+import { ProfileComponent } from './components/profile/profile.component';
 
 
 
 @NgModule({
   declarations: [
-    PasswordChangedComponent
+    PasswordChangedComponent,
+    ProfileComponent
   ],
   imports: [
     CommonModule,
