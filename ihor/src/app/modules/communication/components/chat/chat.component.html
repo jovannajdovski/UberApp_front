@@ -1,6 +1,6 @@
 <div id="container">
-    <p id="empty" *ngIf="!chatSelected">Please select conversation</p>
-    <div id="chat" *ngIf="chatSelected">
+    <p id="empty" *ngIf="chatIndex===-1">Please select conversation</p>
+    <div id="chat" *ngIf="chatIndex!==-1">
         <div id="header">
             <img id="profile-picture" src="../../../assets/images/car_icon.png" alt="icon">
             <h1>{{chat.name}}</h1>
@@ -11,8 +11,8 @@
             <p id="timestamp" class="basic-text">{{message.timestamp}}</p>
             <p [ngClass]="message.myself===true ? 'myself message basic-text': 'other message basic-text'">{{message.content}}</p>
         </div>
-        <input placeholder="Message" [(ngModel)]="message">
-        <img id="send" src="../../../assets/images/Send.png" alt="Icon" (click)="sendMessage()">
+        <input id="input" placeholder="Message" [(ngModel)]="message">
+        <img id="send" onclick="document.getElementById('input').value = ''" src="../../../assets/images/Send.png" alt="Icon" (click)="sendMessage()">
 
     </div>
 </div>
