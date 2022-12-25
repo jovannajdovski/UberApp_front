@@ -1,5 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { RouteService } from '../../services/route/route.service';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-estimated-routes',
   templateUrl: './estimated-routes.component.html',
@@ -12,7 +13,7 @@ export class EstimatedRoutesComponent {
 
     public estimatedRoutes: { name: string, time: string, distance : string }[]
 
-    constructor(private routeService:RouteService){
+    constructor(private routeService:RouteService, private router:Router){
       this.estimatedRoutes= [];
       this.routeService.selectedStart$.subscribe((value) => {
         this.addressStart=value
@@ -52,5 +53,9 @@ export class EstimatedRoutesComponent {
 
     selectRoute(i:number){
       this.routeService.setRouteSelect(i);
+    }
+
+    back(){
+      window.location.reload();
     }
 }

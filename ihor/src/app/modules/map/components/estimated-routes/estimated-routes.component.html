@@ -1,13 +1,16 @@
 <div class="container">
   <div class="heading">
-    <h1>Possible routes</h1>
-    <!-- <div id="topEmptySpace"></div> -->
+    <div class="title">
+      <i class="fa fa-chevron-circle-left" aria-hidden="true" (click)="back()"></i>
+      <h1>Possible routes</h1>
+    </div>
     <div class="route-plan">{{addressStart}}<br>to<br>{{addressEnd}}</div>
   </div>
 
   <mat-selection-list #routeList [multiple]="false" id="routeList">
-    <mat-list-option *ngFor="let route of estimatedRoutes; let i = index" [value]="route" id="routeContainer" (click)="selectRoute(i)">
-      <div id="route" >
+    <mat-list-option *ngFor="let route of estimatedRoutes; let i = index" [value]="route" id="routeContainer"
+      (click)="selectRoute(i)">
+      <div id="route">
         <div id="icon">
           <img src="../../../assets/images/route.png" alt="Icon">
         </div>

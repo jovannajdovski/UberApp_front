@@ -17,6 +17,21 @@
     color: #FFFFFF;
 }
 
+.title{
+    display: flex;
+    flex-direction: row;
+    justify-content:flex-start;
+    align-items: center;
+
+}
+
+.title i{
+    margin-right: 20px;
+    font-size: 30px;
+    text-align: left;
+    cursor: pointer;
+}
+
 .heading{
     flex: 1;
     margin-top: 30px;
@@ -27,7 +42,7 @@ h1 {
     font-weight: 400;
     font-size: 36px;
     line-height: 24px;
-    
+    text-align: center;
     
 }
 
