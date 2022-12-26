@@ -18,7 +18,7 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatSelectModule } from '@angular/material/select';
-import { MatAutocompleteModule } from '@angular/material/autocomplete'
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
 
 @NgModule({
   imports: [
@@ -42,7 +42,7 @@ import { MatAutocompleteModule } from '@angular/material/autocomplete'
     MatRadioModule,
     MatSelectModule,
     MatRippleModule,
-    MatAutocompleteModule
+    MatAutocompleteModule,
   ],
   exports: [
     MatButtonModule,
@@ -65,7 +65,7 @@ import { MatAutocompleteModule } from '@angular/material/autocomplete'
     MatRadioModule,
     MatSelectModule,
     MatRippleModule,
-    MatAutocompleteModule
+    MatAutocompleteModule,
   ],
 })
 export class MaterialModule {}

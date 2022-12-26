@@ -1,10 +1,13 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { EditPasswordComponent } from 'src/app/modules/account/components/edit-password/edit-password.component';
+import { EditProfileComponent } from 'src/app/modules/account/components/edit-profile/edit-profile.component';
 import { PasswordChangedComponent } from 'src/app/modules/account/components/password-changed/password-changed.component';
 import { ProfileComponent } from 'src/app/modules/account/components/profile/profile.component';
 import { LoginComponent } from 'src/app/modules/auth/components/login/login.component';
 import { InboxComponent } from 'src/app/modules/communication/components/inbox/inbox.component';
 import { DriverHomeComponent } from 'src/app/modules/driver/components/driver-home/driver-home.component';
+import { EditVehicleComponent } from 'src/app/modules/driver/components/edit-vehicle/edit-vehicle.component';
 import { VehicleDataComponent } from 'src/app/modules/driver/components/vehicle-data/vehicle-data.component';
 import { FavoriteRoutesComponent } from 'src/app/modules/passenger/components/favorite-routes/favorite-routes.component';
 import { ForgotPasswordComponent } from 'src/app/modules/unregistered-user/components/forgot-password/forgot-password.component';
@@ -24,7 +27,10 @@ const routes: Routes = [
   {path:'reset-password', component: ResetPasswordComponent},
   {path:'profile', component: ProfileComponent},
   {path:'favorite-routes', component: FavoriteRoutesComponent},
-  {path:'vehicle-data', component: VehicleDataComponent}
+  {path:'vehicle-data', component: VehicleDataComponent},
+  {path:'edit-profile', component: EditProfileComponent},
+  {path:'edit-password', component: EditPasswordComponent},
+  {path:'edit-vehicle', component: EditVehicleComponent}
 ];
 
 @NgModule({
