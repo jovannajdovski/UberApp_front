@@ -2,45 +2,56 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { Observable, BehaviorSubject } from 'rxjs';
+import { AuthService } from 'src/app/modules/auth/services/auth.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class MessageService {
 
+  public chats:any;
   private chat$ = new BehaviorSubject<Chat>({image: '', name: '', messages: [], type: ChatType.RIDE});
   observableChat$ = this.chat$.asObservable();
 
   private isChatSelected$=new BehaviorSubject<number>(-1);
   observableIsChatSelected$=this.isChatSelected$.asObservable();
   
-  private chats$=new BehaviorSubject<Chat[]>(chats);
+  private chats$=new BehaviorSubject<Chat[]>(chatsDummy);
   observableChats$=this.chats$.asObservable();
 
-  constructor(private http: HttpClient) {
-    //ovde se poziva bek getMessges() stavlja se u chats$
-    const messagesResponse=this.getMessages(0).subscribe({ //token umesto 0
-      next: (result) => {
-        
-      },
-      error: (error) => {
-        if (error instanceof HttpErrorResponse) {
-          console.log("pera");
-        }
-      },
-    });
+  constructor(private authService:AuthService, private http: HttpClient) {
+    const p=this.getMessages();
    }
 
   openChat(chat:Chat){
-    const index = chats.findIndex(object => {
+    const index = chatsDummy.findIndex(object => {
       return object.name === chat.name;
     });
     this.chat$.next(chat);
     this.isChatSelected$.next(index);
   }
+  getMessages()
+  {
+    //ovde se poziva bek getMessges() stavlja se u chats$
+    this.getMessagesFromBack().subscribe({
+      next: (result) => {
+        console.log("USO");
+        console.log(result.totalCount);
+        this.chats=this.getChatsFromMessages(result);
+      },
+      error: (error) => {
+        if (error instanceof HttpErrorResponse) {
+          console.log("pera");
+          
+        }
+      },
+    });
+    
+  }
+  
   sendMessage(request: MessageRequest, message:Message, chatId:number)
   {
-    const sentMessageResponse=this.sendMessageToBack(request,0).subscribe({
+    const sentMessageResponse=this.sendMessageToBack(request).subscribe({
       next: (result) => {
         
       },
@@ -51,23 +62,44 @@ export class MessageService {
       },
      });
 
-    chats[chatId].messages.push(message);
-    this.chats$.next(chats);
-    this.openChat(chats[chatId]);
+    chatsDummy[chatId].messages.push(message);
+    this.chats$.next(chatsDummy);
+    this.openChat(chatsDummy[chatId]);
   }
-  sendMessageToBack(request: MessageRequest,userId:number):Observable<SentMessageResponse>{
-    return this.http.post<SentMessageResponse>(environment.apiHost+'user/'+userId+'/message', request);
-  }
-  getMessages(userId:number):Observable<MessagesResponse>{
+  getMessagesFromBack():Observable<MessagesResponse>{
+    const userId=this.authService.getId();
     return this.http.get<MessagesResponse>(environment.apiHost+'user/'+userId+'/message');
   }
+  sendMessageToBack(request: MessageRequest):Observable<SentMessageResponse>{
+    const userId=this.authService.getId();
+    return this.http.post<SentMessageResponse>(environment.apiHost+'user/'+userId+'/message', request);
+  }
 
+  getChatsFromMessages(result: MessagesResponse) {
+    const chats:Chat[]=[];
+    let firstIndex=0;
+    for (let i = 0; i < result.totalCount; i++) {
+      if(result.results.at(i)?.rideId!==result.results.at(firstIndex))
+      {
+        chats.push(this.createChat(result,firstIndex,i));
+        firstIndex=i;
+      }
+      console.log (result.results.at(i));
+    }
+    chats.push(this.createChat(result,firstIndex,result.totalCount));
+  }
+  createChat(result: MessagesResponse, firstIndex: number, lastIndex: number): Chat {
+    const chat:Chat={image: "", name: "", messages: [], type: ChatType.PANIC};
+    chat.type=ChatType.RIDE;//staviti po porukama
+    chat.name=""; //uzeti iz poruka
+    /*for (let i = firstIndex; i < lastIndex; i++)
+    {
+      
+    }*/
+    return chat;
+  }
 }
-export interface Message{
-  timestamp: string;
-  content: string;
-  myself: boolean
-}
+
 export interface MessageRequest{
   "receiverId": number,
   "message": string,
@@ -75,8 +107,6 @@ export interface MessageRequest{
   "rideId": number
 }
 export interface MessagesResponse{
-  // na beku sort po sender/receiverId, pa po vremenu,
-  // sortirati po poslednjoj za svaku konverzaciju
   "totalCount": number,
   "results": [
     {
@@ -91,15 +121,19 @@ export interface MessagesResponse{
   ]
 }
 export interface SentMessageResponse{
-  "id": number,
-  "timeOfSending": Date,
-  "senderId": number,
-  "receiverId": number,
-  "message": string,
+  "id": number, // GORE
+  "timeOfSending": Date,//message.timestamp
+  "senderId": number, //image, name
+  "receiverId": number, // isto ili moje
+  "message": string, //u message.content
   "type": ChatType,
-  "rideId": number
+  "rideId": number // i ovo pise u naslovu
 }
-
+export interface Message{
+  timestamp: string;
+  content: string;
+  myself: boolean // u zavisnosti jesam li ja sender/receiver
+}
 export enum ChatType {
   SUPPORT, PANIC, RIDE
 }
@@ -124,9 +158,11 @@ const message3: Message={ timestamp: date3.toLocaleTimeString('it-IT', {hour: '2
 const message4: Message={ timestamp: date4.toLocaleTimeString('it-IT', {hour: '2-digit', minute: '2-digit',}), content: 'Dobar' + '\xa0\xa0\xa0\xa0\xa0\xa0\xa0' + 'dan', myself: false}
 const message5: Message={ timestamp: date5.toLocaleTimeString('it-IT', {hour: '2-digit', minute: '2-digit',}), content: 'PROFESORE', myself: false}
 const messages=[[message1,message2,message3],[message4,message5]];
-const chat1={image: "", name: "Ivan Mrsulja SUPPORT", messages: messages[0], type: ChatType.SUPPORT}
+const chat1={image: "", name: "Mrsulja SUPPORT", messages: messages[0], type: ChatType.SUPPORT}
 const chat2={image: "", name: "Stevan Gostojic", messages: messages[1], type: ChatType.PANIC}
-const chats=[ 
+const chatsDummy=[ 
       chat1,
       chat2,
     ];
+
+

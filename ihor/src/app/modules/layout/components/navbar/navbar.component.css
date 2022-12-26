@@ -29,89 +29,11 @@
     -webkit-text-stroke: 1px #567D92;
     
 }
-.navbar-button{
-    box-sizing: border-box;
-    
-    font-size: 16px;
-    font-weight: 800;
-    font-family: 'Nunito';
-    letter-spacing: 0.3px;
-    
-    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-    padding: 8px;
-    
-    width: 94px;
-    height: 35px;
-    min-width: 94px;
-    
-}
-
-#login-button, #sign-up-button, #sign-out-button
-{
-    border-radius: 8px;
-    margin: 10px;
-    color: white;
-    background-color: rgba(38, 50, 56, 0.5);
-}
-#home-button,#inbox-button, #history-button,#profile-button
-{
-    border-radius: 0;
-    margin: 10px 0;
-    color: white;
-    background-color: rgba(38, 50, 56, 0.5);
-}
-#home-button{
-    border-radius: 8px 0 0 8px;
-    color: rgba(38, 50, 56, 0.5);
-    background-color: white;
-}
-#profile-button{
-    border-radius: 0 8px 8px 0;
-}
-#currentRideBtn{
-    box-sizing: border-box;
-    
-    font-size: 18px;
-    font-weight: 800;
-    font-family: 'Nunito';
-    letter-spacing: 0.3px;
-    color:white;
-    background-color: #52D45A;
-    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-    border-radius: 8px;
-    padding: 8px 16px;
-    
-    margin: auto 0;
-    width: 250px;
-    height: 50px;
-    min-width: 150px;
-}
-
-#login-button:hover, #sign-up-button:hover, #sign-out-button:hover
-{
-    color: rgba(38, 50, 56, 0.5);
-    background-color: white;
-}
 #pre-div{
     box-sizing: content-box;
     width: 10%;
 }
-#mid-div{
-    box-sizing: content-box;
-    width: 70%;
-}
-#driver-left-div{
-    box-sizing: content-box;
-    width: 20%;
-}
-#driver-mid-div{
-    box-sizing: content-box;
-    width: 30%;
-}
-#driver-right-div{
-    box-sizing: content-box;
-    width: 10%;
-}
+
 #unregisteredUser, #driver{
     box-sizing: content-box;
     width: 70%;
@@ -129,15 +51,5 @@
     }
     #pre-div{
         width: 5%;
-    }
-    #mid-div{
-        width: 5%;
-    }
-    .navbar-button{
-        box-sizing: border-box;
-        font-size: 14px;
-        width: 75px;
-        min-width: 75px;
-        
     }
   }

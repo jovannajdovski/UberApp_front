@@ -1,34 +1,3 @@
-#navbar{
-    position: fixed;
-    top: 0;
-    left: 0;
-    z-index: 999;
-    width: 100%;
-    height: 60px;
-    background: #FFE32B;
-    display: flex;
-    flex-direction: row;
-    flex-wrap: nowrap;
-    align-items: center;
-    gap: 20px;
-}
-#logo{
-    width: 40px;
-    height: 40px;
-}
-#title{
-
-    font-family: 'Inter';
-    font-weight: 400;
-    font-size: 20px;
-    margin-top: 0;
-    margin-bottom: 0;
-    letter-spacing: 0.3px;
-
-    color: #000000;
-    -webkit-text-stroke: 1px #567D92;
-    
-}
 .navbar-button{
     box-sizing: border-box;
     
@@ -43,10 +12,12 @@
     width: 94px;
     height: 35px;
     min-width: 94px;
+    color: white;
+    background-color: rgba(38, 50, 56, 0.5);
     
 }
 
-#login-button, #sign-up-button, #sign-out-button
+#sign-out-button
 {
     border-radius: 8px;
     margin: 10px;
@@ -57,13 +28,14 @@
 {
     border-radius: 0;
     margin: 10px 0;
-    color: white;
-    background-color: rgba(38, 50, 56, 0.5);
+}
+.selected-button{
+    
+    color: rgba(38, 50, 56, 0.5);
+    background-color: white;
 }
 #home-button{
     border-radius: 8px 0 0 8px;
-    color: rgba(38, 50, 56, 0.5);
-    background-color: white;
 }
 #profile-button{
     border-radius: 0 8px 8px 0;
@@ -87,42 +59,51 @@
     min-width: 150px;
 }
 
-#login-button:hover, #sign-up-button:hover, #sign-out-button:hover
+#sign-out-button:hover
 {
     color: rgba(38, 50, 56, 0.5);
     background-color: white;
 }
-#pre-div{
-    box-sizing: content-box;
-    width: 10%;
-}
-#mid-div{
-    box-sizing: content-box;
-    width: 70%;
-}
+
 #driver-left-div{
     box-sizing: content-box;
-    width: 20%;
+    width: 200px;
 }
 #driver-mid-div{
     box-sizing: content-box;
-    width: 30%;
+    width: 300px;
 }
 #driver-right-div{
     box-sizing: content-box;
-    width: 10%;
+    width: 100px;
 }
-#unregisteredUser, #driver{
+#driver{
     box-sizing: content-box;
-    width: 70%;
+    width: 100%;
     display: flex;
     flex-direction: row;
     flex-wrap: nowrap;
     align-items: flex-end;
     gap: 0px;
 }
+@media (max-width: 1500px) {
+    
+    #driver-left-div{
+        width: 50px;
+    }
+    #driver-mid-div{
+        width: 100px;
+    }
+    #driver-right-div{
+        width: 50px;
+    }
+  }
+@media (max-width: 1000px) {
 
-@media (max-width: 500px) {
+
+
+}
+@media (max-width: 580px) {
     
     #navbar{
         gap: 5px;
