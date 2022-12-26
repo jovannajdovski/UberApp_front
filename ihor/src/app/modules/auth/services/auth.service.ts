@@ -1,19 +1,19 @@
-import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { Injectable } from '@angular/core';
+import { JwtHelperService } from '@auth0/angular-jwt';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import { JwtHelperService } from '@auth0/angular-jwt';
-import { Login } from '../../components/login/login.component';
+import { Login } from '../components/login/login.component';
 
 @Injectable({
   providedIn: 'root'
 })
-export class LoginService {
+export class AuthService {
 
-  user$ = new BehaviorSubject(null);
-  selectedUser$ = this.user$.asObservable();
+  user$ = new BehaviorSubject("UNREGISTERED_USER");
+  userState$ = this.user$.asObservable();
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
   
   login(auth: Login): Observable<Token> {
     return this.http.post<Token>(environment.apiHost + "user/login",
@@ -39,8 +39,20 @@ export class LoginService {
     if (this.isLoggedIn()) {
       const accessToken: any = localStorage.getItem('user');
       const helper = new JwtHelperService();
+      console.log(helper.decodeToken(accessToken));
       const role = helper.decodeToken(accessToken).role;
       return role;
+    }
+    
+    return null;
+  }
+
+  getId(): any {
+    if (this.isLoggedIn()) {
+      const accessToken: any = localStorage.getItem('user');
+      const helper = new JwtHelperService();
+      const id = helper.decodeToken(accessToken).jti;
+      return id;
     }
     
     return null;

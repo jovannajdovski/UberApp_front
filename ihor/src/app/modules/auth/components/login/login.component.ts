@@ -2,7 +2,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { LoginService } from '../../services/login/login.service';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-login',
@@ -19,7 +19,7 @@ export class LoginComponent implements OnInit {
   });
   hasError = false;
 
-  constructor(private loginService: LoginService, private router: Router) { }
+  constructor(private authService: AuthService, private router: Router) { }
 
   ngOnInit(): void {}
 
@@ -30,14 +30,14 @@ export class LoginComponent implements OnInit {
     }
 
     if (this.loginForm.valid) {
-      this.loginService.login(login).subscribe({
+      this.authService.login(login).subscribe({
         next: (result) => {
           localStorage.setItem('user', JSON.stringify(result.jwt));
-          this.loginService.setUser();
+          this.authService.setUser();
 
-          if (this.loginService.getRole() == "DRIVER") {
+          if (this.authService.getRole() == "DRIVER") {
             this.router.navigate(['/driver']);
-          } else if (this.loginService.getRole() == "ADMINISTRATOR") {
+          } else if (this.authService.getRole() == "ADMINISTRATOR") {
             this.router.navigate(['/administrator']);
           }
         },
