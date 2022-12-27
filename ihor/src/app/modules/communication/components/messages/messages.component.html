@@ -8,10 +8,10 @@
             </div>
             <p class="name basic-text">{{chat.name}}</p>
             <p class="message basic-text">{{chat.messages[chat.messages.length-1].content}}</p>
-            <p id="timestamp" class="timestamp basic-text">{{chat.messages[chat.messages.length-1].timestamp}}</p>
-            <div class="panic" *ngIf="chat.type===chatType.PANIC">
+            <p id="timestamp" class="timestamp basic-text">{{shortDate(chat.messages[chat.messages.length-1].timestamp)}}</p>
+            <!--<div class="panic" *ngIf="chat.type===messageType.PANIC">
                 <img class="small-img" src="../../../assets/images/panic_message.png" alt="Icon">
-            </div> 
+            </div>--> 
         </div>
 
     </div>

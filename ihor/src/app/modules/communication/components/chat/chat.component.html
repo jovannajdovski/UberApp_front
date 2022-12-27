@@ -1,18 +1,17 @@
 <div id="container">
-    <p id="empty" *ngIf="chatIndex===-1">Please select conversation</p>
-    <div id="chat" *ngIf="chatIndex!==-1">
+    <p id="empty" *ngIf="chatRideId===-1">Please select conversation</p>
+    <div id="chat" *ngIf="chatRideId!==-1">
         <div id="header">
             <img id="profile-picture" src="../../../assets/images/car_icon.png" alt="icon">
             <h1>{{chat.name}}</h1>
-            <img *ngIf="chat.type===chatType.PANIC" id="panic" src="../../../assets/images/panic_message.png" alt="icon">
             
         </div>
         <div id="messages" *ngFor="let message of chat.messages">
-            <p id="timestamp" class="basic-text">{{message.timestamp}}</p>
-            <p [ngClass]="message.myself===true ? 'myself message basic-text': 'other message basic-text'">{{message.content}}</p>
+            <p id="timestamp" class="basic-text">{{fullDate(message.timestamp)}}</p>
+            <p class="message basic-text " [ngClass]="{'myself': message.myself===true, 'other':message.myself===false, 'red': equalsPanic(message)}">{{message.content}}</p>
         </div>
         <input id="input" placeholder="Message" [(ngModel)]="message">
-        <img id="send" onclick="document.getElementById('input').value = ''" src="../../../assets/images/Send.png" alt="Icon" (click)="sendMessage()">
+        <img id="send" onclick="document.getElementById('input').value = ''" src="../../../assets/images/Send.png" alt="Icon" (click)="sendMessage(messageType.RIDE)">
 
     </div>
 </div>

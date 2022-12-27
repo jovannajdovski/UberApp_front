@@ -9,35 +9,28 @@ import { AuthService } from 'src/app/modules/auth/services/auth.service';
 })
 export class MessageService {
 
-  public chats:any;
-  private chat$ = new BehaviorSubject<Chat>({image: '', name: '', messages: [], type: ChatType.RIDE});
-  observableChat$ = this.chat$.asObservable();
+  private chat$ = new BehaviorSubject<Chat>({image: '', name: '', messages: [], rideId:-1, receiverId:-1}); //open chat
+  observableChat$ = this.chat$.asObservable();//open chat
 
-  private isChatSelected$=new BehaviorSubject<number>(-1);
-  observableIsChatSelected$=this.isChatSelected$.asObservable();
+  private selectedChatRideId$=new BehaviorSubject<number>(-1);//open chat
+  observableSelectedChatRideId$=this.selectedChatRideId$.asObservable();//open chat
   
-  private chats$=new BehaviorSubject<Chat[]>(chatsDummy);
+  private chats$=new BehaviorSubject<Chat[]>([]);
   observableChats$=this.chats$.asObservable();
 
   constructor(private authService:AuthService, private http: HttpClient) {
-    const p=this.getMessages();
+    this.getMessages();
    }
 
   openChat(chat:Chat){
-    const index = chatsDummy.findIndex(object => {
-      return object.name === chat.name;
-    });
     this.chat$.next(chat);
-    this.isChatSelected$.next(index);
+    this.selectedChatRideId$.next(chat.rideId);
   }
-  getMessages()
+  private getMessages()
   {
-    //ovde se poziva bek getMessges() stavlja se u chats$
     this.getMessagesFromBack().subscribe({
       next: (result) => {
-        console.log("USO");
-        console.log(result.totalCount);
-        this.chats=this.getChatsFromMessages(result);
+        this.chats$.next(this.getChatsFromMessages(result));
       },
       error: (error) => {
         if (error instanceof HttpErrorResponse) {
@@ -48,12 +41,59 @@ export class MessageService {
     });
     
   }
-  
-  sendMessage(request: MessageRequest, message:Message, chatId:number)
+  private getChatsFromMessages(result: MessagesResponse) {
+    const chats:Chat[]=[];
+    let firstIndex=0;
+    for (let i = 0; i < result.totalCount; i++) {
+      if(result.results.at(i)?.rideId!==result.results.at(firstIndex)?.rideId)
+      {
+        chats.push(this.createChat(result,firstIndex,i));
+        firstIndex=i;
+      }
+      
+    }
+    if(result.totalCount>0) chats.push(this.createChat(result,firstIndex,result.totalCount));
+    
+    return chats;
+  }
+  private createChat(result: MessagesResponse, firstIndex: number, lastIndex: number): Chat {
+    const chat:Chat={image: "", name: "", messages: [], rideId:-1, receiverId:-1};
+    const userId=this.authService.getId();
+    const anotherUserId=(result.results.at(firstIndex)?.receiverId ||0) +(result.results.at(firstIndex)?.senderId ||0) -userId;
+    const rideId=result.results.at(firstIndex)?.rideId||0;
+    let message;
+    chat.name=this.getUserAndRideInfo(anotherUserId,rideId);
+    chat.rideId=rideId;
+    chat.receiverId=anotherUserId;
+    this.authService.getId();
+    for (let i = firstIndex; i < lastIndex; i++)
+    {
+      message=result.results.at(i);
+      
+      chat.messages.push({timestamp: toDate(message?.timeOfSending)||new Date(),
+         content: message?.message||'',
+         myself: userId==message?.senderId,
+        type: message?.type||MessageType.RIDE //TODO
+      })
+    }
+    return chat;
+  }
+  private getUserAndRideInfo(userId:number, rideId:number):string{
+      return "Korisnik: " + userId+' ,voznja: '+rideId; //dobaviti sa beka
+  }
+  private getMessagesFromBack():Observable<MessagesResponse>{
+    const userId=this.authService.getId();
+    return this.http.get<MessagesResponse>(environment.apiHost+'user/'+userId+'/message');
+  }
+  sendMessage(request: MessageRequest)
   {
-    const sentMessageResponse=this.sendMessageToBack(request).subscribe({
+    this.sendMessageToBack(request).subscribe({
       next: (result) => {
-        
+        const chats=this.chats$.getValue();
+        const chat:Chat=chats.find(object => {return object.rideId === result.rideId;})||{image: '', name: '', messages: [], rideId:-1, receiverId:-1};
+        chat.messages.push({timestamp: result.timeOfSending, content: result.message, myself: true, type: result.type});
+        this.chats$.next(chats);
+        this.openChat(chat);
       },
       error: (error) => {
         if (error instanceof HttpErrorResponse) {
@@ -62,48 +102,29 @@ export class MessageService {
       },
      });
 
-    chatsDummy[chatId].messages.push(message);
+    /*chatsDummy[chatId].messages.push(message);
     this.chats$.next(chatsDummy);
-    this.openChat(chatsDummy[chatId]);
+    this.openChat(chatsDummy[chatId]);*/
   }
-  getMessagesFromBack():Observable<MessagesResponse>{
+  private sendMessageToBack(request: MessageRequest):Observable<SentMessageResponse>{
     const userId=this.authService.getId();
-    return this.http.get<MessagesResponse>(environment.apiHost+'user/'+userId+'/message');
-  }
-  sendMessageToBack(request: MessageRequest):Observable<SentMessageResponse>{
-    const userId=this.authService.getId();
+    console.log(request.type);
     return this.http.post<SentMessageResponse>(environment.apiHost+'user/'+userId+'/message', request);
   }
-
-  getChatsFromMessages(result: MessagesResponse) {
-    const chats:Chat[]=[];
-    let firstIndex=0;
-    for (let i = 0; i < result.totalCount; i++) {
-      if(result.results.at(i)?.rideId!==result.results.at(firstIndex))
-      {
-        chats.push(this.createChat(result,firstIndex,i));
-        firstIndex=i;
-      }
-      console.log (result.results.at(i));
-    }
-    chats.push(this.createChat(result,firstIndex,result.totalCount));
-  }
-  createChat(result: MessagesResponse, firstIndex: number, lastIndex: number): Chat {
-    const chat:Chat={image: "", name: "", messages: [], type: ChatType.PANIC};
-    chat.type=ChatType.RIDE;//staviti po porukama
-    chat.name=""; //uzeti iz poruka
-    /*for (let i = firstIndex; i < lastIndex; i++)
-    {
-      
-    }*/
-    return chat;
-  }
 }
-
+function toDate(str: any): Date{
+  const date= new Date();
+  date.setFullYear(str[0]);
+  date.setMonth((str[1]+12)%13);
+  date.setDate(str[2]);
+  date.setHours(str[3]);
+  date.setMinutes(str[4]);
+  return date;
+}
 export interface MessageRequest{
   "receiverId": number,
   "message": string,
-  "type": ChatType,
+  "type": MessageType,
   "rideId": number
 }
 export interface MessagesResponse{
@@ -111,31 +132,32 @@ export interface MessagesResponse{
   "results": [
     {
       "id": number,
-      "timeOfSending": Date,
+      "timeOfSending": object,
       "senderId": number,
       "receiverId": number,
       "message": string,
-      "type": ChatType,
+      "type": MessageType,
       "rideId": number
     }
   ]
 }
 export interface SentMessageResponse{
-  "id": number, // GORE
-  "timeOfSending": Date,//message.timestamp
-  "senderId": number, //image, name
-  "receiverId": number, // isto ili moje
-  "message": string, //u message.content
-  "type": ChatType,
-  "rideId": number // i ovo pise u naslovu
+  "id": number,
+  "timeOfSending": Date,
+  "senderId": number,
+  "receiverId": number,
+  "message": string,
+  "type": MessageType,
+  "rideId": number
 }
 export interface Message{
-  timestamp: string;
+  timestamp: Date;
   content: string;
-  myself: boolean // u zavisnosti jesam li ja sender/receiver
+  myself: boolean
+  type: MessageType
 }
-export enum ChatType {
-  SUPPORT, PANIC, RIDE
+export enum MessageType {
+  SUPPORT, RIDE, PANIC
 }
 
 
@@ -143,7 +165,8 @@ export interface Chat{
   image: string,
   name: string,
   messages: Message[],
-  type: ChatType
+  rideId: number,
+  receiverId: number
 }
 
 
@@ -152,14 +175,14 @@ const date2=new Date('2022-12-17T03:24:00');
 const date3=new Date('2022-12-18T02:24:00');
 const date4=new Date('2022-12-17T06:24:00');
 const date5=new Date('2022-12-19T10:24:00');
-const message1: Message={ timestamp: date1.toLocaleTimeString('it-IT', {hour: '2-digit', minute: '2-digit',}), content: 'Samo jako', myself: false}
-const message2: Message={ timestamp: date2.toLocaleTimeString('it-IT', {hour: '2-digit', minute: '2-digit',}), content: 'BORJAN', myself: true}
-const message3: Message={ timestamp: date3.toLocaleTimeString('it-IT', {hour: '2-digit', minute: '2-digit',}), content: 'BORJAN', myself: false}
-const message4: Message={ timestamp: date4.toLocaleTimeString('it-IT', {hour: '2-digit', minute: '2-digit',}), content: 'Dobar' + '\xa0\xa0\xa0\xa0\xa0\xa0\xa0' + 'dan', myself: false}
-const message5: Message={ timestamp: date5.toLocaleTimeString('it-IT', {hour: '2-digit', minute: '2-digit',}), content: 'PROFESORE', myself: false}
+const message1: Message={ timestamp: date1, content: 'Samo jako', myself: false, type: MessageType.PANIC}
+const message2: Message={ timestamp: date2, content: 'BORJAN', myself: true, type: MessageType.RIDE}
+const message3: Message={ timestamp: date3, content: 'BORJAN', myself: false, type: MessageType.PANIC}
+const message4: Message={ timestamp: date4, content: 'Dobar' + '\xa0\xa0\xa0\xa0\xa0\xa0\xa0' + 'dan', myself: false, type: MessageType.RIDE}
+const message5: Message={ timestamp: date5, content: 'PROFESORE', myself: false, type: MessageType.RIDE}
 const messages=[[message1,message2,message3],[message4,message5]];
-const chat1={image: "", name: "Mrsulja SUPPORT", messages: messages[0], type: ChatType.SUPPORT}
-const chat2={image: "", name: "Stevan Gostojic", messages: messages[1], type: ChatType.PANIC}
+const chat1={image: "", name: "Mrsulja SUPPORT", messages: messages[0], type: MessageType.SUPPORT,rideId:1, receiverId:1}
+const chat2={image: "", name: "Stevan Gostojic", messages: messages[1], type: MessageType.PANIC,rideId:1, receiverId:1}
 const chatsDummy=[ 
       chat1,
       chat2,

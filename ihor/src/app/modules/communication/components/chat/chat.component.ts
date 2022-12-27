@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { MessageService, Message, ChatType, Chat, MessageRequest} from 'src/app/modules/communication/services/message/message.service';
+import { MessageService, Message, MessageType, Chat, MessageRequest} from 'src/app/modules/communication/services/message/message.service';
 
 @Component({
   selector: 'app-chat',
@@ -8,28 +8,32 @@ import { MessageService, Message, ChatType, Chat, MessageRequest} from 'src/app/
 })
 export class ChatComponent {
   public message='';
-  public chatIndex=-1;
-  public chat:Chat={image: '', name: '', messages: [], type: ChatType.RIDE};
-  public chatType=ChatType;
+  public chatRideId=-1;
+  public chat:Chat={image: '', name: '', messages: [], rideId:-1, receiverId:-1};
+  public messageType=MessageType;
   constructor(private messageService: MessageService){
     this.messageService.observableChat$.subscribe((chat)=>
     {this.chat=chat;});
-    this.messageService.observableIsChatSelected$.subscribe((value)=>
-    {this.chatIndex=value; })
+    this.messageService.observableSelectedChatRideId$.subscribe((value)=>
+    {this.chatRideId=value; })
   }
-  public sendMessage()
+  public sendMessage(messageType:MessageType)
   {
-    const message: Message = {
-      timestamp:new Date().toLocaleTimeString('it-IT', {hour: '2-digit', minute: '2-digit',}),
-      content: this.message,
-      myself: true
-    };
     const messageRequest:MessageRequest={
-      "receiverId": this.chatIndex, //TODO
+      "receiverId": this.chat.receiverId,
       "message": this.message,
-      "type": this.chat.type,
-      "rideId": this.chatIndex //TODO
+      "type": messageType,
+      "rideId": this.chat.rideId
     }
-    this.messageService.sendMessage(messageRequest,message, this.chatIndex); //mokovan(salje prvoj osobi)
+    console.log(messageRequest.type);
+    this.messageService.sendMessage(messageRequest);
+  }
+  public fullDate(date:Date):string
+  {
+    return new Date(date).getHours()+":"+new Date(date).getMinutes()+" "
+    +new Date(date).getDate().toString().padStart(2, "0")+"."+(new Date(date).getMonth()+1).toString().padStart(2,"0")+"."+new Date(date).getFullYear()+".";
+  }
+  public equalsPanic(message:Message): boolean{
+    return message.type.toString()=="PANIC";
   }
 }

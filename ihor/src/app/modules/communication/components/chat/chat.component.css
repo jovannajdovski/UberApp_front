@@ -43,6 +43,17 @@ h1{
 }
 #panic{
     height: 30px;
+    
+}
+.right{
+    float: right;
+    align-self: center;
+}
+.left{
+    float: left;
+}
+.red{
+    border: 5px solid rgba(255, 0, 0, 1);
 }
 input{
     display: block;

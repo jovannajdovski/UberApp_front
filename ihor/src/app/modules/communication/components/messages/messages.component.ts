@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { MessageService, Message, ChatType, Chat} from 'src/app/modules/communication/services/message/message.service'
+import { MessageService, Message, MessageType, Chat} from 'src/app/modules/communication/services/message/message.service'
 @Component({
   selector: 'app-messages',
   templateUrl: './messages.component.html',
@@ -7,7 +7,7 @@ import { MessageService, Message, ChatType, Chat} from 'src/app/modules/communic
 })
 export class MessagesComponent {
   public chats: Chat[]=[];
-  public chatType=ChatType;
+  public messageType=MessageType;
 
   constructor(private messageService: MessageService){
     this.messageService.observableChats$.subscribe((chats)=>
@@ -17,6 +17,10 @@ export class MessagesComponent {
   redirectTo(chat:Chat)
   {
     this.messageService.openChat(chat);
+  }
+  public shortDate(date:Date):string
+  {
+    return new Date(date).getHours()+":"+new Date(date).getMinutes();
   }
 }
 
