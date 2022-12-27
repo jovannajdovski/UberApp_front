@@ -23,6 +23,7 @@ export class MessageService {
    }
 
   openChat(chat:Chat){
+    
     this.chat$.next(chat);
     this.selectedChatRideId$.next(chat.rideId);
   }
@@ -35,7 +36,6 @@ export class MessageService {
       error: (error) => {
         if (error instanceof HttpErrorResponse) {
           console.log("pera");
-          
         }
       },
     });
@@ -89,10 +89,15 @@ export class MessageService {
   {
     this.sendMessageToBack(request).subscribe({
       next: (result) => {
-        const chats=this.chats$.getValue();
+        let chats=this.chats$.getValue();
         const chat:Chat=chats.find(object => {return object.rideId === result.rideId;})||{image: '', name: '', messages: [], rideId:-1, receiverId:-1};
-        chat.messages.push({timestamp: result.timeOfSending, content: result.message, myself: true, type: result.type});
+        chat.messages.push({timestamp: toDate(result.timeOfSending), content: result.message, myself: true, type: result.type});
+        
+        chats = chats.filter(item => item !== chat);
+        chats.unshift(chat);
+        
         this.chats$.next(chats);
+        //this.getMessages();
         this.openChat(chat);
       },
       error: (error) => {
@@ -108,7 +113,6 @@ export class MessageService {
   }
   private sendMessageToBack(request: MessageRequest):Observable<SentMessageResponse>{
     const userId=this.authService.getId();
-    console.log(request.type);
     return this.http.post<SentMessageResponse>(environment.apiHost+'user/'+userId+'/message', request);
   }
 }
