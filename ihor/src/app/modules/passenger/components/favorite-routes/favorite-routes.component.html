@@ -1,8 +1,9 @@
-<div class="container">
-    <div class="heading">    
-        <h1>Favorite routes</h1>
+<div id="alignment">
+  <div class="container">
+    <div class="heading">
+      <h1>Favorite routes</h1>
     </div>
-  
+
     <mat-selection-list #routeList [multiple]="false" id="routeList">
       <mat-list-option *ngFor="let route of demofavoriteRoutes; let i = index" [value]="route" id="routeContainer"
         (click)="selectRoute(i)">
@@ -16,5 +17,6 @@
         </div>
       </mat-list-option>
     </mat-selection-list>
-  
+
   </div>
+</div>

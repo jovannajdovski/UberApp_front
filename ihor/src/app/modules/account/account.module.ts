@@ -19,6 +19,12 @@ import { EditPasswordComponent } from './components/edit-password/edit-password.
     CommonModule,
     MaterialModule,
     ReactiveFormsModule,
+  ],
+  exports: [
+    ProfileComponent,
+    EditPasswordComponent,
+    EditProfileComponent,
+    PasswordChangedComponent
   ]
 })
 export class AccountModule { }
