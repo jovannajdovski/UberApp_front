@@ -16,12 +16,12 @@
                 <span matPrefix class="iconify icon-info" data-icon="material-symbols:person"></span>
                 <mat-form-field appearance="outline">
                     <mat-label>Name</mat-label>
-                    <input matInput type="text" formControlName="name">
+                    <input matInput type="text" [(ngModel)]="profile.name" formControlName="name">
                 </mat-form-field>
 
                 <mat-form-field appearance="outline" id="surname">
                     <mat-label>Surname</mat-label>
-                    <input matInput type="text" formControlName="surname">
+                    <input matInput type="text" [(ngModel)]="profile.surname" formControlName="surname">
                 </mat-form-field>
 
             </div>
@@ -30,7 +30,7 @@
                 <span id="phone-icon" class="iconify icon-info" data-icon="material-symbols:phone-enabled"></span>
                 <mat-form-field appearance="outline" class="full">
                     <mat-label>Phone Number</mat-label>
-                    <input matInput type="tel" formControlName="phone">
+                    <input matInput type="tel" [(ngModel)]="profile.telephoneNumber" formControlName="phone">
                 </mat-form-field>
             </div>
 
@@ -38,7 +38,7 @@
                 <span class="iconify icon-info" data-icon="material-symbols:mail"></span>
                 <mat-form-field appearance="outline" class="full">
                     <mat-label>Email address</mat-label>
-                    <input matInput type="email" formControlName="mail">
+                    <input matInput type="email" [(ngModel)]="profile.email" formControlName="mail">
                 </mat-form-field>
             </div>
 
@@ -46,11 +46,11 @@
                 <span class="iconify icon-info" data-icon="mdi:house"></span>
                 <mat-form-field appearance="outline" class="full">
                     <mat-label>Street address</mat-label>
-                    <input matInput type="text" formControlName="address">
+                    <input matInput type="text" [(ngModel)]="profile.address" formControlName="address">
                 </mat-form-field>
             </div>
 
-            <button class="" id="passwordbtn">EDIT PASSWORD</button>
+            <button class="" (click)="editPassword()" id="passwordbtn">EDIT PASSWORD</button>
 
             <button class="" [disabled]="!profileForm.valid" type="submit" id="editbtn">SAVE</button>
 

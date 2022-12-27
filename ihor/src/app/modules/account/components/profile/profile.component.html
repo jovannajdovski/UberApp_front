@@ -7,26 +7,26 @@
 
     <div id="profile-info">
         <div id="name">
-            John Doe
+            {{profile.name}} {{profile.surname}}
         </div>
 
         <div id="phone" class="section">
             <span id="phone-icon" class="iconify icon-info" data-icon="material-symbols:phone-enabled"></span>
-            <p>06666666</p>
+            <p>{{profile.telephoneNumber}}</p>
         </div>
 
         <div id="mail" class="section">
             <span class="iconify icon-info" data-icon="material-symbols:mail"></span>
-            <p>name@example.com</p>
+            <p>{{profile.email}}</p>
         </div>
 
         <div id="address" class="section">
             <span class="iconify icon-info" data-icon="mdi:house"></span>
-            <p>1234 Main Street</p>
+            <p>{{profile.address}}</p>
         </div>
     </div>
 
-    <button id="editbtn">EDIT PROFILE</button>
+    <button id="editbtn" (click)="edit()">EDIT PROFILE</button>
 
 
   </div>

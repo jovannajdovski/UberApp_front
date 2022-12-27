@@ -134,6 +134,25 @@
     color: white !important;
 }
 
+::ng-deep .mat-select-content{
+    color: white !important;  
+}
+
+::ng-deep .mat-select-panel {
+    color: white !important;  
+}
+
+mat-option{
+    color: white;
+    border-left: 2px solid white;
+    border-right: 2px solid white;
+    background-color: #1e252b;
+}
+
+mat-option:hover{
+    color: rgb(204, 204, 204);
+    background-color: #232a31;
+}
 
 #editbtn {
     height: 20%;

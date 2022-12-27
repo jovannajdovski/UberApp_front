@@ -1,5 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Profile } from '../../model/profile';
+import { AuthService } from 'src/app/modules/auth/services/auth.service';
+import { Router } from '@angular/router';
+import { HttpErrorResponse } from '@angular/common/http';
+import { ProfileService } from '../../services/profile.service';
 
 @Component({
   selector: 'app-profile',
@@ -9,17 +13,39 @@ import { Profile } from '../../model/profile';
 export class ProfileComponent implements OnInit{
 
   profile: Profile = {
-    _id: 0,
     name: '',
     surname: '',
     profilePicture: '',
     telephoneNumber: '',
-    emaill: '',
+    email: '',
     address: '',
   };
 
   constructor(
+    private authService : AuthService,
+    private router : Router,
+    private profileService: ProfileService
   ) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    const id = this.authService.getId();
+
+    this.profileService.getProfile(id).subscribe({
+      next: (profile) => {
+        this.profile.name = profile.name;
+        this.profile.surname = profile.surname;
+        this.profile.profilePicture = profile.profilePicture;
+        this.profile.telephoneNumber = profile.telephoneNumber;
+        this.profile.email = profile.email;
+        this.profile.address = profile.address;
+      },
+      error: (error) => { 
+        console.log(error);
+      },
+    });
+  }
+
+  edit(){
+    this.router.navigate(['/edit-profile']);
+  }
 }
