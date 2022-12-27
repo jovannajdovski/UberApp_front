@@ -39,6 +39,8 @@ export class LoginComponent implements OnInit {
             this.router.navigate(['/driver']);
           } else if (this.authService.getRole() == "ADMINISTRATOR") {
             this.router.navigate(['/administrator']);
+          } else if (this.authService.getRole() == "PASSENGER") {
+            this.router.navigate(['/passenger']);
           }
         },
         error: (error) => {

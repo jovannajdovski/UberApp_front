@@ -98,22 +98,21 @@
         width: 50px;
     }
   }
-@media (max-width: 1000px) {
-
+@media (max-width: 1100px) {
+    #currentRideBtn{
+        width: 150px;
+        font-size:14px;
+    }
+    #driver-left-div{
+        width: 0;
+    }
+    #driver-mid-div{
+        width: 50px;
+    }
 
 
 }
 @media (max-width: 580px) {
-    
-    #navbar{
-        gap: 5px;
-    }
-    #pre-div{
-        width: 5%;
-    }
-    #mid-div{
-        width: 5%;
-    }
     .navbar-button{
         box-sizing: border-box;
         font-size: 14px;

@@ -4,6 +4,7 @@ import { PasswordChangedComponent } from 'src/app/modules/account/components/pas
 import { LoginComponent } from 'src/app/modules/auth/components/login/login.component';
 import { InboxComponent } from 'src/app/modules/communication/components/inbox/inbox.component';
 import { DriverHomeComponent } from 'src/app/modules/driver/components/driver-home/driver-home.component';
+import { PassengerHomeComponent } from 'src/app/modules/passenger/components/passenger-home/passenger-home.component';
 import { ForgotPasswordComponent } from 'src/app/modules/unregistered-user/components/forgot-password/forgot-password.component';
 import { ResetPasswordComponent } from 'src/app/modules/unregistered-user/components/reset-password/reset-password.component';
 import { SignupComponent } from 'src/app/modules/unregistered-user/components/signup/signup.component';
@@ -13,6 +14,7 @@ const routes: Routes = [
   {path:'login', component: LoginComponent},
   {path:'signup', component: SignupComponent},
   { path: '', redirectTo: 'home', pathMatch: 'full' },
+  {path: 'passenger', canActivate:[], component:PassengerHomeComponent},
   {path: 'driver', canActivate:[], component:DriverHomeComponent},
   {path: 'inbox', canActivate:[], component: InboxComponent},
   {path:'home', component: UnregisteredUserHomeComponent},
