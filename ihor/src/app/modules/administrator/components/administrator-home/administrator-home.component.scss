@@ -59,6 +59,15 @@
   align-self: center;
 }
 
+.button-container {
+  padding: 1em;
+}
+
+.add-driver .mdc-fab {
+  color: white;
+  background-color: green;
+}
+
 .main-footer{
   justify-content: center;
   padding: 2em;

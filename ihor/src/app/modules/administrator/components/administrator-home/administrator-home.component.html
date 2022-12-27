@@ -11,7 +11,13 @@
         </div>
 
         <div class="main-content">
-            <app-driver-card *ngFor="let driver of obs | async" [driver]="driver" ></app-driver-card>
+            <app-driver-card *ngFor="let driver of obs | async" [driver]="driver" [driverEdited]="driverEdited" ></app-driver-card>
+        </div>
+
+        <div class="button-container add-driver">
+            <button mat-fab aria-label="Add driver button" (click)="openAddDriverDialog()">
+              <mat-icon>person_add</mat-icon>
+            </button>
         </div>
 
         <div class="main-footer flex-container">
@@ -25,3 +31,5 @@
         </div>
     </div>
 </div>
+
+<app-snack-bar></app-snack-bar>

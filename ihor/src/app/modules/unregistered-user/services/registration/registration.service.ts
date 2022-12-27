@@ -22,4 +22,16 @@ export class RegistrationService {
       password: registration.password
     })
   }
+
+  registerDriver(registration: Registration): Observable<Registration> {
+    return this.http.post<Registration>(environment.apiHost + "driver", 
+    {
+      name: registration.name,
+      surname: registration.surname,
+      telephoneNumber : registration.telephoneNumber,
+      email: registration.email,
+      address: registration.address,
+      password: registration.password
+    })
+  }
 }

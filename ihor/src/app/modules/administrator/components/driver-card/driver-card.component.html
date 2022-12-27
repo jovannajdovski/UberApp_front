@@ -3,5 +3,5 @@
   <img src="https://material.angular.io/assets/img/examples/shiba2.jpg" alt="profile image" class="profile-image" />
   <h1 class="name">{{ driver.name }} {{ driver.surname }}</h1>
   <p class="description">{{ driver.email }}</p>
-  <button class="btn">Edit</button>
+  <button class="btn" (click)="openEditDriverDialog()">Edit</button>
 </div>

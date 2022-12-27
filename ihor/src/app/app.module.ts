@@ -1,11 +1,9 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { MaterialModule } from 'src/infrastructure/material.module';
 import { AppRoutingModule } from '../infrastructure/app-routing.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 //import { FlexLayoutModule } from '@angular/flex-layout';
-import { FormsModule, NgModel, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 
 import { MarkerService } from './modules/map/services/map/marker.service';
@@ -41,7 +39,6 @@ import { UnregisteredUserModule } from './modules/unregistered-user/unregistered
     UnregisteredUserModule
   ],
   providers: [
-    // {provide: ErrorStateMatcher, useClass: ShowOnDirtyErrorStateMatcher},
     MarkerService,
     PopupService,
     ShapeService
