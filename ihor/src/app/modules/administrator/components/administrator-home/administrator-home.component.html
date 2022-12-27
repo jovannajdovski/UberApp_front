@@ -1,0 +1,27 @@
+<div class="center-screen">
+    <div class="main-screen" (window:resize)="onResize($event)">
+        <div class="main-header flex-container container-padding" >
+            <h1>Drivers</h1>
+
+            <mat-form-field class="search-drivers" appearance="outline">
+                <mat-label>Search</mat-label>
+                <input matInput placeholder="Placeholder">
+                <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
+              </mat-form-field>
+        </div>
+
+        <div class="main-content">
+            <app-driver-card *ngFor="let driver of obs | async" [driver]="driver" ></app-driver-card>
+        </div>
+
+        <div class="main-footer flex-container">
+            <mat-paginator
+                [pageSize]="pageSize"
+                [length]="totalElements"
+                [pageSizeOptions]="[3, 6, 12]"
+                (page)="nextPage($event)"
+            >
+            </mat-paginator>
+        </div>
+    </div>
+</div>
