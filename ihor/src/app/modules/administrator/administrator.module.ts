@@ -7,7 +7,8 @@ import { AddDriverDialogComponent } from './components/add-driver-dialog/add-dri
 import { ReactiveFormsModule } from '@angular/forms';
 import { SharedModule } from '../shared/shared.module';
 import { EditDriverDialogComponent } from './components/edit-driver-dialog/edit-driver-dialog.component';
-import { SharedService } from '../shared/services/shared/shared.service';
+import { DriversComponent } from './components/drivers/drivers.component';
+import { AppRoutingModule } from 'src/infrastructure/app-routing.module';
 
 
 
@@ -16,13 +17,18 @@ import { SharedService } from '../shared/services/shared/shared.service';
     DriverCardComponent,
     AdministratorHomeComponent,
     AddDriverDialogComponent,
-    EditDriverDialogComponent
+    EditDriverDialogComponent,
+    DriversComponent
   ],
   imports: [
     CommonModule,
+    AppRoutingModule,
     MaterialModule,
     ReactiveFormsModule,
     SharedModule
+  ],
+  exports: [
+    DriversComponent
   ]
 })
 export class AdministratorModule { }

@@ -40,6 +40,17 @@
   color: white !important;
 }
 
+//change color of border for pagination
+::ng-deep mat-form-field div {
+  border-color: white !important;
+}
+
+//change color of border for pagination
+::ng-deep mat-option {
+  color: white !important;
+  background-color: #282E33;
+}
+
 .main-content {
   display: grid;
   grid-template-columns: minmax(300px, 1fr);
