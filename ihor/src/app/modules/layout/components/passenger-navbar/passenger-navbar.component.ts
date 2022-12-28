@@ -25,6 +25,7 @@ export class PassengerNavbarComponent {
   }
   toProfile(){
     this.selectedPage=SelectedPage.PROFILE;
+    this.router.navigate(['/passenger/profile']); 
   }
   logout(){
     
