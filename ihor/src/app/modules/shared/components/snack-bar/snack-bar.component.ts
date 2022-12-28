@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { SharedService } from '../../services/shared/shared.service';
+import { SharedService } from '../../services/shared.service';
 
 @Component({
   selector: 'app-snack-bar',
@@ -24,11 +24,6 @@ export class SnackBarComponent implements OnInit {
   openSnackBar(message: string, action: string) {
     this._snackBar.open(message, action, {
       duration: 3000
-    });
-    this.sharedService.newSnackMessage$.subscribe((value) => {
-      if (typeof value == 'string') {
-        this.openSnackBar(value, 'OK');
-      }
     });
   }
 

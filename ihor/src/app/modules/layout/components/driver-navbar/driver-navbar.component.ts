@@ -24,7 +24,7 @@ export class DriverNavbarComponent {
     this.selectedPage=SelectedPage.HISTORY;
   }
   toProfile(){
-    this.selectedPage=SelectedPage.PROFILE;
+    this.router.navigate(['/driver/profile']);   
   }
   logout(){
     

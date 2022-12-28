@@ -1,14 +1,44 @@
 app-map{
-    height: 600px;
-    width: 65%;
     position: relative;
     margin: 20px;
+    height: 75%;
+    width: 60%;
+    min-height: 500px;
 }
+
+app-route-form{
+    height: 75%;
+}
+
+app-estimated-routes{
+    height: 75%;
+}
+
 #container{
     display: flex;
-    margin-top: 130px;
-    margin-left: 50px;
     align-items: center;
     flex-wrap: wrap;
-    justify-content:center
+    justify-content:center;
+    height: 100%;
+    width: 100%;
+    gap: 2%;
+}
+
+@media only screen and (max-width: 1390px) {
+    app-route-form{
+        margin-top: 130px;
+        height: 50%;
+    }
+    
+    app-estimated-routes{
+        margin-top: 150px;
+        height: 45%;
+    }
+
+    app-map{
+        margin: 20px;
+        height: 50%;
+        width: 90%;
+        min-height: 500px;
+    }
 }

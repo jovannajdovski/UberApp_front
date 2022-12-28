@@ -1,40 +1,42 @@
 <div id="content">
-    <div class="container">
-        <div class="container" id="working-container">
-            <div class="row-div">
-                <p class="basic-text">Work hours remained</p>
-                <p id="remained-time">06:21</p>
+    <div class="tools">
+        <div class="container">
+            <div class="container" id="working-container">
+                <div class="row-div">
+                    <p class="basic-text">Work hours remained</p>
+                    <p id="remained-time">06:21</p>
+                </div>
+                <div class="row-div">
+                    <p class="basic-text">Activity status</p>
+                    <mat-slide-toggle id="status" color="primary" [checked]="true" [disabled]="false"></mat-slide-toggle>
+                </div>
             </div>
-            <div class="row-div">
-                <p class="basic-text">Activity status</p>
-                <mat-slide-toggle id="status" color="primary" [checked]="true" [disabled]="false"></mat-slide-toggle>
+            <div class="container" id="ride-container">
+                <h1>Upcoming ride</h1>
+                <div class="row-div ride">
+                    <div class="icon">
+                        <img id="route-img" src="../../../../../assets/images/route.png" alt="Icon">
+                    </div>
+                    <div id="addresses">
+                        <p class="basic-text">Futoska 3</p>
+                        <p class="basic-text">Temerinska 22</p>
+                    </div>
+                </div>
+                <div class="row-div ride">
+                    <div class="icon">
+                        <img src="../../../../../assets/images/cash.png" alt="Icon">
+                    </div>
+                    <p class="basic-text">1000 RSD<p>
+                </div>
+                <div class="row-div ride">
+                    <div class="icon">
+                        <img src="../../../../../assets/images/clock.png" alt="Icon">
+                    </div>
+                    <p class="basic-text">20:30<p>
+                </div>
             </div>
+            
         </div>
-        <div class="container" id="ride-container">
-            <h1>Upcoming ride</h1>
-            <div class="row-div ride">
-                <div class="icon">
-                    <img id="route-img" src="../../../../../assets/images/route.png" alt="Icon">
-                </div>
-                <div id="addresses">
-                    <p class="basic-text">Futoska 3</p>
-                    <p class="basic-text">Temerinska 22</p>
-                </div>
-            </div>
-            <div class="row-div ride">
-                <div class="icon">
-                    <img src="../../../../../assets/images/cash.png" alt="Icon">
-                </div>
-                <p class="basic-text">1000 RSD<p>
-            </div>
-            <div class="row-div ride">
-                <div class="icon">
-                    <img src="../../../../../assets/images/clock.png" alt="Icon">
-                </div>
-                <p class="basic-text">20:30<p>
-            </div>
-        </div>
-        
-    </div>
+    </div>  
     <app-map></app-map>
 </div>

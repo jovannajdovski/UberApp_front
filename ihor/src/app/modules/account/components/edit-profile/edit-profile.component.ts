@@ -80,7 +80,7 @@ export class EditProfileComponent implements OnInit {
     if(this.authService.getRole()==="DRIVER"){
       return "/driver/profile";
     }
-    return "/admin/profile";
+    return "/administrator/profile";
   }
 
   editPassword(){

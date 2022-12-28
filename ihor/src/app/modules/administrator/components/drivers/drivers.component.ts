@@ -3,7 +3,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { Observable } from 'rxjs';
-import { SharedService } from 'src/app/modules/shared/services/shared/shared.service';
+import { SharedService } from 'src/app/modules/shared/services/shared.service';
 import { Driver } from '../../model/driver';
 import { DriverService } from '../../services/driver.service';
 import { AddDriverDialogComponent } from '../add-driver-dialog/add-driver-dialog.component';
