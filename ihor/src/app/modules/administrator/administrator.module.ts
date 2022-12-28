@@ -20,7 +20,8 @@ import { AccountModule } from '../account/account.module';
     AdministratorHomeComponent,
     AddDriverDialogComponent,
     EditDriverDialogComponent,
-    DriversComponent
+    DriversComponent,
+    AdminProfileComponent
   ],
   imports: [
     CommonModule,

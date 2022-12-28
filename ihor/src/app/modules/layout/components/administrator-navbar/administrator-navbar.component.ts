@@ -25,9 +25,11 @@ export class AdministratorNavbarComponent {
   }
   toUsers(){
     this.selectedPage=SelectedPage.USERS;
+    this.router.navigate(['/administrator/drivers']);   
   }
   toProfile(){
     this.selectedPage=SelectedPage.PROFILE;
+    this.router.navigate(['/administrator/profile']);   
   }
   logout(){
     

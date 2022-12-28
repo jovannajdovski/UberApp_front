@@ -9,12 +9,9 @@ import { LoginComponent } from 'src/app/modules/auth/components/login/login.comp
 import { InboxComponent } from 'src/app/modules/communication/components/inbox/inbox.component';
 import { DriverHomeComponent } from 'src/app/modules/driver/components/driver-home/driver-home.component';
 import { PassengerHomeComponent } from 'src/app/modules/passenger/components/passenger-home/passenger-home.component';
-import { ProfileComponent } from 'src/app/modules/account/components/profile/profile.component';
 import { AdminProfileComponent } from 'src/app/modules/administrator/components/admin-profile/admin-profile.component';
 import { DriverProfileComponent } from 'src/app/modules/driver/components/driver-profile/driver-profile.component';
 import { EditVehicleComponent } from 'src/app/modules/driver/components/edit-vehicle/edit-vehicle.component';
-import { VehicleDataComponent } from 'src/app/modules/driver/components/vehicle-data/vehicle-data.component';
-import { FavoriteRoutesComponent } from 'src/app/modules/passenger/components/favorite-routes/favorite-routes.component';
 import { PassengerProfileComponent } from 'src/app/modules/passenger/components/passenger-profile/passenger-profile.component';
 import { ForgotPasswordComponent } from 'src/app/modules/unregistered-user/components/forgot-password/forgot-password.component';
 import { ResetPasswordComponent } from 'src/app/modules/unregistered-user/components/reset-password/reset-password.component';
@@ -29,7 +26,7 @@ const routes: Routes = [
     canActivate:[],
     component:AdministratorHomeComponent,
     children: [
-      { path: "", redirectTo: 'drivers', pathMatch: 'full'},
+      { path: "", redirectTo: 'profile', pathMatch: 'full'},
       { path: "drivers", component: DriversComponent},
       { path: "profile", component: AdminProfileComponent}
     ]
