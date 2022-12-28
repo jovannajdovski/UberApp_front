@@ -34,7 +34,7 @@
 
                     <p *ngIf="vehicle.babyTransport; else noBaby">Baby included</p>
                     <ng-template #noBaby>
-                        Baby not included
+                        <p>Baby not included</p>
                     </ng-template>
                 </div>
             </div>
@@ -44,7 +44,7 @@
 
                     <p *ngIf="vehicle.petTransport; else noPet">Pet included</p>
                     <ng-template #noPet>
-                        Pet not included
+                        <p>Pet not included</p>
                     </ng-template>
                 </div>
             </div>
