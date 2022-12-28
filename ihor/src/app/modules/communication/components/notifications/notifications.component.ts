@@ -15,6 +15,15 @@ export class NotificationsComponent {
   //private rideRejectionResponse: Observable<RideRejectionResponse>;
   public notifications: { ride: Ride, timestamp: string, type: NotificationType }[]
   public notificationType=NotificationType;
+  // eslint-disable-next-line @angular-eslint/use-lifecycle-interface
+  ngAfterViewChecked()
+  {
+    const scrollableContainer = document.getElementById("messages_container");
+      if(scrollableContainer!=null)
+      {
+        scrollableContainer.scrollTo(0,scrollableContainer.scrollHeight);
+      }
+  }
   constructor(private rideRejectionService: RideRejectionService){
     const ride1: Ride={address1: 'Preradoviceva 40', address2: 'Futoska 50', time: '20:30', cash: 500, rejectionReason:'Umro mu pas'};
     const ride2: Ride={address1: 'Laze Teleckog 2', address2: 'Bulevar oslobodjenja 100', time: '22:30', cash: 1500, rejectionReason:''};

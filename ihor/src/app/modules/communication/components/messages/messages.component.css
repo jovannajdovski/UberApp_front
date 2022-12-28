@@ -48,6 +48,10 @@ h1 {
     color: #FFFFFF;
     margin: 0 auto 30px auto;
 }
+#messages-container{
+    overflow: auto;
+    height: calc(100% - 170px);
+}
 #gridContainer{
     display: grid;
     grid-template-columns: 20% 55% 20%;

@@ -22,5 +22,14 @@ export class MessagesComponent {
   {
     return new Date(date).getHours().toString().padStart(2, "0")+":"+new Date(date).getMinutes().toString().padStart(2, "0");
   }
+  // eslint-disable-next-line @angular-eslint/use-lifecycle-interface
+  ngAfterViewChecked()
+  {
+    const scrollableContainer = document.getElementById("messages_container");
+      if(scrollableContainer!=null)
+      {
+        scrollableContainer.scrollTo(0,scrollableContainer.scrollHeight);
+      }
+  }
 }
 

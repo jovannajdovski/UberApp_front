@@ -13,9 +13,22 @@ export class ChatComponent {
   public messageType=MessageType;
   constructor(private messageService: MessageService){
     this.messageService.observableChat$.subscribe((chat)=>
-    {this.chat=chat;});
+    {
+      this.chat=chat; 
+    });
     this.messageService.observableSelectedChatRideId$.subscribe((value)=>
-    {this.chatRideId=value; })
+    {
+      this.chatRideId=value;
+    })
+  }
+  // eslint-disable-next-line @angular-eslint/use-lifecycle-interface
+  ngAfterViewChecked()
+  {
+    const scrollableContainer = document.getElementById("messages_container");
+      if(scrollableContainer!=null)
+      {
+        scrollableContainer.scrollTo(0,scrollableContainer.scrollHeight);
+      }
   }
   public sendMessage(messageType:MessageType)
   {
@@ -26,6 +39,7 @@ export class ChatComponent {
       "rideId": this.chat.rideId
     }
     this.messageService.sendMessage(messageRequest);
+
   }
   public fullDate(date:Date):string
   {

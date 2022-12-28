@@ -97,6 +97,10 @@ input{
     border-radius: 10px;
     margin: 10px auto;
 }
+#messages_container{
+    overflow: auto;
+    height: calc(100% - 100px);
+}
 #messages{
     padding: 5px;
     position: relative;

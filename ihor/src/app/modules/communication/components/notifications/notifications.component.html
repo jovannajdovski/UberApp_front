@@ -1,5 +1,6 @@
 <div id="container">
     <h1>Notifications</h1>
+    <div id="notifications_container">
         <div *ngFor="let notification of notifications" [ngSwitch]="notification.type" [ngClass]="notification.type===notificationType.NEW_RIDE ? 'notification new-ride' : 'notification'">
             <div *ngSwitchCase="notificationType.NEW_RIDE">
                 <div id="gridContainer">
@@ -45,6 +46,7 @@
                 </div>
             </div>
         </div>
+    </div>
 </div>
 
     
