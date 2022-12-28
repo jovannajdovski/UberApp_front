@@ -98,19 +98,17 @@ export class ProfileService {
     return new Observable<any>();
   }
   
-  getPassword(userId: number): Observable<{password:string}> {
-    return this.http.get<{password:string}>(environment.apiHost + 'user/' + userId +'/password');
-  }
 
-  updatePassword(userId:number, password: string): Observable<any> {
+  updatePassword(userId:number, currPassword: string, newPassword: string): Observable<any> {
     const options: any = {
       responseType: 'text',
     };
 
     return this.http.put<string>(
-      environment.apiHost + 'user/' + userId,
+      environment.apiHost + 'user/' + userId+'/passwordchange',
       {
-        password: password
+        currentPassword: currPassword,
+        newPassword: newPassword
       },
       options
     );

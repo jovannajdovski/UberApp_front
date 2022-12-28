@@ -1,9 +1,10 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormGroup, FormControl, Validators, FormGroupDirective, NgForm, EmailValidator } from '@angular/forms';
 import { AuthService } from 'src/app/modules/auth/services/auth.service';
 import { ProfileService } from '../../services/profile.service';
 import { SharedService } from 'src/app/modules/shared/services/shared.service';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-edit-password',
@@ -38,35 +39,23 @@ export class EditPasswordComponent {
     this.id = 0;
   }
 
+
   toChange() {
     if (this.editForm.valid) {
       this.id = this.authService.getId();
 
-      this.profileService.getPassword(this.id).subscribe({
-        next: (result) => {
-          this.oldPassword = result.password;
-
-          if (this.oldPassword !== this.currPassword) {
-            this.sharedService.openSnack('Incorrect password');
-            this.refreshInputs();
-            return;
-          }
-
-          this.profileService.updatePassword(this.id, this.newPassword).subscribe({
-            next: () => {
-              this.router.navigate(['/edit-profile']);
-            },
-            error: (error) => {
-              console.log(error);
-            }
-          })
-
+      this.profileService.updatePassword(this.id, this.currPassword, this.newPassword).subscribe({
+        next: () => {
+          this.router.navigate(['/edit-profile']);
         },
-        error: (error) => {
+        error: (error:HttpErrorResponse) => {
+          if(error.status===400){            
+            this.wrongPassword();
+         } else {
           console.log(error);
-        },
-      });
-    
+         }
+        }
+      })
     }
   }
 
@@ -74,6 +63,11 @@ export class EditPasswordComponent {
     this.currPassword = '';
     this.newPassword = '';
     this.confirmNewPassword = '';
+  }
+
+  wrongPassword() {
+    this.sharedService.openSnack('Incorrect password');
+    this.refreshInputs();
   }
 
 }
