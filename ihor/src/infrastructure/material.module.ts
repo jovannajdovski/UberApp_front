@@ -19,6 +19,8 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatSelectModule } from '@angular/material/select';
 import { MatAutocompleteModule } from '@angular/material/autocomplete'
+import {MatPaginatorModule} from '@angular/material/paginator';
+import {MatTableModule} from '@angular/material/table';
 
 @NgModule({
   imports: [
@@ -42,7 +44,9 @@ import { MatAutocompleteModule } from '@angular/material/autocomplete'
     MatRadioModule,
     MatSelectModule,
     MatRippleModule,
-    MatAutocompleteModule
+    MatAutocompleteModule,
+    MatPaginatorModule,
+    MatTableModule
   ],
   exports: [
     MatButtonModule,
@@ -65,7 +69,9 @@ import { MatAutocompleteModule } from '@angular/material/autocomplete'
     MatRadioModule,
     MatSelectModule,
     MatRippleModule,
-    MatAutocompleteModule
+    MatAutocompleteModule,
+    MatPaginatorModule,
+    MatTableModule
   ],
 })
 export class MaterialModule {}

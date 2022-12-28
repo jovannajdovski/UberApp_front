@@ -1,6 +1,8 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { PasswordChangedComponent } from 'src/app/modules/account/components/password-changed/password-changed.component';
+import { AdministratorHomeComponent } from 'src/app/modules/administrator/components/administrator-home/administrator-home.component';
+import { DriversComponent } from 'src/app/modules/administrator/components/drivers/drivers.component';
 import { LoginComponent } from 'src/app/modules/auth/components/login/login.component';
 import { InboxComponent } from 'src/app/modules/communication/components/inbox/inbox.component';
 import { DriverHomeComponent } from 'src/app/modules/driver/components/driver-home/driver-home.component';
@@ -12,9 +14,17 @@ import { UnregisteredUserHomeComponent } from 'src/app/modules/unregistered-user
 const routes: Routes = [
   {path:'login', component: LoginComponent},
   {path:'signup', component: SignupComponent},
-  { path: '', redirectTo: 'home', pathMatch: 'full' },
-  {path: 'driver', canActivate:[], component:DriverHomeComponent},
-  {path: 'inbox', canActivate:[], component: InboxComponent},
+  {path: '', redirectTo: 'home', pathMatch: 'full' },
+  {path: 'administrator',
+    canActivate:[],
+    component:AdministratorHomeComponent,
+    children: [
+      { path: "", redirectTo: 'drivers', pathMatch: 'full'},
+      { path: "drivers", component: DriversComponent}
+    ]
+  },
+  {path:'driver', canActivate:[], component:DriverHomeComponent},
+  {path:'inbox', canActivate:[], component: InboxComponent},
   {path:'home', component: UnregisteredUserHomeComponent},
   {path:'forgot-password', component: ForgotPasswordComponent},
   {path:'password-changed', component: PasswordChangedComponent},

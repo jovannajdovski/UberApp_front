@@ -31,8 +31,7 @@ export class SignupFormComponent implements OnInit {
   constructor(private router: Router, 
     private registrationService: RegistrationService) {}
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
 
   signup() {
     const registration : Registration = {

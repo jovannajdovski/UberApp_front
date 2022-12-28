@@ -1,0 +1,118 @@
+.center-screen {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    min-height: 100vh;
+}
+
+.main-screen {
+    min-width: 75%;
+    border: 1px solid gray;
+    background-color: #282E33;
+}
+
+.container-padding {
+  padding: 2em;
+}
+
+.main-header {
+  border-bottom: 1px solid gray;
+}
+
+//input outline color
+::ng-deep .search-drivers div {
+  border-color: white!important;
+}
+
+//change color of input
+::ng-deep .search-drivers input {
+  color: white !important;
+}
+
+//change color of placeholder
+::ng-deep .search-drivers input::placeholder {
+  color: gray !important;
+}
+
+//change color of placeholder
+::ng-deep .search-drivers mat-label {
+  color: white !important;
+}
+
+//change color of border for pagination
+::ng-deep mat-form-field div {
+  border-color: white !important;
+}
+
+//change color of border for pagination
+::ng-deep mat-option {
+  color: white !important;
+  background-color: #282E33;
+}
+
+.main-content {
+  display: grid;
+  grid-template-columns: minmax(300px, 1fr);
+  justify-content: center;
+  grid-gap: 4rem;
+  margin: 2rem;
+}
+
+.flex-container{
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+.main-header h1 {
+  color: white !important;
+  align-self: center;
+}
+
+.button-container {
+  padding: 1em;
+}
+
+.add-driver .mdc-fab {
+  color: white;
+  background-color: green;
+}
+
+.main-footer{
+  justify-content: center;
+  padding: 2em;
+  border-top: 1px solid gray;
+}
+
+::ng-deep .mat-mdc-paginator-container div { 
+  color: white !important;
+}
+
+::ng-deep .mat-mdc-paginator-container button { 
+  color: white !important;
+}
+
+@media screen and (min-width: 600px) {
+  .main-content {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .flex-container {
+    flex-direction: column !important;
+  }
+}
+
+@media screen and (max-width: 1260px) {
+  .center-screen {
+    margin-top: 5rem;
+  }
+}
+
+@media screen and (min-width: 1260px) {
+  .main-content {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
