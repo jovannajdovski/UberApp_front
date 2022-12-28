@@ -47,7 +47,7 @@ export class NotificationsComponent {
     };
     const rideRejectionResponse=this.rideRejectionService.reject(rejectionReason, 1).subscribe({
       next: (result) => {
-        
+        console.log(result.estimatedTimeInMinutes); //TODO
       },
       error: (error) => {
         if (error instanceof HttpErrorResponse) {

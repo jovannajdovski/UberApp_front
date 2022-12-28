@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { MessageService, Message, ChatType, Chat} from 'src/app/services/message/message.service';
+import { MessageService, Message, MessageType, Chat, MessageRequest} from 'src/app/modules/communication/services/message/message.service';
 
 @Component({
   selector: 'app-chat',
@@ -7,21 +7,32 @@ import { MessageService, Message, ChatType, Chat} from 'src/app/services/message
   styleUrls: ['./chat.component.css']
 })
 export class ChatComponent {
-    public chatSelected=true;
-    public chat= {
-      image: "", //TODO
-      name: "Ivan Mrsulja SUPPORT",
-      messages: [message1,message2,message3],
-      type: ChatType.PANIC
+  public message='';
+  public chatRideId=-1;
+  public chat:Chat={image: '', name: '', messages: [], rideId:-1, receiverId:-1};
+  public messageType=MessageType;
+  constructor(private messageService: MessageService){
+    this.messageService.observableChat$.subscribe((chat)=>
+    {this.chat=chat;});
+    this.messageService.observableSelectedChatRideId$.subscribe((value)=>
+    {this.chatRideId=value; })
+  }
+  public sendMessage(messageType:MessageType)
+  {
+    const messageRequest:MessageRequest={
+      "receiverId": this.chat.receiverId,
+      "message": this.message,
+      "type": messageType,
+      "rideId": this.chat.rideId
     }
-    public chatType=ChatType;
-
-    constructor(private messageService: MessageService){}
+    this.messageService.sendMessage(messageRequest);
+  }
+  public fullDate(date:Date):string
+  {
+    return new Date(date).getHours().toString().padStart(2, "0")+":"+new Date(date).getMinutes().toString().padStart(2, "0")+" "
+    +new Date(date).getDate().toString().padStart(2, "0")+"."+(new Date(date).getMonth()+1).toString().padStart(2,"0")+"."+new Date(date).getFullYear()+".";
+  }
+  public equalsPanic(message:Message): boolean{
+    return message.type.toString()=="PANIC";
+  }
 }
-
-const date1=new Date('2022-12-16T10:24:00');
-const date2=new Date('2022-12-17T03:24:00');
-const date3=new Date('2022-12-18T02:24:00');
-const message1: Message={ timestamp: date1.getHours()+':'+date1.getMinutes(), content: 'Samo jako Samo jako Samo jakoSamo jakoSamo jakoSamo jakoSamo jakoSamo jakoSamo jakoSamo jakoSamo jakoSamo jakoSamo jakoSamo jakoSamo jako', myself: false}
-const message2: Message={ timestamp: date2.getHours()+':'+date2.getMinutes(), content: 'BORJAN', myself: true}
-const message3: Message={ timestamp: date3.getHours()+':'+date3.getMinutes(), content: 'BORJAN', myself: false}

@@ -1,29 +1,21 @@
 #content {
-    width: 100%;
-    height: 100%;
-    position: absolute;
     display: flex;
-    flex-direction: row;
-    gap: 70px;
+    margin-top: 130px;
+    margin-left: 50px;
     align-items: center;
-    justify-content: center;
+    flex-wrap: wrap;
+    justify-content:center
 }
-#map{
-    background-image: url("../../../../../assets/images/uber_background.jpg");
-    background-size: cover;
-    width: 800px;
-    height: 75%;
-    border: 1px solid rgba(255, 255, 255, 0.25);
-    border-radius: 10px;
-    filter: drop-shadow(0px 4px 4px rgba(64, 58, 16, 0.5));
-
-    justify-content: center;
-    
+app-map{
+    height: 600px;
+    width: 65%;
+    position: relative;
+    margin: 20px;
 }
 .container {
     box-sizing: border-box;
     width: 485px;
-    height: 75%;
+    height: 600px;
     
     display: flex;
     flex-direction: column;

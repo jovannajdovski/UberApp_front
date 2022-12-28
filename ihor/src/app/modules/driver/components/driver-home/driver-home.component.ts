@@ -12,5 +12,4 @@ export class DriverHomeComponent {
   constructor(private routeService: RouteService ){
 
   }
-  color="#FFFFFF"
 }

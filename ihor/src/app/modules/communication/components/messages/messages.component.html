@@ -2,18 +2,16 @@
     <h1>Chat</h1>
     <input placeholder="Search" class="search" >
     <div *ngFor="let chat of chats" class="chat">
-        <!--ako je panic panic img se prikazuje-->
-        
-        <div id="gridContainer">
+        <div id="gridContainer" (click)="redirectTo(chat)">
             <div class="icon">
                 <img src="../../../assets/images/car_icon.png" alt="Icon">
             </div>
             <p class="name basic-text">{{chat.name}}</p>
             <p class="message basic-text">{{chat.messages[chat.messages.length-1].content}}</p>
-            <p id="timestamp" class="timestamp basic-text">{{chat.messages[chat.messages.length-1].timestamp}}</p>
-            <div class="panic" *ngIf="chat.type===chatType.PANIC">
+            <p id="timestamp" class="timestamp basic-text">{{shortDate(chat.messages[chat.messages.length-1].timestamp)}}</p>
+            <!--<div class="panic" *ngIf="chat.type===messageType.PANIC">
                 <img class="small-img" src="../../../assets/images/panic_message.png" alt="Icon">
-            </div> 
+            </div>--> 
         </div>
 
     </div>

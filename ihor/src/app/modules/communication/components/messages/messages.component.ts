@@ -1,41 +1,26 @@
 import { Component } from '@angular/core';
-import { MessageService, Message, ChatType, Chat} from 'src/app/services/message/message.service';
-
+import { MessageService, Message, MessageType, Chat} from 'src/app/modules/communication/services/message/message.service'
 @Component({
   selector: 'app-messages',
   templateUrl: './messages.component.html',
   styleUrls: ['./messages.component.css']
 })
 export class MessagesComponent {
-  public chats: Chat[];
-  public chatType=ChatType;
+  public chats: Chat[]=[];
+  public messageType=MessageType;
 
   constructor(private messageService: MessageService){
-  
-    this.chats=[
-      {
-          image: "", //TODO
-          name: "Ivan Mrsulja SUPPORT",
-          messages: [message1,message2,message3],
-          type: ChatType.SUPPORT
-      },
-      {
-          image: "",
-          name: "Stevan Gostojic",
-          messages: [message4,message5],
-          type: ChatType.PANIC
-      },
-    ];
+    this.messageService.observableChats$.subscribe((chats)=>
+    {this.chats=chats; });
+    
+  }
+  redirectTo(chat:Chat)
+  {
+    this.messageService.openChat(chat);
+  }
+  public shortDate(date:Date):string
+  {
+    return new Date(date).getHours().toString().padStart(2, "0")+":"+new Date(date).getMinutes().toString().padStart(2, "0");
   }
 }
 
-const date1=new Date('2022-12-16T10:24:00');
-const date2=new Date('2022-12-17T03:24:00');
-const date3=new Date('2022-12-18T02:24:00');
-const date4=new Date('2022-12-17T06:24:00');
-const date5=new Date('2022-12-19T10:24:00');
-const message1: Message={ timestamp: date1.getHours()+':'+date1.getMinutes(), content: 'Samo jako', myself: false}
-const message2: Message={ timestamp: date2.getHours()+':'+date2.getMinutes(), content: 'BORJAN', myself: true}
-const message3: Message={ timestamp: date3.getHours()+':'+date3.getMinutes(), content: 'BORJAN', myself: false}
-const message4: Message={ timestamp: date4.getHours()+':'+date4.getMinutes(), content: 'Dobar   dan', myself: false}
-const message5: Message={ timestamp: date5.getHours()+':'+date5.getMinutes(), content: 'PROFESORE', myself: false}
