@@ -5,7 +5,7 @@ import { SharedService } from '../../services/shared/shared.service';
 @Component({
   selector: 'app-snack-bar',
   templateUrl: './snack-bar.component.html',
-  styleUrls: ['./snack-bar.component.css']
+  styleUrls: ['./snack-bar.component.css'],
 })
 export class SnackBarComponent implements OnInit {
   constructor(
@@ -25,5 +25,11 @@ export class SnackBarComponent implements OnInit {
     this._snackBar.open(message, action, {
       duration: 3000
     });
+    this.sharedService.newSnackMessage$.subscribe((value) => {
+      if (typeof value == 'string') {
+        this.openSnackBar(value, 'OK');
+      }
+    });
   }
+
 }

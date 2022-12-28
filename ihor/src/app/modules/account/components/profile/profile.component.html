@@ -1,0 +1,33 @@
+<div id="alignment">
+<div id="container">
+
+    <div id="img-container">
+        <span class="iconify icon" data-icon="material-symbols:person"></span>
+    </div>
+
+    <div id="profile-info">
+        <div id="name">
+            {{profile.name}} {{profile.surname}}
+        </div>
+
+        <div id="phone" class="section">
+            <span id="phone-icon" class="iconify icon-info" data-icon="material-symbols:phone-enabled"></span>
+            <p>{{profile.telephoneNumber}}</p>
+        </div>
+
+        <div id="mail" class="section">
+            <span class="iconify icon-info" data-icon="material-symbols:mail"></span>
+            <p>{{profile.email}}</p>
+        </div>
+
+        <div id="address" class="section">
+            <span class="iconify icon-info" data-icon="mdi:house"></span>
+            <p>{{profile.address}}</p>
+        </div>
+    </div>
+
+    <button id="editbtn" (click)="edit()">EDIT PROFILE</button>
+
+
+  </div>
+</div>

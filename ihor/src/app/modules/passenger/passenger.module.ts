@@ -5,17 +5,23 @@ import { PassengerHomeComponent } from './components/passenger-home/passenger-ho
 import { FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { MapModule } from '../map/map.module';
 
+import { FavoriteRoutesComponent } from './components/favorite-routes/favorite-routes.component';
+import { PassengerProfileComponent } from './components/passenger-profile/passenger-profile.component';
+import { AccountModule } from '../account/account.module';
 
 
 @NgModule({
   declarations: [
-    PassengerHomeComponent
+    PassengerHomeComponent,
+    FavoriteRoutesComponent,
+    PassengerProfileComponent
   ],
   imports: [
     CommonModule,
     MaterialModule,
     ReactiveFormsModule,
-    MapModule
+    MapModule,
+    AccountModule
   ]
 })
 export class PassengerModule { }

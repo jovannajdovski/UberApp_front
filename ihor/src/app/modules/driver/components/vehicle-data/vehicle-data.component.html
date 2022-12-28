@@ -1,0 +1,57 @@
+<div id="alignment">
+    <div id="container">
+
+        <div id="vehicle-info">
+
+            <div id="title">
+                <span class="iconify car" data-icon="material-symbols:directions-car"></span>
+                <p>Vehicle data</p>
+            </div>
+
+            <div class="section">
+                <p>Vehicle model - {{vehicle.model}}</p>
+            </div>
+
+            <div class="section">
+                <p>Vehicle type - {{vehicle.vehicleType}}</p>
+            </div>
+
+            <div class="section">
+                <p>Price per km - {{vehicle.pricePerKM}} RSD</p>
+            </div>
+
+            <div class="section">
+                <p>License plate - {{vehicle.licenseNumber}}</p>
+            </div>
+
+            <div class="section">
+                <p>Number of seats - {{vehicle.passengerSeats}}</p>
+            </div>
+
+            <div class="section">
+                <div id="baby" class="subsection" [ngClass]="vehicle.babyTransport ? 'included' : 'not-included'">
+                    <span class="iconify yellow-ic" data-icon="material-symbols:baby-changing-station"></span>
+
+                    <p *ngIf="vehicle.babyTransport; else noBaby">Baby included</p>
+                    <ng-template #noBaby>
+                        Baby not included
+                    </ng-template>
+                </div>
+            </div>
+            <div class="section">
+                <div id="pet" class="subsection" [ngClass]="vehicle.petTransport ? 'included' : 'not-included'">
+                    <span class="iconify yellow-ic" data-icon="material-symbols:pets"></span>
+
+                    <p *ngIf="vehicle.petTransport; else noPet">Pet included</p>
+                    <ng-template #noPet>
+                        Pet not included
+                    </ng-template>
+                </div>
+            </div>
+        </div>
+
+        <button id="editbtn" (click)="edit()">EDIT VEHICLE</button>
+
+
+    </div>
+</div>

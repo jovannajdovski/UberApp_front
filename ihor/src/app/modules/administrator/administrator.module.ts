@@ -10,6 +10,8 @@ import { EditDriverDialogComponent } from './components/edit-driver-dialog/edit-
 import { DriversComponent } from './components/drivers/drivers.component';
 import { AppRoutingModule } from 'src/infrastructure/app-routing.module';
 
+import { AdminProfileComponent } from './components/admin-profile/admin-profile.component';
+import { AccountModule } from '../account/account.module';
 
 
 @NgModule({
@@ -25,10 +27,12 @@ import { AppRoutingModule } from 'src/infrastructure/app-routing.module';
     AppRoutingModule,
     MaterialModule,
     ReactiveFormsModule,
-    SharedModule
+    SharedModule,
+    AccountModule
   ],
   exports: [
-    DriversComponent
+    DriversComponent,
+    AdminProfileComponent
   ]
 })
 export class AdministratorModule { }
