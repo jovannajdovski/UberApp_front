@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Profile } from '../../model/profile';
+import { Profile, ProfileWPassword } from '../../model/profile';
 import { AuthService } from 'src/app/modules/auth/services/auth.service';
 import { Router } from '@angular/router';
 import { HttpErrorResponse } from '@angular/common/http';
@@ -12,7 +12,8 @@ import { ProfileService } from '../../services/profile.service';
 })
 export class ProfileComponent implements OnInit{
 
-  profile: Profile = {
+  profile: ProfileWPassword = {
+    password: '',
     name: '',
     surname: '',
     profilePicture: '',

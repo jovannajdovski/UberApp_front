@@ -31,9 +31,9 @@ const routes: Routes = [
   {path:'edit-profile', component: EditProfileComponent},
   {path:'edit-password', component: EditPasswordComponent},
   {path:'edit-vehicle', component: EditVehicleComponent},
-  {path:'admin-profile', component: AdminProfileComponent},
-  {path:'driver-profile', component: DriverProfileComponent},
-  {path:'passenger-profile', component: PassengerProfileComponent},
+  {path:'admin/profile', component: AdminProfileComponent},
+  {path:'driver/profile', component: DriverProfileComponent},
+  {path:'passenger/profile', component: PassengerProfileComponent},
 ];
 
 @NgModule({

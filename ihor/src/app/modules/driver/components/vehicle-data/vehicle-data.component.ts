@@ -19,6 +19,11 @@ export class VehicleDataComponent implements OnInit {
     passengerSeats: 0,
     babyTransport: false,
     petTransport: false,
+    currentLocation: {
+      address: '',
+      latitude: 0,
+      longitude: 0
+    },
   };
 
   constructor(

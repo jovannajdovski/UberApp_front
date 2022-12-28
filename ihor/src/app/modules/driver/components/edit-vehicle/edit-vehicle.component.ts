@@ -15,12 +15,17 @@ export class EditVehicleComponent implements OnInit {
 
   vehicle: Vehicle = {
     model: '',
-    vehicleType: 'STANDARDNO',
+    vehicleType: '',
     pricePerKM: 1000,
     licenseNumber: '',
     passengerSeats: 0,
     babyTransport: false,
     petTransport: false,
+    currentLocation: {
+      address: '',
+      latitude: 0,
+      longitude: 0
+    },
   };
 
   private id: number;
@@ -48,6 +53,7 @@ export class EditVehicleComponent implements OnInit {
 
     this.driverService.getVehicle(this.id).subscribe({
       next: (vehicle) => {
+        console.log(vehicle);
           this.vehicle.model = vehicle.model;
           this.vehicle.vehicleType = vehicle.vehicleType;
           //this.vehicle.pricePerKM = vehicle.pricePerKM;
@@ -64,15 +70,24 @@ export class EditVehicleComponent implements OnInit {
 
   edit(){
     if(this.vehicleForm.valid){
-      this.driverService.updateVehicle(this.id, this.vehicle).subscribe({
-        next: () => {
-          //this.ngOnInit();
-          this.router.navigate(["/driver-profile"]);
+      this.driverService.getVehicle(this.id).subscribe({
+        next: (vehicle) => {
+            this.vehicle.currentLocation = vehicle.currentLocation;
+            this.driverService.updateVehicle(this.id, this.vehicle).subscribe({
+              next: () => {
+                //this.ngOnInit();
+                this.router.navigate(["/driver/profile"]);
+              },
+              error: (error) => {
+                console.log(error);
+              }
+            })
         },
         error: (error) => {
           console.log(error);
-        }
-      })
+        },
+      });
+      
     }
   }
 }

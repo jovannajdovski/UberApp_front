@@ -6,4 +6,9 @@ export interface Vehicle {
     passengerSeats: number;
     babyTransport: boolean;
     petTransport: boolean;
+    currentLocation: {
+      address: string,
+      latitude: number,
+      longitude: number
+    },
   }

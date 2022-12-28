@@ -28,9 +28,6 @@ export class ProfileService {
     if (role === 'PASSENGER') {
       return this.passengerService.getAll();
     }
-    if (role === 'ADMIN') {
-      return this.adminService.getAll();
-    }
     if (role === 'DRIVER') {
       return this.driverService.getAll();
     }
@@ -56,9 +53,6 @@ export class ProfileService {
     if (role === 'PASSENGER') {
       return this.passengerService.addReactive(profile);
     }
-    if (role === 'ADMIN') {
-      return this.adminService.addReactive(profile);
-    }
     if (role === 'DRIVER') {
       return this.driverService.addReactive(profile);
     }
@@ -69,9 +63,6 @@ export class ProfileService {
     const role: string = this.authService.getRole()
     if (role === 'PASSENGER') {
       return this.passengerService.add(profile);
-    }
-    if (role === 'ADMIN') {
-      return this.adminService.add(profile);
     }
     if (role === 'DRIVER') {
       return this.driverService.add(profile);

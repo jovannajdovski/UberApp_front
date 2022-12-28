@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { HttpErrorResponse } from '@angular/common/http';
 import { FormGroup, FormControl, Validators, ReactiveFormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
-import { Profile } from '../../model/profile';
+import { Profile, ProfileWPassword } from '../../model/profile';
 import { AuthService } from 'src/app/modules/auth/services/auth.service';
 import { ProfileService } from '../../services/profile.service';
 
@@ -13,7 +13,8 @@ import { ProfileService } from '../../services/profile.service';
 })
 export class EditProfileComponent implements OnInit {
 
-  profile: Profile = {
+  profile: ProfileWPassword = {
+    password: '',
     name: '',
     surname: '',
     profilePicture: '',
@@ -74,12 +75,12 @@ export class EditProfileComponent implements OnInit {
 
   getProfileRoute(){
     if(this.authService.getRole()==="PASSENGER"){
-      return "/passenger-profile";
+      return "/passenger/profile";
     }
     if(this.authService.getRole()==="DRIVER"){
-      return "/driver-profile";
+      return "/driver/profile";
     }
-    return "/admin-profile";
+    return "/admin/profile";
   }
 
   editPassword(){
