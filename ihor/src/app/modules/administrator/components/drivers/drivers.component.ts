@@ -16,10 +16,11 @@ import { AddDriverDialogComponent } from '../add-driver-dialog/add-driver-dialog
 export class DriversComponent implements OnInit, AfterViewInit, OnDestroy {
 
   obs!: Observable<any>;
-  dataSource!: MatTableDataSource<Driver>;
   drivers: Driver[] = [];
+  dataSource: MatTableDataSource<Driver> = new MatTableDataSource<Driver>(this.drivers);
   totalElements!: number;
-  pageSize = 6;
+  pageSize = 3;
+  currentPage = 0;
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
@@ -31,7 +32,7 @@ export class DriversComponent implements OnInit, AfterViewInit, OnDestroy {
     ) {}
 
   ngOnInit() {
-    this.getDrivers({ page: "0", size: "6" });
+    this.getDrivers({ page: this.currentPage.toString(), size: this.pageSize.toString() });
     this.dataSource.paginator = this.paginator;
   }
 
@@ -45,7 +46,9 @@ export class DriversComponent implements OnInit, AfterViewInit, OnDestroy {
         this.totalElements = res["totalCount"];
         this.paginator.length = this.totalElements;
 
-        this.dataSource = new MatTableDataSource<Driver>(this.drivers);
+        console.log(this.drivers);
+
+        this.dataSource.data = this.drivers;
         this.obs = this.dataSource.connect();
         this.changeDetectorRef.detectChanges();
       }
@@ -58,14 +61,16 @@ export class DriversComponent implements OnInit, AfterViewInit, OnDestroy {
     dialogRef.afterClosed().subscribe(result => {
       if (result == "success") {
         this.openSnackBar("Driver added successfully");
-        this.getDrivers({ page: "0", size: "6" });
+        this.currentPage=Math.floor((this.totalElements+this.pageSize)/this.pageSize-1);
+        this.paginator.pageIndex = this.currentPage;
+        this.getDrivers({ page: this.currentPage.toString(), size: this.pageSize.toString() });
       }
     });
   }
 
   driverEdited = ()=>{ 
     this.openSnackBar("Driver edited successfully");
-    this.getDrivers({ page: "0", size: "6" });
+    this.getDrivers({ page: this.currentPage.toString(), size: this.pageSize.toString() });
   }
 
   openSnackBar = (message: string)=>{  
@@ -73,12 +78,15 @@ export class DriversComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   nextPage(event: PageEvent) {
+    this.currentPage = event.pageIndex;
+    this.pageSize=event.pageSize;
+
     const request = { 
       page: event.pageIndex.toString(), 
       size: event.pageSize.toString()
     };
     this.getDrivers(request);
-}
+  }
 
   onResize(event: any) {
     // if (event.target.innerWidth <= 1000) {
