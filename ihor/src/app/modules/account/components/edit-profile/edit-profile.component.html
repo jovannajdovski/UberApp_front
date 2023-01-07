@@ -1,62 +1,75 @@
 <div id="alignment">
-<div id="container">
+    <div id="container">
 
-    <div id="img-container">
-        <span class="iconify icon" data-icon="material-symbols:person"></span>
-    </div>
+        <div id="img-container" (click)="selectImage.click()">
+            <!-- <span class="iconify icon" data-icon="material-symbols:person"></span> -->
 
-    <div id="profile-info">
-        <div id="heading">
-            My profile
+            <input type="file" (change)="fileChangeEvent($event)" class="fileInputProfile" #selectImage>
+
+            <ng-container *ngIf="isImageSaved; else elseTemplate">
+                <img [src]="profile.profilePicture" class="img-responsive" />
+            </ng-container>
+            <ng-template #elseTemplate>
+
+                <img src="../../../../../assets/images/user.png" class="img-default-responsive">
+            </ng-template>
+
         </div>
 
-        <form [formGroup]="profileForm" (ngSubmit)="edit()">
+        <div class="img-error">{{imageError}}</div>
 
-            <div class="section">
-                <span matPrefix class="iconify icon-info" data-icon="material-symbols:person"></span>
-                <mat-form-field appearance="outline">
-                    <mat-label>Name</mat-label>
-                    <input matInput type="text" [(ngModel)]="profile.name" formControlName="name">
-                </mat-form-field>
-
-                <mat-form-field appearance="outline" id="surname">
-                    <mat-label>Surname</mat-label>
-                    <input matInput type="text" [(ngModel)]="profile.surname" formControlName="surname">
-                </mat-form-field>
-
+        <div id="profile-info">
+            <div id="heading">
+                My profile
             </div>
 
-            <div class="section">
-                <span id="phone-icon" class="iconify icon-info" data-icon="material-symbols:phone-enabled"></span>
-                <mat-form-field appearance="outline" class="full">
-                    <mat-label>Phone Number</mat-label>
-                    <input matInput type="tel" [(ngModel)]="profile.telephoneNumber" formControlName="phone">
-                </mat-form-field>
-            </div>
+            <form [formGroup]="profileForm" (ngSubmit)="edit()">
 
-            <div class="section">
-                <span class="iconify icon-info" data-icon="material-symbols:mail"></span>
-                <mat-form-field appearance="outline" class="full">
-                    <mat-label>Email address</mat-label>
-                    <input matInput type="email" [(ngModel)]="profile.email" formControlName="mail">
-                </mat-form-field>
-            </div>
+                <div class="section">
+                    <span matPrefix class="iconify icon-info" data-icon="material-symbols:person"></span>
+                    <mat-form-field appearance="outline">
+                        <mat-label>Name</mat-label>
+                        <input matInput type="text" [(ngModel)]="profile.name" formControlName="name">
+                    </mat-form-field>
 
-            <div class="section">
-                <span class="iconify icon-info" data-icon="mdi:house"></span>
-                <mat-form-field appearance="outline" class="full">
-                    <mat-label>Street address</mat-label>
-                    <input matInput type="text" [(ngModel)]="profile.address" formControlName="address">
-                </mat-form-field>
-            </div>
+                    <mat-form-field appearance="outline" id="surname">
+                        <mat-label>Surname</mat-label>
+                        <input matInput type="text" [(ngModel)]="profile.surname" formControlName="surname">
+                    </mat-form-field>
 
-            <button class="" type="button" (click)="editPassword()" id="passwordbtn">EDIT PASSWORD</button>
+                </div>
 
-            <button class="" [disabled]="!profileForm.valid" type="submit" id="editbtn">SAVE</button>
+                <div class="section">
+                    <span id="phone-icon" class="iconify icon-info" data-icon="material-symbols:phone-enabled"></span>
+                    <mat-form-field appearance="outline" class="full">
+                        <mat-label>Phone Number</mat-label>
+                        <input matInput type="tel" [(ngModel)]="profile.telephoneNumber" formControlName="phone">
+                    </mat-form-field>
+                </div>
+
+                <div class="section">
+                    <span class="iconify icon-info" data-icon="material-symbols:mail"></span>
+                    <mat-form-field appearance="outline" class="full">
+                        <mat-label>Email address</mat-label>
+                        <input matInput type="email" [(ngModel)]="profile.email" formControlName="mail">
+                    </mat-form-field>
+                </div>
+
+                <div class="section">
+                    <span class="iconify icon-info" data-icon="mdi:house"></span>
+                    <mat-form-field appearance="outline" class="full">
+                        <mat-label>Street address</mat-label>
+                        <input matInput type="text" [(ngModel)]="profile.address" formControlName="address">
+                    </mat-form-field>
+                </div>
+
+                <button class="" type="button" (click)="editPassword()" id="passwordbtn">EDIT PASSWORD</button>
+
+                <button class="" [disabled]="!profileForm.valid" type="submit" id="editbtn">SAVE</button>
 
 
-        </form>
+            </form>
 
 
+        </div>
     </div>
-</div>

@@ -2,7 +2,14 @@
 <div id="container">
 
     <div id="img-container">
-        <span class="iconify icon" data-icon="material-symbols:person"></span>
+        <ng-container *ngIf="isImageSaved; else elseTemplate">
+            <img [src]="profile.profilePicture" class="img-responsive" />
+        </ng-container>
+        <ng-template #elseTemplate>
+
+            <img src="../../../../../assets/images/user.png" class="img-default-responsive">
+        </ng-template>
+
     </div>
 
     <div id="profile-info">
