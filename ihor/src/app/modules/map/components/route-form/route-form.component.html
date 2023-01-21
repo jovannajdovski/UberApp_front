@@ -7,20 +7,27 @@
 
       <mat-form-field appearance="outline" id="startLoc" >
         <mat-label>Start location</mat-label>
-        <input matInput type="text" name="start" formControlName="start">
+        <input matInput type="text" name="start" formControlName="start" [matAutocomplete]="auto" (input)="onSearchChange($event)">
 
-        <!-- <mat-autocomplete #auto="matAutocomplete">
+        <mat-autocomplete #auto="matAutocomplete">
           <mat-option *ngFor="let option of options" [value]="option">
             {{option}}
           </mat-option>
-        </mat-autocomplete> -->
+        </mat-autocomplete>
 
         <mat-error [ngClass]="!routeForm.controls['start'].valid && routeForm.controls['start'].touched ? 'input-error' : 'correct'" *ngIf="routeForm.get('start')">{{getErrorMessage()}}</mat-error>
       </mat-form-field>
 
       <mat-form-field appearance="outline" id="finalLoc" >
         <mat-label>Final location</mat-label>
-        <input matInput type="text" name="final" formControlName="final">
+        <input matInput type="text" name="final" formControlName="final" [matAutocomplete]="auto2" (input)="onSearchChangeFinal($event)">
+
+        <mat-autocomplete #auto2="matAutocomplete">
+          <mat-option *ngFor="let option of optionsFinal" [value]="option">
+            {{option}}
+          </mat-option>
+        </mat-autocomplete>
+
         <mat-error [ngClass]="!routeForm.controls['final'].valid && routeForm.controls['final'].touched ? 'input-error' : 'correct'" *ngIf="routeForm.get('final')">{{getErrorMessage()}}</mat-error>
       </mat-form-field>
 

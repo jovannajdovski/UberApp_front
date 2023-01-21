@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { map, Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -18,6 +18,20 @@ export class MapService {
   reverseSearch(lat: number, lon: number): Observable<any> {
     return this.http.get(
       `https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lon}&<params>`
+    );
+  }
+
+
+  autocomplete(address: string): Observable<any> {
+    const urlBase = 'https://nominatim.openstreetmap.org/search?';
+    const params = {
+      q: address,
+      format: 'json',
+      countrycodes:'rs'
+    }
+
+    const queryString = new URLSearchParams(params).toString();
+    return this.http.get(`${urlBase}${queryString}`
     );
   }
 }

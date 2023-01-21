@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { BehaviorSubject, Observable } from 'rxjs';
@@ -10,6 +10,11 @@ import { Login } from '../components/login/login.component';
 })
 export class AuthService {
 
+  private headers = new HttpHeaders({
+    'Content-Type': 'application/json',
+    skip: 'true',
+  });
+  
   user$ = new BehaviorSubject("UNREGISTERED_USER");
   userState$ = this.user$.asObservable();
 
@@ -41,7 +46,7 @@ export class AuthService {
       const helper = new JwtHelperService();
       console.log(helper.decodeToken(accessToken));
       const role = helper.decodeToken(accessToken).role;
-      return role;
+      return String(role).substring(5);
     }
     
     return null;
@@ -67,9 +72,6 @@ export class AuthService {
 }
 
 interface Token{
-  jwt: string;
-  id: number;
-  firstName: string;
-  lastName: string;
-  email: string;
+  accessToken: string;
+  refreshToken: string;
 }

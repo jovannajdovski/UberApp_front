@@ -10,7 +10,7 @@ import { ProfileService } from '../../services/profile.service';
   templateUrl: './profile.component.html',
   styleUrls: ['./profile.component.css']
 })
-export class ProfileComponent implements OnInit{
+export class ProfileComponent implements OnInit {
 
   profile: ProfileWPassword = {
     password: '',
@@ -22,11 +22,15 @@ export class ProfileComponent implements OnInit{
     address: '',
   };
 
+  public isImageSaved: boolean;
+
   constructor(
-    private authService : AuthService,
-    private router : Router,
+    private authService: AuthService,
+    private router: Router,
     private profileService: ProfileService
-  ) {}
+  ) {
+    this.isImageSaved = false;
+  }
 
   ngOnInit(): void {
     const id = this.authService.getId();
@@ -39,14 +43,19 @@ export class ProfileComponent implements OnInit{
         this.profile.telephoneNumber = profile.telephoneNumber;
         this.profile.email = profile.email;
         this.profile.address = profile.address;
+        if (profile.profilePicture != null) {
+          this.isImageSaved = true;
+        } else {
+          this.isImageSaved = false;
+        }
       },
-      error: (error) => { 
+      error: (error) => {
         console.log(error);
       },
     });
   }
 
-  edit(){
+  edit() {
     this.router.navigate(['/edit-profile']);
   }
 }

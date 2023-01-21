@@ -4,7 +4,7 @@ import { AppRoutingModule } from '../infrastructure/app-routing.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 //import { FlexLayoutModule } from '@angular/flex-layout';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
 import { MarkerService } from './modules/map/services/map/marker.service';
 import { PopupService } from './modules/map/services/map/popup.service';
@@ -20,6 +20,7 @@ import { LayoutModule } from './modules/layout/layout.module';
 import { MapModule } from './modules/map/map.module';
 import { PassengerModule } from './modules/passenger/passenger.module';
 import { UnregisteredUserModule } from './modules/unregistered-user/unregistered-user.module';
+import { AuthInterceptor } from './modules/auth/interceptor/auth-interceptor.interceptor';
 
 @NgModule({
   declarations: [AppComponent],
@@ -36,9 +37,14 @@ import { UnregisteredUserModule } from './modules/unregistered-user/unregistered
     LayoutModule,
     MapModule,
     PassengerModule,
-    UnregisteredUserModule
+    UnregisteredUserModule,
   ],
   providers: [
+    {
+      provide : HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
+      multi   : true,
+    },
     MarkerService,
     PopupService,
     ShapeService

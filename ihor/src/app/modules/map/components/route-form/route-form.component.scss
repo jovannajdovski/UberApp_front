@@ -78,6 +78,18 @@ form {
     color: white;
 }
 
+mat-option{
+    color: white;
+    border-left: 2px solid white;
+    border-right: 2px solid white;
+    background-color: #1e252b;
+}
+
+mat-option:hover{
+    color: rgb(204, 204, 204);
+    background-color: #232a31;
+}
+
 
 #estimateBtn {
     transition: all .5s ease;
