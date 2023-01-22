@@ -33,12 +33,11 @@ export class ChatComponent {
   public sendMessage(messageType:MessageType)
   {
     const messageRequest:MessageRequest={
-      "receiverId": this.chat.receiverId,
       "message": this.message,
       "type": messageType,
       "rideId": this.chat.rideId
     }
-    this.messageService.sendMessage(messageRequest);
+    this.messageService.sendMessage(messageRequest, this.chat.receiverId);
 
   }
   public fullDate(date:Date):string

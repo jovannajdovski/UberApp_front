@@ -47,7 +47,8 @@ export class MessageService {
     for (let i = 0; i < result.totalCount; i++) {
       if(result.results.at(i)?.rideId!==result.results.at(firstIndex)?.rideId)
       {
-        chats.push(this.createChat(result,firstIndex,i));
+        const chat=this.createChat(result,firstIndex,i);
+        chats.push(chat);
         firstIndex=i;
       }
       
@@ -69,7 +70,6 @@ export class MessageService {
     for (let i = firstIndex; i < lastIndex; i++)
     {
       message=result.results.at(i);
-      
       chat.messages.push({timestamp: toDate(message?.timeOfSending)||new Date(),
          content: message?.message||'',
          myself: userId==message?.senderId,
@@ -85,9 +85,9 @@ export class MessageService {
     const userId=this.authService.getId();
     return this.http.get<MessagesResponse>(environment.apiHost+'user/'+userId+'/message');
   }
-  sendMessage(request: MessageRequest)
+  sendMessage(request: MessageRequest, receiverId: number)
   {
-    this.sendMessageToBack(request).subscribe({
+    this.sendMessageToBack(request, receiverId).subscribe({
       next: (result) => {
         let chats=this.chats$.getValue();
         const chat:Chat=chats.find(object => {return object.rideId === result.rideId;})||{image: '', name: '', messages: [], rideId:-1, receiverId:-1};
@@ -111,22 +111,26 @@ export class MessageService {
     this.chats$.next(chatsDummy);
     this.openChat(chatsDummy[chatId]);*/
   }
-  private sendMessageToBack(request: MessageRequest):Observable<SentMessageResponse>{
-    const userId=this.authService.getId();
-    return this.http.post<SentMessageResponse>(environment.apiHost+'user/'+userId+'/message', request);
+  private sendMessageToBack(request: MessageRequest, receiverId: number):Observable<SentMessageResponse>{
+    return this.http.post<SentMessageResponse>(environment.apiHost+'user/'+receiverId+'/message', request);
   }
 }
+// function toDate(str: string): Date{
+//   console.log(str);
+//   const date= new Date();
+//   date.setFullYear(Number(str.substring(0,4)));
+//   date.setMonth(Number(str.substring(5,7)));
+//   date.setDate(Number(str.substring(8,10)));
+//   date.setHours(Number(str.substring(11,13)));
+//   date.setMinutes(Number(str.substring(14,16)));
+//   return date;
+// }
 function toDate(str: any): Date{
-  const date= new Date();
-  date.setFullYear(str[0]);
-  date.setMonth((str[1]+12)%13);
-  date.setDate(str[2]);
-  date.setHours(str[3]);
-  date.setMinutes(str[4]);
-  return date;
+  console.log(str);
+  console.log(typeof(str));
+  return str;
 }
 export interface MessageRequest{
-  "receiverId": number,
   "message": string,
   "type": MessageType,
   "rideId": number

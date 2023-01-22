@@ -19,7 +19,7 @@ export class RideRejectionService {
  
 
 enum VehicleCategory {
-  STANDARDNO, LUXURY, VAN
+  STANDARD, LUXURY, VAN
 }
 export interface RideRejectionResponse
 {

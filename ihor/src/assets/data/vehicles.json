@@ -3,7 +3,7 @@
         {
             "id": 123,
             "driverId": 123,
-            "vehicleType": "STANDARDNO",
+            "vehicleType": "STANDARD",
             "model": "VW Golf 2",
             "licenseNumber": "NS 123-AB",
             "currentLocation": {
@@ -18,7 +18,7 @@
         {
             "id": 123,
             "driverId": 123,
-            "vehicleType": "STANDARDNO",
+            "vehicleType": "STANDARD",
             "model": "VW Golf 2",
             "licenseNumber": "NS 123-AB",
             "currentLocation": {
@@ -33,7 +33,7 @@
         {
             "id": 123,
             "driverId": 123,
-            "vehicleType": "STANDARDNO",
+            "vehicleType": "STANDARD",
             "model": "VW Golf 2",
             "licenseNumber": "NS 123-AB",
             "currentLocation": {

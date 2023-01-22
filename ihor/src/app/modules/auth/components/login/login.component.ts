@@ -30,9 +30,11 @@ export class LoginComponent implements OnInit {
     }
 
     if (this.loginForm.valid) {
+      console.log("jebo te pas");
       this.authService.login(login).subscribe({
         next: (result) => {
-        
+          console.log(result);
+          console.log(result.accessToken);
           localStorage.setItem('user', JSON.stringify(result.accessToken));
           this.authService.setUser();
 

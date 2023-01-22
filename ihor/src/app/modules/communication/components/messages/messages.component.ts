@@ -11,7 +11,8 @@ export class MessagesComponent {
 
   constructor(private messageService: MessageService){
     this.messageService.observableChats$.subscribe((chats)=>
-    {this.chats=chats; });
+    {this.chats=chats;
+     });
     
   }
   redirectTo(chat:Chat)

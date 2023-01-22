@@ -25,7 +25,7 @@ export class AuthService {
     {
       email: auth.email, 
       password: auth.password
-    })
+    },{"headers": this.headers})
   }
 
   logout(email: string, password: string): Observable<Token> {

@@ -13,11 +13,14 @@ export class AuthInterceptor implements HttpInterceptor {
   constructor() {}
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    const accessToken: any = localStorage.getItem('user');
-    const decodedItem = JSON.parse(accessToken);
-    if (req.headers.get('skip')) return next.handle(req);
 
+    const accessToken: any = localStorage.getItem('user');
+    let decodedItem;
+      
+    if (req.headers.get('skip')) return next.handle(req);
+    console.log(accessToken);
     if (accessToken) {
+      decodedItem = JSON.parse(accessToken);
       req = req.clone({
         setHeaders: {
           'Authorization': `Bearer ${decodedItem}`,
@@ -26,6 +29,7 @@ export class AuthInterceptor implements HttpInterceptor {
 
       return next.handle(req);
     } else {
+      console.log("else");
       return next.handle(req);
     }
   }
