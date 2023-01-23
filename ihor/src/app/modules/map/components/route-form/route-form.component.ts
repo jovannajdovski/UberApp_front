@@ -3,6 +3,7 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { RouteService } from '../../services/route/route.service';
 import { MapService } from '../../services/map/map.service';
+import { AuthService } from '../../../auth/services/auth.service';
 import { map, Observable, startWith } from 'rxjs';
 
 @Component({
@@ -18,14 +19,21 @@ export class RouteFormComponent {
   });
 
   finished = false;
-
+  unregisteredUser=true;
   public startString = "";
   public endString = "";
 
-  constructor(private routeService: RouteService,
+  constructor(private routeService: RouteService, private authService: AuthService,
     private mapService: MapService, private router: Router) {
     this.finished = false;
     this.getTextFromMap();
+    this.authService.userState$.subscribe((value) => {
+      console.log(value);
+      if(value=="UNREGISTERED_USER")
+        this.unregisteredUser = true;
+      else
+        this.unregisteredUser=false;
+    })
   }
 
   options: string[] = [];

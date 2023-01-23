@@ -1,5 +1,7 @@
 <div id="container">
-    <app-route-form *ngIf="!selectedRoute"></app-route-form>
-    <app-estimated-routes *ngIf="selectedRoute"></app-estimated-routes>
-    <app-map></app-map>
+    <app-route-form *ngIf="!selectedRoute && !additionalChoosed"></app-route-form>
+    <app-ride-additional-options *ngIf="selectedRoute && !additionalChoosed"></app-ride-additional-options>
+    <app-invite-friends *ngIf="additionalChoosed"></app-invite-friends>
+    <app-map *ngIf="!additionalChoosed"></app-map>
+    <img src="../../../../../assets/images/friends.png" alt="Friends" *ngIf="additionalChoosed">
 </div>

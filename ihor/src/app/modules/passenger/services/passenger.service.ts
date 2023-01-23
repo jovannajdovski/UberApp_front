@@ -26,6 +26,10 @@ export class PassengerService {
     return this.http.get<Profile>(environment.apiHost + 'passenger/' + passengerId);
   }
 
+  getPassengerByEmail(passengerEmail: string): Observable<Profile>{
+    return this.http.get<Profile>(environment.apiHost+'passenger/email/'+passengerEmail);
+  }
+
   addReactive(profile: any): Observable<any> {
     const options: any = {
       responseType: 'text',

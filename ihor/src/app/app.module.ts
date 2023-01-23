@@ -5,11 +5,11 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 //import { FlexLayoutModule } from '@angular/flex-layout';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
-
+import {NgxMaterialTimepickerModule} from 'ngx-material-timepicker';
 import { MarkerService } from './modules/map/services/map/marker.service';
 import { PopupService } from './modules/map/services/map/popup.service';
 import { ShapeService } from './modules/map/services/map/shape.service';
-
+import { MatChipsModule } from '@angular/material/chips';
 import { AppComponent } from './app.component';
 import { AccountModule } from './modules/account/account.module';
 import { AdministratorModule } from './modules/administrator/administrator.module';
@@ -38,6 +38,7 @@ import { AuthInterceptor } from './modules/auth/interceptor/auth-interceptor.int
     MapModule,
     PassengerModule,
     UnregisteredUserModule,
+    MatChipsModule
   ],
   providers: [
     {

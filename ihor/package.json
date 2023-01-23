@@ -22,11 +22,12 @@
     "@angular/platform-browser-dynamic": "^15.0.0",
     "@angular/router": "^15.0.0",
     "@auth0/angular-jwt": "^5.1.0",
-    "ngx-toastr": "^16.0.1",
     "@iconify/iconify": "^3.0.1",
     "@visurel/iconify-angular": "^11.0.0",
     "leaflet": "^1.9.3",
     "leaflet-routing-machine": "^3.2.12",
+    "ngx-material-timepicker": "^5.5.3",
+    "ngx-toastr": "^16.0.1",
     "rxjs": "~7.5.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.12.0"

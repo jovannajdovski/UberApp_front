@@ -1,7 +1,8 @@
 
 <div class="container">
 
-    <h1>Estimate price</h1>
+    <h1 *ngIf="unregisteredUser">Estimate price</h1>
+    <h1 *ngIf="!unregisteredUser">Choose ride route</h1>
     <div id="topEmptySpace"></div>
     <form [formGroup]="routeForm" (ngSubmit)="estimate()">
 
@@ -32,7 +33,7 @@
       </mat-form-field>
 
       <div id="bottomEmptySpace"></div>
-      <button type="submit" id="estimateBtn">Estimate</button>
-
+      <button *ngIf="unregisteredUser" type="submit" id="estimateBtn">Estimate</button>
+      <button *ngIf="!unregisteredUser" type="submit" id="estimateBtn">Continue order</button>
     </form>
 </div>
