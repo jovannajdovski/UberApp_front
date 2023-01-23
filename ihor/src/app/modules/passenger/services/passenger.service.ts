@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import { Profile } from '../../account/model/profile';
+import { Profile, ProfileWId } from '../../account/model/profile';
 
 @Injectable({
   providedIn: 'root'
@@ -26,8 +26,8 @@ export class PassengerService {
     return this.http.get<Profile>(environment.apiHost + 'passenger/' + passengerId);
   }
 
-  getPassengerByEmail(passengerEmail: string): Observable<Profile>{
-    return this.http.get<Profile>(environment.apiHost+'passenger/email/'+passengerEmail);
+  getPassengerByEmail(passengerEmail: string): Observable<ProfileWId>{
+    return this.http.get<ProfileWId>(environment.apiHost+'passenger/email/'+passengerEmail);
   }
 
   addReactive(profile: any): Observable<any> {

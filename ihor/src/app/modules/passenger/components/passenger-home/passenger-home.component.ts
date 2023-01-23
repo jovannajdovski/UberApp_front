@@ -9,15 +9,22 @@ import { OrderRideService } from '../../services/order-ride/order-ride.service';
 })
 export class PassengerHomeComponent {
   constructor(private routeService: RouteService, private orderRideService: OrderRideService) {
+    this.selectedRoute=0;
+    this.additionalChoosed=false;
+    this.friendsChoosed=false;
     this.routeService.selectedRoute$.subscribe((value) => {
       this.selectedRoute = value;
     });
     this.orderRideService.additionalsChoosed$.subscribe((value)=>{
       this.additionalChoosed=value;
     })
+    this.orderRideService.friendsChoosed$.subscribe((value)=>{
+      this.friendsChoosed=value;
+    })
   }
   
-  selectedRoute=null;
+  selectedRoute=0;
   ngOnInit(): void {}
   additionalChoosed=false;
+  friendsChoosed=false;
 }

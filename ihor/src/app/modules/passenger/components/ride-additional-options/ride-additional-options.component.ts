@@ -28,6 +28,6 @@ export class RideAdditionalOptionsComponent {
     
     this.finished = true;
     const vehicleType = this.selectedType;
-    this.orderRideService.setAdditionals(Number(vehicleType),this.babiesAllowed,this.petsAllowed);
+    this.orderRideService.setAdditionals(Number(vehicleType),this.babiesAllowed,this.petsAllowed, new Date());
   }
 }

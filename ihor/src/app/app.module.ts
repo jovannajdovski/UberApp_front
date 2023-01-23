@@ -38,7 +38,8 @@ import { AuthInterceptor } from './modules/auth/interceptor/auth-interceptor.int
     MapModule,
     PassengerModule,
     UnregisteredUserModule,
-    MatChipsModule
+    MatChipsModule,
+    NgxMaterialTimepickerModule
   ],
   providers: [
     {

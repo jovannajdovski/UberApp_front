@@ -2,8 +2,9 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MaterialModule } from 'src/infrastructure/material.module';
 import { PassengerHomeComponent } from './components/passenger-home/passenger-home.component';
-import { FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {NgxMaterialTimepickerModule} from 'ngx-material-timepicker';
+import { MatChipsModule } from '@angular/material/chips';
 import { MapModule } from '../map/map.module';
 import { FavoriteRoutesComponent } from './components/favorite-routes/favorite-routes.component';
 import { PassengerProfileComponent } from './components/passenger-profile/passenger-profile.component';
@@ -30,7 +31,9 @@ import { RideAdditionalOptionsComponent } from './components/ride-additional-opt
     ReactiveFormsModule,
     MapModule,
     AccountModule,
-    
+    NgxMaterialTimepickerModule,
+    MatChipsModule,
+    FormsModule
   ]
 })
 export class PassengerModule { }

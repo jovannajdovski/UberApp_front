@@ -13,6 +13,6 @@ export class UnregisteredUserHomeComponent {
     });
   }
   
-  selectedRoute=null;
+  selectedRoute=0;
   ngOnInit(): void {}
 }

@@ -2,6 +2,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { RouteService } from 'src/app/modules/map/services/route/route.service';
 import { AuthService } from '../../services/auth.service';
 
 @Component({
@@ -19,7 +20,7 @@ export class LoginComponent implements OnInit {
   });
   hasError = false;
 
-  constructor(private authService: AuthService, private router: Router) { }
+  constructor(private authService: AuthService, private routeService:RouteService, private router: Router) { }
 
   ngOnInit(): void {}
 
@@ -30,7 +31,6 @@ export class LoginComponent implements OnInit {
     }
 
     if (this.loginForm.valid) {
-      console.log("jebo te pas");
       this.authService.login(login).subscribe({
         next: (result) => {
           console.log(result);
@@ -43,6 +43,7 @@ export class LoginComponent implements OnInit {
           } else if (this.authService.getRole() == "ADMINISTRATOR") {
             this.router.navigate(['/administrator']);
           } else if (this.authService.getRole() == "PASSENGER") {
+            this.routeService.resetRoute();
             this.router.navigate(['/passenger']);
           }
         },

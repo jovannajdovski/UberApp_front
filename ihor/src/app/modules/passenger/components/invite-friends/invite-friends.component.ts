@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
 import {MatChipInputEvent} from '@angular/material/chips';
-import { Profile } from 'src/app/modules/account/model/profile';
+import { Profile, ProfileWId } from 'src/app/modules/account/model/profile';
 import { PassengerService } from '../../services/passenger.service';
 import {FormsModule} from '@angular/forms';
 import { HttpErrorResponse } from '@angular/common/http';
+import { OrderRideService } from '../../services/order-ride/order-ride.service';
 @Component({
   selector: 'app-invite-friends',
   templateUrl: './invite-friends.component.html',
@@ -11,9 +12,9 @@ import { HttpErrorResponse } from '@angular/common/http';
 })
 export class InviteFriendsComponent {
   
-  constructor(private passengerService: PassengerService)
+  constructor(private passengerService: PassengerService, private orderRideService: OrderRideService)
   {}
-  passengers:Profile[]=[];
+  passengers:ProfileWId[]=[];
   currentEmail='';
   // friends=null;
   // add(email:string): void {
@@ -40,5 +41,9 @@ export class InviteFriendsComponent {
           }
         },
        });
+  }
+  nextStep()
+  {
+    this.orderRideService.setPassengers(this.passengers);
   }
 }

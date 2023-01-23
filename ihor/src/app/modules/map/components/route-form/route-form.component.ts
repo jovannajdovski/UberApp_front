@@ -5,6 +5,7 @@ import { RouteService } from '../../services/route/route.service';
 import { MapService } from '../../services/map/map.service';
 import { AuthService } from '../../../auth/services/auth.service';
 import { map, Observable, startWith } from 'rxjs';
+import { OrderRideService } from 'src/app/modules/passenger/services/order-ride/order-ride.service';
 
 @Component({
   selector: 'app-route-form',
@@ -23,8 +24,8 @@ export class RouteFormComponent {
   public startString = "";
   public endString = "";
 
-  constructor(private routeService: RouteService, private authService: AuthService,
-    private mapService: MapService, private router: Router) {
+  constructor(private routeService: RouteService, private authService: AuthService, 
+    private orderRideService:OrderRideService, private mapService: MapService, private router: Router) {
     this.finished = false;
     this.getTextFromMap();
     this.authService.userState$.subscribe((value) => {
@@ -85,7 +86,13 @@ export class RouteFormComponent {
       this.finished = true;
       const start = this.routeForm.value.start;
       const final = this.routeForm.value.final;
-      this.routeService.setRoute(start || '', final || '');
+      if(this.unregisteredUser==false)
+      {  
+        this.orderRideService.setAddresses(start || "", final|| "");
+        this.routeService.setRoutePassenger(start || '', final || '');
+      }
+      else
+        this.routeService.setRoute(start || '', final || '');
     }
   }
   getErrorMessage() {
