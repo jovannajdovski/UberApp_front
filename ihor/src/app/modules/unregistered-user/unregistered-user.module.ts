@@ -9,6 +9,8 @@ import { ResetPasswordComponent } from './components/reset-password/reset-passwo
 import { MaterialModule } from 'src/infrastructure/material.module';
 import { FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { MapModule } from '../map/map.module';
+import { VerifyAccountComponent } from './components/verify-account/verify-account/verify-account.component';
+import { AccountActivatedComponent } from './components/account-activated/account-activated/account-activated.component';
 
 
 
@@ -19,7 +21,9 @@ import { MapModule } from '../map/map.module';
     SignupComponent,
     SignupFormComponent,
     SignupOptionsComponent,
-    UnregisteredUserHomeComponent
+    UnregisteredUserHomeComponent,
+    VerifyAccountComponent,
+    AccountActivatedComponent
   ],
   imports: [
     CommonModule,
