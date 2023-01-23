@@ -11,6 +11,7 @@ import { FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { MapModule } from '../map/map.module';
 import { VerifyAccountComponent } from './components/verify-account/verify-account/verify-account.component';
 import { AccountActivatedComponent } from './components/account-activated/account-activated/account-activated.component';
+import { EmailForForgotPasswordComponent } from './components/email-for-forgot-password/email-for-forgot-password/email-for-forgot-password.component';
 
 
 
@@ -23,7 +24,8 @@ import { AccountActivatedComponent } from './components/account-activated/accoun
     SignupOptionsComponent,
     UnregisteredUserHomeComponent,
     VerifyAccountComponent,
-    AccountActivatedComponent
+    AccountActivatedComponent,
+    EmailForForgotPasswordComponent
   ],
   imports: [
     CommonModule,

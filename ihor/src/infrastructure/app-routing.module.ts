@@ -19,6 +19,7 @@ import { SignupComponent } from 'src/app/modules/unregistered-user/components/si
 import { UnregisteredUserHomeComponent } from 'src/app/modules/unregistered-user/components/unregistered-user-home/unregistered-user-home.component';
 import { VerifyAccountComponent } from 'src/app/modules/unregistered-user/components/verify-account/verify-account/verify-account.component';
 import { AccountActivatedComponent } from 'src/app/modules/unregistered-user/components/account-activated/account-activated/account-activated.component';
+import { EmailForForgotPasswordComponent } from 'src/app/modules/unregistered-user/components/email-for-forgot-password/email-for-forgot-password/email-for-forgot-password.component';
 
 const routes: Routes = [
   {path:'login', component: LoginComponent},
@@ -50,6 +51,7 @@ const routes: Routes = [
   {path:'passenger/profile', component: PassengerProfileComponent},
   {path:'verify-account', component: VerifyAccountComponent},
   {path:'account-activated', component: AccountActivatedComponent},
+  {path:'email-for-forgot-password', component: EmailForForgotPasswordComponent},
 ];
 
 @NgModule({
