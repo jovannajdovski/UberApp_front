@@ -2,6 +2,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { WorkTimeService } from 'src/app/modules/driver/services/work-time/work-time.service';
 import { RouteService } from 'src/app/modules/map/services/route/route.service';
 import { AuthService } from '../../services/auth.service';
 
@@ -20,7 +21,8 @@ export class LoginComponent implements OnInit {
   });
   hasError = false;
 
-  constructor(private authService: AuthService, private routeService:RouteService, private router: Router) { }
+  constructor(private authService: AuthService, private routeService:RouteService,
+           private router: Router, private workTimeService:WorkTimeService) { }
 
   ngOnInit(): void {}
 
@@ -39,6 +41,7 @@ export class LoginComponent implements OnInit {
           this.authService.setUser();
 
           if (this.authService.getRole() == "DRIVER") {
+            this.workTimeService.startShift();
             this.router.navigate(['/driver']);
           } else if (this.authService.getRole() == "ADMINISTRATOR") {
             this.router.navigate(['/administrator']);

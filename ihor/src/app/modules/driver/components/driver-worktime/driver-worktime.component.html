@@ -5,6 +5,6 @@
     </div>
     <div class="row-div">
         <p class="basic-text">Activity status</p>
-        <mat-slide-toggle id="status" color="primary" [checked]="true" [disabled]="false"></mat-slide-toggle>
+        <mat-slide-toggle id="status" color="primary" [checked]="checked" (change)="toggle($event)" [disabled]="false"></mat-slide-toggle>
     </div>
 </div>
