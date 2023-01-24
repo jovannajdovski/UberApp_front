@@ -1,4 +1,4 @@
-import { AfterViewInit, Component } from '@angular/core';
+import { AfterContentInit, AfterViewInit, Component, OnDestroy, OnInit } from '@angular/core';
 import * as L from 'leaflet';
 import 'leaflet-routing-machine'
 import { MarkerService } from 'src/app/modules/map/services/map/marker.service';
@@ -53,7 +53,7 @@ let endMarker = {};
   templateUrl: './map.component.html',
   styleUrls: ['./map.component.css']
 })
-export class MapComponent implements AfterViewInit {
+export class MapComponent implements AfterViewInit, OnDestroy, OnInit {
   constructor(
     private routeService: RouteService,
     private mapService: MapService,
@@ -73,7 +73,7 @@ export class MapComponent implements AfterViewInit {
     })
   }
   unregisteredUser=true;
-  private map: any;
+  private map:any;
 
   private disableMarkers: boolean;
 
@@ -87,6 +87,11 @@ export class MapComponent implements AfterViewInit {
   private routes: any;
 
   ngOnInit(): void {
+    // this.initMap();
+  }
+  ngOnDestroy():void{
+    //this.map.off();
+   // this.map.remove();
   }
 
   private initMap(): void {
@@ -191,6 +196,9 @@ export class MapComponent implements AfterViewInit {
     this.registerOnClick();
     this.findRoute();
   }
+  // ngAfterContentInit():void{
+  //   this.initMap();
+  // }
 
 
   findRoute(): void {

@@ -30,7 +30,11 @@ export class DriverNavbarComponent {
   logout(){
     
   }
+  toCurrentRide(){
+    this.selectedPage=SelectedPage.CURRENT_RIDE;
+    this.router.navigate(['/current-ride'])
+  }
 }
 enum SelectedPage {
-  HOME, INBOX, HISTORY, PROFILE
+  CURRENT_RIDE, HOME, INBOX, HISTORY, PROFILE
 }

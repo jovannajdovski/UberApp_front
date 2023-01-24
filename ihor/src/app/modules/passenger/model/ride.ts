@@ -44,3 +44,6 @@ export interface RideRejection{
     "reason": string,
     "timeOfRejection":string
 }
+export interface ActivatePanic{
+    reason:string;
+}

@@ -1,0 +1,20 @@
+<div id="close">
+  <svg (click)="cancel()" xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24"><path fill="currentColor" d="M6.4 19L5 17.6l5.6-5.6L5 6.4L6.4 5l5.6 5.6L17.6 5L19 6.4L13.4 12l5.6 5.6l-1.4 1.4l-5.6-5.6Z"/></svg>
+</div>
+<form [formGroup]="panicForm" (ngSubmit)="sendPanic()" id="addDriver">
+    <h1>Send panic</h1>
+
+    <div class="field-container">
+      <mat-form-field class="field field-small" appearance="outline">
+        <mat-label>Reason</mat-label>
+        <input matInput type="text" name="reason" formControlName="reason">
+        <mat-error *ngIf="panicForm.get('reason')?.invalid && panicForm.get('reason')?.touched" >
+          <span *ngIf="panicForm.get('reason')?.errors?.['required']" class="input-error" >Field is required</span>
+        </mat-error>
+      </mat-form-field>
+    </div>
+  
+    <button type="submit" id="loginbtn" [disabled]="!panicForm.valid" >Send</button>
+    <!-- <button type="button" id="loginbtn" (click)="cancel()">Cancel</button> -->
+
+  </form>

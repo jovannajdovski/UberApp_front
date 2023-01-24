@@ -30,7 +30,11 @@ export class PassengerNavbarComponent {
   logout(){
     
   }
+  toCurrentRide(){
+    this.selectedPage=SelectedPage.CURRENT_RIDE;
+    this.router.navigate(['/current-ride'])
+  }
 }
 enum SelectedPage {
-  SCHEDULE, INBOX, HISTORY, PROFILE
+  CURRENT_RIDE,SCHEDULE, INBOX, HISTORY, PROFILE
 }

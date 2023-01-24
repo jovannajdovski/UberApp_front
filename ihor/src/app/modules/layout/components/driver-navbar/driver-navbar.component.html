@@ -1,6 +1,6 @@
 <div id="driver">
     <div id="driver-left-div"></div>
-    <button mat-raised-button id="currentRideBtn" >CURRENT RIDE</button>
+    <button mat-raised-button id="currentRideBtn" (click)="toCurrentRide()">CURRENT RIDE</button>
     <div id="driver-mid-div"></div>
     <button mat-raised-button id="home-button" (click)="toHome()" [ngClass]="selectedPage===enumSP.HOME ? 'navbar-button selected-button': 'navbar-button'">Home</button>
     <button mat-raised-button id="inbox-button" (click)="toInbox()"[ngClass]="selectedPage===enumSP.INBOX ? 'navbar-button selected-button': 'navbar-button'">Inbox</button>

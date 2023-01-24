@@ -17,6 +17,7 @@ import { ForgotPasswordComponent } from 'src/app/modules/unregistered-user/compo
 import { ResetPasswordComponent } from 'src/app/modules/unregistered-user/components/reset-password/reset-password.component';
 import { SignupComponent } from 'src/app/modules/unregistered-user/components/signup/signup.component';
 import { UnregisteredUserHomeComponent } from 'src/app/modules/unregistered-user/components/unregistered-user-home/unregistered-user-home.component';
+import { CurrentRideComponent } from 'src/app/modules/ride/components/current-ride/current-ride.component';
 
 const routes: Routes = [
   {path:'login', component: LoginComponent},
@@ -46,6 +47,7 @@ const routes: Routes = [
   {path:'edit-vehicle', component: EditVehicleComponent},
   {path:'driver/profile', component: DriverProfileComponent},
   {path:'passenger/profile', component: PassengerProfileComponent},
+  {path:'current-ride', component: CurrentRideComponent}
 ];
 
 @NgModule({
