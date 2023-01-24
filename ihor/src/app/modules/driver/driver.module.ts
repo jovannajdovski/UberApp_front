@@ -8,6 +8,8 @@ import { EditVehicleComponent } from './components/edit-vehicle/edit-vehicle.com
 import { FormGroup, FormControl, Validators, ReactiveFormsModule } from '@angular/forms';
 import { DriverProfileComponent } from './components/driver-profile/driver-profile.component';
 import { AccountModule } from '../account/account.module';
+import { DriverWorktimeComponent } from './components/driver-worktime/driver-worktime.component';
+import { DriverNextRideComponent } from './components/driver-next-ride/driver-next-ride.component';
 
 
 
@@ -16,7 +18,9 @@ import { AccountModule } from '../account/account.module';
     DriverHomeComponent,
     VehicleDataComponent,
     EditVehicleComponent,
-    DriverProfileComponent
+    DriverProfileComponent,
+    DriverWorktimeComponent,
+    DriverNextRideComponent
   ],
   imports: [
     CommonModule,

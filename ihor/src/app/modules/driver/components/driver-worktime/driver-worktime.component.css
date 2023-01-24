@@ -1,0 +1,47 @@
+.container {
+    box-sizing: border-box;
+    width: 485px;
+    height: 100%;
+    background: #282E33;
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    border-radius: 10px;
+    filter: drop-shadow(0px 4px 4px rgba(64, 58, 16, 0.5));
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 5%;
+    font-weight: 400;
+    font-size: 16px;
+    color: #FFFFFF;
+}
+
+.row-div{
+    box-sizing: border-box;
+    width: 400px;
+    height: 30%;
+    
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 20%;
+}
+.basic-text{
+    width: 300px;
+    justify-self: start;
+    font-family: 'Nunito';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 24px;
+    line-height: 16px;
+}
+#remained-time{
+    color: #52D45A;
+    font-family: 'Nunito';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 32px;
+    line-height: 16px;
+}
+
