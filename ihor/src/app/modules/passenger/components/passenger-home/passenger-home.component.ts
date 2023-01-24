@@ -21,8 +21,11 @@ export class PassengerHomeComponent {
     this.orderRideService.friendsChoosed$.subscribe((value)=>{
       this.friendsChoosed=value;
     })
+    this.orderRideService.rideOrderedObs$.subscribe((value)=>{
+      this.rideOrdered=value;
+    })
   }
-  
+  rideOrdered=0
   selectedRoute=0;
   ngOnInit(): void {}
   additionalChoosed=false;

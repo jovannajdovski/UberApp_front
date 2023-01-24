@@ -1,9 +1,11 @@
 import { DatePipe } from '@angular/common';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { Profile, ProfileWId } from 'src/app/modules/account/model/profile';
 import { AuthService } from 'src/app/modules/auth/services/auth.service';
-import { CreateRide, UserForRide, VehicleCategory } from '../../model/ride';
+import { environment } from 'src/environments/environment';
+import { CreateRide, Ride, UserForRide, VehicleCategory } from '../../model/ride';
 
 @Injectable({
   providedIn: 'root'
@@ -15,12 +17,15 @@ export class OrderRideService {
 
   private friends$ = new BehaviorSubject<any>({});
   friendsChoosed$ = this.friends$.asObservable();
+
+  private rideOrdered$=new BehaviorSubject<any>(0);
+  rideOrderedObs$=this.rideOrdered$.asObservable();
   
-  constructor(private authService:AuthService) {
+  constructor(private authService:AuthService, private http: HttpClient) {
     this.additionals$.next(false);
     this.friends$.next(false);
    }
-  newRide:CreateRide={"locations":[{"departure": {"address":"","latitude":0,"longitude":0},
+  public newRide:CreateRide={"locations":[{"departure": {"address":"","latitude":0,"longitude":0},
                                    "destination":{"address":"","latitude":0,"longitude":0}}],
   "passengers": [],
   "vehicleType": VehicleCategory.null,
@@ -33,7 +38,9 @@ export class OrderRideService {
       this.newRide.locations[0].departure.latitude=lat1;
       this.newRide.locations[0].departure.longitude=long1;
       this.newRide.locations[0].destination.latitude=lat2;
-      this.newRide.locations[0].departure.longitude=long2;
+      this.newRide.locations[0].destination.longitude=long2;
+      console.log(long2);
+      console.log(this.newRide.locations[0].departure.longitude);
    }
    public setAddresses(start: string, final: string) {
     console.log("setovao adrese");
@@ -54,7 +61,7 @@ export class OrderRideService {
   }
 
   public setPassengers(passengers:ProfileWId[]){
-    const id=this.authService.getId();
+    const id=Number(this.authService.getId());
     const email=this.authService.getEmail();
     this.newRide.passengers.push({"id":id, "email": email});
     passengers.forEach((value) =>{
@@ -64,5 +71,25 @@ export class OrderRideService {
     console.log(this.newRide);
     console.log("---------------------");
     this.friends$.next(true);
+  }
+  public orderRide()
+  {
+    this.orderRideBack().subscribe({
+      next: (result) => {
+        this.rideOrdered$.next(1);
+      },
+      error: (error) => {
+        if (error instanceof HttpErrorResponse) {
+          this.rideOrdered$.next(2);
+        }
+      },
+    });
+  }
+  public orderRideBack():Observable<Ride>
+  {
+    if(this.newRide.vehicleType==3)
+      this.newRide.vehicleType=null;
+    return this.http.post<Ride>(environment.apiHost + 'ride', this.newRide);
+  
   }
 }

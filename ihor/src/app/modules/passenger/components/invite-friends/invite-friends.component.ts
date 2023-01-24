@@ -5,6 +5,7 @@ import { PassengerService } from '../../services/passenger.service';
 import {FormsModule} from '@angular/forms';
 import { HttpErrorResponse } from '@angular/common/http';
 import { OrderRideService } from '../../services/order-ride/order-ride.service';
+import { AuthService } from 'src/app/modules/auth/services/auth.service';
 @Component({
   selector: 'app-invite-friends',
   templateUrl: './invite-friends.component.html',
@@ -12,7 +13,8 @@ import { OrderRideService } from '../../services/order-ride/order-ride.service';
 })
 export class InviteFriendsComponent {
   
-  constructor(private passengerService: PassengerService, private orderRideService: OrderRideService)
+  constructor(private passengerService: PassengerService,
+     private orderRideService: OrderRideService, private authService: AuthService)
   {}
   passengers:ProfileWId[]=[];
   currentEmail='';
@@ -31,16 +33,33 @@ export class InviteFriendsComponent {
 
   addFriend()
   {
-      this.passengerService.getPassengerByEmail(this.currentEmail).subscribe({
-        next: (result) => {
-          this.passengers.push(result);
-        },
-        error: (error) => {
-          if (error instanceof HttpErrorResponse) {
-            console.log("pera");
-          }
-        },
-       });
+    this.passengers.forEach((value) =>{
+      if(this.currentEmail==value.email)
+      {
+        this.currentEmail="";
+        return;
+      }
+    });
+    if(this.currentEmail==this.authService.getEmail()) 
+    {
+      this.currentEmail="";
+      return;
+    }
+    this.passengerService.getPassengerByEmail(this.currentEmail).subscribe({
+      next: (result) => {
+        this.passengers.push(result);
+      },
+      error: (error) => {
+        if (error instanceof HttpErrorResponse) {
+          console.log("pera");
+        }
+      },
+      });
+      this.currentEmail="";
+  }
+  remove(passenger: ProfileWId){
+    const index = this.passengers.indexOf(passenger);
+    this.passengers.splice(index, 1);
   }
   nextStep()
   {

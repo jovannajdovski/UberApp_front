@@ -12,14 +12,14 @@
         <img id="plus" (click)="addFriend()" src="../../../../../assets/images/add.png">
     </div>
     
-    <!-- <mat-chip-grid #chipGrid aria-label="Fruit selection">
+    <mat-chip-grid #chipGrid aria-label="Fruit selection">
         <mat-chip-row *ngFor="let passenger of passengers" (removed)="remove(passenger)">
           {{passenger.name+" "+passenger.surname}}
           <button matChipRemove [attr.aria-label]="'remove ' + passenger">
             <mat-icon>cancel</mat-icon>
           </button>
         </mat-chip-row>
-      </mat-chip-grid> -->
+      </mat-chip-grid>
     <div id="bottomEmptySpace"></div>
     <button type="button" (click)="nextStep()" id="continueButton">Continue order</button>
 </div>

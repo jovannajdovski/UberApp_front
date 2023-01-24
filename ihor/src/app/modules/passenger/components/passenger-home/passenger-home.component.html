@@ -1,8 +1,9 @@
 <div id="container">
-    <app-route-form *ngIf="selectedRoute<2 && !additionalChoosed && !friendsChoosed"></app-route-form>
-    <app-ride-additional-options *ngIf="selectedRoute===2 && !additionalChoosed && !friendsChoosed"></app-ride-additional-options>
+    <app-route-form *ngIf="selectedRoute<2 && !additionalChoosed"></app-route-form>
+    <app-ride-additional-options *ngIf="selectedRoute===2 && !additionalChoosed"></app-ride-additional-options>
     <app-invite-friends *ngIf="additionalChoosed && !friendsChoosed"></app-invite-friends>
-    <app-ride-confirmation *ngIf="friendsChoosed"></app-ride-confirmation>
+    <app-ride-confirmation *ngIf="friendsChoosed && rideOrdered===0"></app-ride-confirmation>
+    <app-successfull-order-ride *ngIf="rideOrdered>0"></app-successfull-order-ride>
     <app-map *ngIf="!additionalChoosed"></app-map>
     <img src="../../../../../assets/images/friends.png" alt="Friends" *ngIf="additionalChoosed && !friendsChoosed">
 </div>

@@ -1,7 +1,9 @@
+import { RideRejectionResponse } from "../../driver/services/ride-rejection/ride-rejection.service"
+
 export interface CreateRide{
     "locations":Path[],
     "passengers": UserForRide[],
-    "vehicleType": VehicleCategory,
+    "vehicleType": VehicleCategory|null,
     "babyTransport":boolean,
     "petTransport":boolean,
     "scheduledTime": string
@@ -20,5 +22,25 @@ export interface UserForRide{
     "email": string
 }
 export enum VehicleCategory{
-    null, "STANDARD", "LUXURY", "VAN"
+    "STANDARD", "LUXURY", "VAN", null
+}
+export interface Ride{
+    "id":number,
+    "startTime": string,
+    "endTime": string,
+    "totalCost": number,
+    "driver": UserForRide,
+    "passengers": UserForRide[],
+    "estimatedTimeInMinutes": number,
+    "vehicleType": VehicleCategory,
+    "babyTransport":boolean,
+    "petTransport":boolean,
+    "rejection": RideRejection
+    "locations":Path[],
+    "status": string
+    "scheduledTime": string
+}
+export interface RideRejection{
+    "reason": string,
+    "timeOfRejection":string
 }

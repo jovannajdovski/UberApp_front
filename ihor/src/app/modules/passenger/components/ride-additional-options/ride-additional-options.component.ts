@@ -1,5 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
+import { MatCheckboxChange } from '@angular/material/checkbox';
+import { NgxTimepickerFieldComponent } from 'ngx-material-timepicker';
 import { OrderRideService } from '../../services/order-ride/order-ride.service';
 
 
@@ -14,7 +16,9 @@ export class RideAdditionalOptionsComponent {
     babiesAllowed: new FormControl(''),
     petsAllowed: new FormControl('')
   });
-  constructor(private orderRideService: OrderRideService){}
+  constructor(private orderRideService: OrderRideService){
+    this.selectedTime=new Date();
+  }
   finished=false;
   vehicleTypes= [
     {value: 1, viewValue: 'STANDARD'},
@@ -24,10 +28,25 @@ export class RideAdditionalOptionsComponent {
   selectedType = null;
   babiesAllowed=false;
   petsAllowed=false;
+  selectedTime;
+  onChangeTime(event: string)
+  {
+      const minutes=event.substring(3,5);
+      const hours=event.substring(0,2);
+      this.selectedTime.setHours(Number(hours));
+      this.selectedTime.setMinutes(Number(minutes));
+      
+  }
+  toggleBabies(event: MatCheckboxChange){
+    this.babiesAllowed=event.checked;
+  }
+  togglePets(event: MatCheckboxChange){
+    this.petsAllowed=event.checked;
+  }
   nextStep() {
     
     this.finished = true;
-    const vehicleType = this.selectedType;
-    this.orderRideService.setAdditionals(Number(vehicleType),this.babiesAllowed,this.petsAllowed, new Date());
+    const vehicleType = (Number(this.selectedType)+3)%4;
+    this.orderRideService.setAdditionals(Number(vehicleType),this.babiesAllowed,this.petsAllowed, this.selectedTime);
   }
 }

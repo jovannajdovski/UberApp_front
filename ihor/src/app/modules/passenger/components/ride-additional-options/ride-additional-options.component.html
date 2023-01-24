@@ -3,21 +3,21 @@
     <h1>Additionals</h1>
     <div id="topEmptySpace"></div>
     <form [formGroup]="additionalsForm" (ngSubmit)="nextStep()">
-        <mat-form-field id="vehicleType" name="vehicleType" appearance="outline">
-            <mat-label>Vehicle type</mat-label>
-            <mat-select [(value)]="selectedType">
-              <mat-option></mat-option>
-              <mat-option [value]="option.value" *ngFor="let option of vehicleTypes">{{ option.viewValue }}</mat-option>
-            </mat-select>
-            <mat-error class="correct"></mat-error>
-        </mat-form-field>
-          <mat-checkbox [checked]="babiesAllowed" id="babyCheckbox" name="babiesAllowed" class="checkbox">Baby transport</mat-checkbox>
-          <mat-checkbox [checked]="petsAllowed" id="petsCheckbox" name="petsAllowed" class="checkbox">Pets transport</mat-checkbox>
+      <mat-form-field id="vehicleType" name="vehicleType" appearance="outline">
+          <mat-label>Vehicle type</mat-label>
+          <mat-select [(value)]="selectedType">
+            <mat-option [value]="0"></mat-option>
+            <mat-option [value]="option.value" *ngFor="let option of vehicleTypes">{{ option.viewValue }}</mat-option>
+          </mat-select>
+          <mat-error class="correct"></mat-error>
+      </mat-form-field>
+      <mat-checkbox [checked]="babiesAllowed" (change)="toggleBabies($event)" id="babyCheckbox" name="babiesAllowed" class="checkbox">Baby transport</mat-checkbox>
+      <mat-checkbox [checked]="petsAllowed" (change)="togglePets($event)" id="petsCheckbox" name="petsAllowed" class="checkbox">Pets transport</mat-checkbox>
 
-          <input placeholder="Time range from 12:10 am to 08:11 pm"
-                [ngxTimepicker]="range" min="12:10 am" max="08:11 pm" readonly>
-            <ngx-material-timepicker #range></ngx-material-timepicker>
-            
+      <input placeholder="24hr format" aria-label="24hr format" 
+                  [ngxTimepicker]="rideTime" 
+                  [format]="24"  readonly>
+      <ngx-material-timepicker (timeChanged)="onChangeTime($event)" formControlName="rideTime" #rideTime></ngx-material-timepicker>
 
 
       <div id="bottomEmptySpace"></div>

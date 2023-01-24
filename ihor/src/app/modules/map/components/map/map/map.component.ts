@@ -235,8 +235,11 @@ export class MapComponent implements AfterViewInit {
     this.removePointMarkers();
 
     if(this.unregisteredUser==false)
+    {
+      console.log("LONG2");
+      console.log(this.long2);
         this.orderRideService.setCoordinates(this.lat1,this.long1,this.lat2,this.long2);
-
+    }
     this.waypointsNoDrag = [
       L.latLng(this.lat1, this.long1),
       L.latLng(this.lat2, this.long2)
