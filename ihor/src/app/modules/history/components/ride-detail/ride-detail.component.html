@@ -1,0 +1,10 @@
+<div id="container">
+    <h1>Ride Details</h1>
+    <div class="row">  
+        <app-passenger-ride-detail *ngIf="!selectedDriver"></app-passenger-ride-detail>
+        <app-driver-ride-detail *ngIf="selectedDriver"></app-driver-ride-detail>
+        <app-draw-route-map></app-draw-route-map>
+    </div>
+
+   
+</div>

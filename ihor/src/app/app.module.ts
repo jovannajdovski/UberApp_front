@@ -21,6 +21,7 @@ import { MapModule } from './modules/map/map.module';
 import { PassengerModule } from './modules/passenger/passenger.module';
 import { UnregisteredUserModule } from './modules/unregistered-user/unregistered-user.module';
 import { AuthInterceptor } from './modules/auth/interceptor/auth-interceptor.interceptor';
+import { HistoryModule } from './modules/history/history.module';
 
 @NgModule({
   declarations: [AppComponent],
@@ -34,6 +35,7 @@ import { AuthInterceptor } from './modules/auth/interceptor/auth-interceptor.int
     AuthModule,
     CommunicationModule,
     DriverModule,
+    HistoryModule,
     LayoutModule,
     MapModule,
     PassengerModule,

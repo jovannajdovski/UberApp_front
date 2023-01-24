@@ -28,6 +28,12 @@ export class RouteFormComponent {
     private orderRideService:OrderRideService, private mapService: MapService, private router: Router) {
     this.finished = false;
     this.getTextFromMap();
+
+    if (routeService.getOffers()){
+      this.routeForm.get("start")?.setValue(routeService.getStartFromOffers());
+      this.routeForm.get("final")?.setValue(routeService.getFinalFromOffers());
+    }
+    
     this.authService.userState$.subscribe((value) => {
       console.log(value);
       if(value=="UNREGISTERED_USER")

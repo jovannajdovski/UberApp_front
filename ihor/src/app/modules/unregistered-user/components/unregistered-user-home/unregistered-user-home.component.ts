@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { RouteService } from 'src/app/modules/map/services/route/route.service';
 
 @Component({
@@ -6,7 +6,7 @@ import { RouteService } from 'src/app/modules/map/services/route/route.service';
   templateUrl: './unregistered-user-home.component.html',
   styleUrls: ['./unregistered-user-home.component.css']
 })
-export class UnregisteredUserHomeComponent {
+export class UnregisteredUserHomeComponent implements OnInit{
   constructor(private routeService: RouteService) {
     this.routeService.selectedRoute$.subscribe((value) => {
       this.selectedRoute = value;

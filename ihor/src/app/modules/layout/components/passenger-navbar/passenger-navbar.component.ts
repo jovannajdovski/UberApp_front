@@ -22,6 +22,7 @@ export class PassengerNavbarComponent {
   }
   toHistory(){
     this.selectedPage=SelectedPage.HISTORY;
+    this.router.navigate(['/passenger/history']);
   }
   toProfile(){
     this.selectedPage=SelectedPage.PROFILE;
