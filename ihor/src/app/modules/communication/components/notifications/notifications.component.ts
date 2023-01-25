@@ -1,8 +1,10 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { R3Identifiers } from '@angular/compiler';
-import { Component } from '@angular/core';
+import { AfterViewChecked, Component } from '@angular/core';
 import { Observable, BehaviorSubject } from 'rxjs';
+import { PendingRidesService } from 'src/app/modules/driver/services/pending-rides/pending-rides.service';
 import { RideRejectionService } from 'src/app/modules/driver/services/ride-rejection/ride-rejection.service';
+import { Ride } from 'src/app/modules/passenger/model/ride';
 
 @Component({
   selector: 'app-notifications',
@@ -10,12 +12,9 @@ import { RideRejectionService } from 'src/app/modules/driver/services/ride-rejec
   styleUrls: ['./notifications.component.css']
 })
 
-export class NotificationsComponent {
+export class NotificationsComponent implements AfterViewChecked {
   public reason='';
-  //private rideRejectionResponse: Observable<RideRejectionResponse>;
-  public notifications: { ride: Ride, timestamp: string, type: NotificationType }[]
-  public notificationType=NotificationType;
-  // eslint-disable-next-line @angular-eslint/use-lifecycle-interface
+  notificationType=NotificationType;
   ngAfterViewChecked()
   {
     const scrollableContainer = document.getElementById("messages_container");
@@ -24,60 +23,70 @@ export class NotificationsComponent {
         scrollableContainer.scrollTo(0,scrollableContainer.scrollHeight);
       }
   }
-  constructor(private rideRejectionService: RideRejectionService){
-    const ride1: Ride={address1: 'Preradoviceva 40', address2: 'Futoska 50', time: '20:30', cash: 500, rejectionReason:'Umro mu pas'};
-    const ride2: Ride={address1: 'Laze Teleckog 2', address2: 'Bulevar oslobodjenja 100', time: '22:30', cash: 1500, rejectionReason:''};
-    this.notifications= [
-      {
-        ride: ride1,
-        timestamp: '22:50',
-        type: NotificationType.NEW_RIDE
-      },
-      {
-        ride: ride1,
-        timestamp: '18:10',
-        type: NotificationType.RIDE_REJECTION
-      },
-      {
-        ride: ride2,
-        timestamp: '17:40',
-        type: NotificationType.REMINDER
-      },
-    ];
-  }
-  public acceptRide()
-  {
-      //TODO
-  }
-  public rejectRide()
-  {
-    const rejectionReason: RejectionReason = {
-      reason: this.reason
-    };
-    const rideRejectionResponse=this.rideRejectionService.reject(rejectionReason, 1).subscribe({
+  constructor(private rideRejectionService: RideRejectionService, private pendingRidesService: PendingRidesService){
+    pendingRidesService.getPendingRides().subscribe({
       next: (result) => {
-        console.log(result.estimatedTimeInMinutes); //TODO
+        console.log(result);
+        result.results.forEach( (value) => {
+          const notification:Notification={ride:value,
+            timestamp:new Date().getHours().toString().padStart(2, "0")+":"+new Date().getMinutes().toString().padStart(2, "0"),
+          type:NotificationType.NEW_RIDE};
+          this.notifications.push(notification);
+        }); 
       },
       error: (error) => {
         if (error instanceof HttpErrorResponse) {
           console.log("pera");
         }
       },
-    }); //TODO: pravi id umesto mokovanog
+    });
+  }
 
+  notifications:Notification[]=[];
+
+  public acceptRide(notification: Notification)
+  {
+    this.rideRejectionService.accept(notification.ride.id).subscribe({
+      next: (result) => {
+        const index = this.notifications.indexOf(notification);
+        this.notifications.splice(index, 1);
+      },
+      error: (error) => {
+        if (error instanceof HttpErrorResponse) {
+          console.log("pera");
+        }
+      },
+    });
+  }
+  public rejectRide(notification: Notification)
+  {
+    if(this.reason.length>0)
+    {
+      const rejectionReason: RejectionReason = {
+        reason: this.reason
+      };
+      this.rideRejectionService.reject(rejectionReason, notification.ride.id).subscribe({
+        next: (result) => {
+          const index = this.notifications.indexOf(notification);
+          this.notifications.splice(index, 1);
+        },
+        error: (error) => {
+          if (error instanceof HttpErrorResponse) {
+            console.log("pera");
+          }
+        },
+      });
+    }
   }
 
 }
 interface RejectionReason{
   "reason": string
 }
-
-interface Ride {
-	address1: string;
-	address2: string;
-	time: string;
-	cash: number;
-  rejectionReason: string;
+interface Notification{
+  "ride":Ride
+  "type":NotificationType
+  "timestamp":string
 }
 enum NotificationType {
   NEW_RIDE, RIDE_REJECTION, REMINDER

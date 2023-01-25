@@ -11,20 +11,20 @@
                     <div class="ride-icon">
                         <img class="med-img" src="../../../assets/images/route.png" alt="Icon">
                     </div>
-                    <p class="start basic-text">{{notification.ride.address1}}</p>
-                    <p class="final basic-text">{{notification.ride.address2}}</p>
+                    <p class="start basic-text">{{notification.ride.locations[0].departure.address}}</p>
+                    <p class="final basic-text">{{notification.ride.locations[0].destination.address}}</p>
                     <p id="timestamp" class="timestamp basic-text">{{notification.timestamp}}</p>
                     <div class="cash-icon">
                         <img class="small-img" src="../../../assets/images/cash.png" alt="Icon">
                     </div> 
-                    <p class="cash basic-text">{{notification.ride.cash}}</p>       
+                    <p class="cash basic-text">{{notification.ride.totalCost}}</p>       
                     <div class="time-icon">
                         <img class="small-img" src="../../../assets/images/clock.png" alt="Icon">
                     </div>     
-                    <p class="time basic-text">{{notification.ride.time}}</p>
+                    <p class="time basic-text">{{notification.ride.scheduledTime.substring(11,16)}}</p>
                     <hr class="hr">
-                    <button class="accept-btn" (click)="acceptRide()">ACCEPT</button>
-                    <button class="reject-btn" (click)="rejectRide()">REJECT</button>
+                    <button class="accept-btn" (click)="acceptRide(notification)">ACCEPT</button>
+                    <button class="reject-btn" (click)="rejectRide(notification)">REJECT</button>
                     <input placeholder="Rejection reason" class="reason" [(ngModel)]="reason">
                     <div class="empty"></div>
                 </div>

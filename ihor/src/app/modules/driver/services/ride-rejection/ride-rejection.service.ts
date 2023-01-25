@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable, BehaviorSubject } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { Token } from '@angular/compiler';
+import { Ride } from 'src/app/modules/passenger/model/ride';
 
 
 @Injectable({
@@ -12,8 +13,11 @@ export class RideRejectionService {
 
   constructor(private http: HttpClient) { }
 
-  reject(request: any, rideId: number): Observable<RideRejectionResponse>{
-    return this.http.put<RideRejectionResponse>(environment.apiHost+'ride/'+rideId+'/cancel',request);
+  reject(request: any, rideId: number): Observable<Ride>{
+    return this.http.put<Ride>(environment.apiHost+'ride/'+rideId+'/cancel',request);
+  }
+  accept(rideId: number): Observable<Ride>{
+    return this.http.put<Ride>(environment.apiHost+'ride/'+rideId+'/accept',{});
   }
 }
  
