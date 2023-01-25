@@ -129,6 +129,10 @@ export class PassengerRideDetailComponent implements OnInit {
     }
   }
 
+  toReviews(): void {
+    this.router.navigate(['/review-list']);
+  }
+
   seeOffers(): void {
     const start = this.ride.locations[0].departure.address;
     const end = this.ride.locations[0].destination.address;
@@ -212,6 +216,10 @@ export class PassengerRideDetailComponent implements OnInit {
 
   getPassengerName(driver: Profile): string {
     return driver.name + " " + driver.surname;
+  }
+
+  getPassengerPhone(driver: Profile): string {
+    return driver.telephoneNumber;
   }
 
   getPassengerPicture(driver: Profile): string {

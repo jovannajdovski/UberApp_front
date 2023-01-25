@@ -23,6 +23,8 @@ import { EmailForForgotPasswordComponent } from 'src/app/modules/unregistered-us
 import { DriverHistoryComponent } from 'src/app/modules/history/components/driver-history/driver-history.component';
 import { PassengerHistoryComponent } from 'src/app/modules/history/components/passenger-history/passenger-history.component';
 import { RideDetailComponent } from 'src/app/modules/history/components/ride-detail/ride-detail.component';
+import { LeaveReviewComponent } from 'src/app/modules/history/components/leave-review/leave-review.component';
+import { ReviewListComponent } from 'src/app/modules/history/components/review-list/review-list.component';
 
 const routes: Routes = [
   {path:'login', component: LoginComponent},
@@ -58,6 +60,8 @@ const routes: Routes = [
   {path:'driver/history', component: DriverHistoryComponent},
   {path:'passenger/history', component: PassengerHistoryComponent},
   {path:'ride-detail', component: RideDetailComponent},
+  {path:'leave-review', component: LeaveReviewComponent},
+  {path:'review-list', component: ReviewListComponent},
 ];
 
 @NgModule({

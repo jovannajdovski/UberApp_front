@@ -22,6 +22,11 @@ import { PassengerModule } from './modules/passenger/passenger.module';
 import { UnregisteredUserModule } from './modules/unregistered-user/unregistered-user.module';
 import { AuthInterceptor } from './modules/auth/interceptor/auth-interceptor.interceptor';
 import { HistoryModule } from './modules/history/history.module';
+import { BarRatingModule } from "ngx-bar-rating";
+import { FaIconLibrary, FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { faStar, faStarHalfAlt, faTimesCircle } from '@fortawesome/free-solid-svg-icons';
+import { faStar as farStar } from '@fortawesome/free-regular-svg-icons';
+
 
 @NgModule({
   declarations: [AppComponent],
@@ -41,7 +46,9 @@ import { HistoryModule } from './modules/history/history.module';
     PassengerModule,
     UnregisteredUserModule,
     MatChipsModule,
-    NgxMaterialTimepickerModule
+    NgxMaterialTimepickerModule,
+    BarRatingModule,
+    FontAwesomeModule
   ],
   providers: [
     {
@@ -55,4 +62,8 @@ import { HistoryModule } from './modules/history/history.module';
   ],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+  constructor(library: FaIconLibrary) {
+    library.addIcons(faStar, faStarHalfAlt, farStar, faTimesCircle);
+  }
+ }

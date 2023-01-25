@@ -11,6 +11,7 @@ export class RideDetailComponent implements OnInit{
   constructor(private rideHistoryService: RideHistoryService) {
     this.rideHistoryService.selectedDriver$.subscribe((value: number) => {
       this.selectedDriver = value;
+      this.rideHistoryService.setIsDriver(value);
     });
   }
   

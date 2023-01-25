@@ -18,6 +18,13 @@ export class RideHistoryService {
     this.driver$.next(driver);
   }
 
+  private isDriver!: number;
+  setIsDriver(value:number){
+    this.isDriver= value;
+  }
+  getIsDriver(){
+    return this.isDriver;
+  }
 
   private settedRide!: RideNoStatusDTO;
   private settedReviews!: ReviewsForRideDTO;

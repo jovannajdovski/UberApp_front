@@ -46,6 +46,10 @@ export class DriverRideDetailComponent implements OnInit{
     this.passengersLoaded = true;
   }
 
+  toReviews(): void {
+    this.router.navigate(['/review-list']);
+  }
+
 
   getAverage(reviewsList: ReviewsForRideDTO): string {
     if (!reviewsList.reviews.length) {
@@ -111,6 +115,10 @@ export class DriverRideDetailComponent implements OnInit{
 
   getPassengerName(driver: Profile): string {
     return driver.name + " " + driver.surname;
+  }
+
+  getPassengerPhone(driver: Profile): string {
+    return driver.telephoneNumber;
   }
 
   getPassengerPicture(driver: Profile): string {

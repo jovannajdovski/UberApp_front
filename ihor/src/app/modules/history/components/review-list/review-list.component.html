@@ -1,0 +1,66 @@
+<div id="alignment">
+    <div class="heading">
+        <h1 id="title">Ride Reviews</h1>
+        <button *ngIf="canReview" class="btn" (click)="toLeaveReview()" ><i class=" fa fa-pencil" aria-hidden="true"></i>
+            Leave a review</button>
+    </div>
+    <div id="container" *ngFor="let review of reviews.reviews; let i = index;">
+        <!-- <div id="container"> -->
+        <div class="col">
+            <img *ngIf="passengersLoaded===reviews.reviews.length" src={{getPassengerPicture(passengers[i])}}
+                id="driver-picture">
+            <div *ngIf="passengersLoaded===reviews.reviews.length" id="driver-name">{{getPassengerName(passengers[i])}}
+            </div>
+        </div>
+        <div id="data">
+            <section class="rating">
+                <p>Driver review</p>
+                <bar-rating [rate]="review.driverReview.rating" [readOnly]="true" [max]="5">
+                    <ng-template ratingInactive>
+                        <fa-icon [icon]="['far', 'star']" [fixedWidth]="true" size="2x"
+                            style="color: #f0e335"></fa-icon>
+                    </ng-template>
+                    <ng-template ratingActive>
+                        <fa-icon [icon]="['fas', 'star']" [fixedWidth]="true" size="2x"
+                            style="color: #f0e335"></fa-icon>
+                    </ng-template>
+                    <ng-template ratingFraction>
+                        <fa-icon [icon]="['fas', 'star-half-alt']" [fixedWidth]="true" size="2x"
+                            style="color: #f0e335"></fa-icon>
+                    </ng-template>
+                </bar-rating>
+            </section>
+
+
+            <mat-form-field appearance="outline" class="comment" id="drivercom">
+                <mat-label>Comment about driver</mat-label>
+                <textarea matInput [value]="review.driverReview.comment" [disabled]="true"></textarea>
+            </mat-form-field>
+
+            <section class="rating">
+                <p>Vehicle review</p>
+                <bar-rating [rate]="review.vehicleReview.rating" [readOnly]="true" [max]="5">
+                    <ng-template ratingInactive>
+                        <fa-icon [icon]="['far', 'star']" [fixedWidth]="true" size="2x"
+                            style="color: #f0e335"></fa-icon>
+                    </ng-template>
+                    <ng-template ratingActive>
+                        <fa-icon [icon]="['fas', 'star']" [fixedWidth]="true" size="2x"
+                            style="color: #f0e335"></fa-icon>
+                    </ng-template>
+                    <ng-template ratingFraction>
+                        <fa-icon [icon]="['fas', 'star-half-alt']" [fixedWidth]="true" size="2x"
+                            style="color: #f0e335"></fa-icon>
+                    </ng-template>
+                </bar-rating>
+            </section>
+
+            <mat-form-field appearance="outline" class="comment" id="vehiclecom">
+                <mat-label>Comment about vehicle</mat-label>
+                <textarea matInput [value]="review.vehicleReview.comment" [disabled]="true"></textarea>
+            </mat-form-field>
+
+        </div>
+
+    </div>
+</div>

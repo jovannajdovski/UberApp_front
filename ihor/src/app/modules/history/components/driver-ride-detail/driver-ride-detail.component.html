@@ -1,7 +1,7 @@
 <div class="container">
     <div id="content">
         <div class="row">
-            <div class="start-row">
+            <div class="start-row" (click)="toReviews()">
                 <span class="iconify star-icon" data-icon="material-symbols:star"></span>
                 <div class="col">
                     <div id="rating">{{getAverage(reviews)}}</div>
@@ -55,8 +55,11 @@
             <div class="start-row">
 
                 <img *ngIf="passengersLoaded" src={{getPassengerPicture(passenger)}} id="driver-picture">
-                <div *ngIf="passengersLoaded" id="driver-name">{{getPassengerName(passenger)}}</div>
-
+                <div class="col">
+                    <div *ngIf="passengersLoaded" id="driver-name">{{getPassengerName(passenger)}}</div>
+                    <div *ngIf="passengersLoaded" id="driver-phone">{{getPassengerPhone(passenger)}}</div>
+                </div>
+                
             </div>
         </div>
     </div>
