@@ -117,7 +117,13 @@ export class DriverHistoryComponent implements OnInit {
   }
 
   toRideDetail(ride: RideNoStatusDTO, reviewsForRide: ReviewsForRideDTO) {
+
     this.rideHistoryService.setDriver(1);
+
+    this.rideHistoryService.setDrawRoute(ride.locations[0].departure.longitude,
+      ride.locations[0].destination.longitude,
+      ride.locations[0].departure.latitude,
+      ride.locations[0].destination.latitude);
 
     this.rideHistoryService.setSettedRide(ride);
     this.rideHistoryService.setSettedReview(reviewsForRide);
