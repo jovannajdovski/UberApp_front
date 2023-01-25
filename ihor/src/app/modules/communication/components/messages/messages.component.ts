@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
-import { MessageService, Message, MessageType, Chat} from 'src/app/modules/communication/services/message/message.service'
+import { MessageService} from 'src/app/modules/communication/services/message/message.service'
+import { Chat, MessageType } from '../../model/message';
+
 @Component({
   selector: 'app-messages',
   templateUrl: './messages.component.html',
@@ -10,6 +12,8 @@ export class MessagesComponent {
   public messageType=MessageType;
 
   constructor(private messageService: MessageService){
+    console.log("ponovo konstruktor");
+    this.messageService.getMessages();
     this.messageService.observableChats$.subscribe((chats)=>
     {this.chats=chats;
      });

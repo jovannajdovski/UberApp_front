@@ -3,6 +3,7 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { Observable, BehaviorSubject } from 'rxjs';
 import { AuthService } from 'src/app/modules/auth/services/auth.service';
+import { Chat, MessagesResponse, MessageType, MessageRequest, SentMessageResponse } from '../../model/message';
 
 @Injectable({
   providedIn: 'root'
@@ -19,7 +20,7 @@ export class MessageService {
   observableChats$=this.chats$.asObservable();
 
   constructor(private authService:AuthService, private http: HttpClient) {
-    this.getMessages();
+
    }
 
   openChat(chat:Chat){
@@ -27,7 +28,7 @@ export class MessageService {
     this.chat$.next(chat);
     this.selectedChatRideId$.next(chat.rideId);
   }
-  private getMessages()
+  public getMessages()
   {
     this.getMessagesFromBack().subscribe({
       next: (result) => {
@@ -114,6 +115,9 @@ export class MessageService {
   private sendMessageToBack(request: MessageRequest, receiverId: number):Observable<SentMessageResponse>{
     return this.http.post<SentMessageResponse>(environment.apiHost+'user/'+receiverId+'/message', request);
   }
+  public sendMultipleMessageToBack(message: MessageRequest, userIds: number[]):Observable<any>{
+    return this.http.post<any>(environment.apiHost+"user/send-messages",{"message": message, "userIds": userIds});
+  }
 }
 // function toDate(str: string): Date{
 //   console.log(str);
@@ -130,70 +134,25 @@ function toDate(str: any): Date{
   console.log(typeof(str));
   return str;
 }
-export interface MessageRequest{
-  "message": string,
-  "type": MessageType,
-  "rideId": number
-}
-export interface MessagesResponse{
-  "totalCount": number,
-  "results": [
-    {
-      "id": number,
-      "timeOfSending": object,
-      "senderId": number,
-      "receiverId": number,
-      "message": string,
-      "type": MessageType,
-      "rideId": number
-    }
-  ]
-}
-export interface SentMessageResponse{
-  "id": number,
-  "timeOfSending": Date,
-  "senderId": number,
-  "receiverId": number,
-  "message": string,
-  "type": MessageType,
-  "rideId": number
-}
-export interface Message{
-  timestamp: Date;
-  content: string;
-  myself: boolean
-  type: MessageType
-}
-export enum MessageType {
-  SUPPORT, RIDE, PANIC
-}
 
 
-export interface Chat{
-  image: string,
-  name: string,
-  messages: Message[],
-  rideId: number,
-  receiverId: number
-}
 
-
-const date1=new Date('2022-12-16T10:24:00'); //prebaciti u servis
-const date2=new Date('2022-12-17T03:24:00');
-const date3=new Date('2022-12-18T02:24:00');
-const date4=new Date('2022-12-17T06:24:00');
-const date5=new Date('2022-12-19T10:24:00');
-const message1: Message={ timestamp: date1, content: 'Samo jako', myself: false, type: MessageType.PANIC}
-const message2: Message={ timestamp: date2, content: 'BORJAN', myself: true, type: MessageType.RIDE}
-const message3: Message={ timestamp: date3, content: 'BORJAN', myself: false, type: MessageType.PANIC}
-const message4: Message={ timestamp: date4, content: 'Dobar' + '\xa0\xa0\xa0\xa0\xa0\xa0\xa0' + 'dan', myself: false, type: MessageType.RIDE}
-const message5: Message={ timestamp: date5, content: 'PROFESORE', myself: false, type: MessageType.RIDE}
-const messages=[[message1,message2,message3],[message4,message5]];
-const chat1={image: "", name: "Mrsulja SUPPORT", messages: messages[0], type: MessageType.SUPPORT,rideId:1, receiverId:1}
-const chat2={image: "", name: "Stevan Gostojic", messages: messages[1], type: MessageType.PANIC,rideId:1, receiverId:1}
-const chatsDummy=[ 
-      chat1,
-      chat2,
-    ];
+// const date1=new Date('2022-12-16T10:24:00'); //prebaciti u servis
+// const date2=new Date('2022-12-17T03:24:00');
+// const date3=new Date('2022-12-18T02:24:00');
+// const date4=new Date('2022-12-17T06:24:00');
+// const date5=new Date('2022-12-19T10:24:00');
+// const message1: Message={ timestamp: date1, content: 'Samo jako', myself: false, type: MessageType.PANIC}
+// const message2: Message={ timestamp: date2, content: 'BORJAN', myself: true, type: MessageType.RIDE}
+// const message3: Message={ timestamp: date3, content: 'BORJAN', myself: false, type: MessageType.PANIC}
+// const message4: Message={ timestamp: date4, content: 'Dobar' + '\xa0\xa0\xa0\xa0\xa0\xa0\xa0' + 'dan', myself: false, type: MessageType.RIDE}
+// const message5: Message={ timestamp: date5, content: 'PROFESORE', myself: false, type: MessageType.RIDE}
+// const messages=[[message1,message2,message3],[message4,message5]];
+// const chat1={image: "", name: "Mrsulja SUPPORT", messages: messages[0], type: MessageType.SUPPORT,rideId:1, receiverId:1}
+// const chat2={image: "", name: "Stevan Gostojic", messages: messages[1], type: MessageType.PANIC,rideId:1, receiverId:1}
+// const chatsDummy=[ 
+//       chat1,
+//       chat2,
+//     ];
 
 

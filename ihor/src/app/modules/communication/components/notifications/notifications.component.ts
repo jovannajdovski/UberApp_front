@@ -5,6 +5,8 @@ import { Observable, BehaviorSubject } from 'rxjs';
 import { PendingRidesService } from 'src/app/modules/driver/services/pending-rides/pending-rides.service';
 import { RideRejectionService } from 'src/app/modules/driver/services/ride-rejection/ride-rejection.service';
 import { Ride } from 'src/app/modules/passenger/model/ride';
+import { MessageRequest, MessageType } from '../../model/message';
+import { MessageService } from '../../services/message/message.service';
 
 @Component({
   selector: 'app-notifications',
@@ -23,7 +25,7 @@ export class NotificationsComponent implements AfterViewChecked {
         scrollableContainer.scrollTo(0,scrollableContainer.scrollHeight);
       }
   }
-  constructor(private rideRejectionService: RideRejectionService, private pendingRidesService: PendingRidesService){
+  constructor(private rideRejectionService: RideRejectionService, private pendingRidesService: PendingRidesService, private messageService: MessageService){
     pendingRidesService.getPendingRides().subscribe({
       next: (result) => {
         console.log(result);
@@ -50,6 +52,21 @@ export class NotificationsComponent implements AfterViewChecked {
       next: (result) => {
         const index = this.notifications.indexOf(notification);
         this.notifications.splice(index, 1);
+      },
+      error: (error) => {
+        if (error instanceof HttpErrorResponse) {
+          console.log("pera");
+        }
+      },
+    });
+    const passengerIds:number[]=[];
+    notification.ride.passengers.forEach( (value) => {
+      passengerIds.push(value.id);
+    }); 
+    const message:MessageRequest={"message":"Ride is accepted", "rideId": notification.ride.id, "type":MessageType.RIDE};
+    this.messageService.sendMultipleMessageToBack(message,passengerIds).subscribe({
+      next: (result) => {
+        console.log(result)
       },
       error: (error) => {
         if (error instanceof HttpErrorResponse) {

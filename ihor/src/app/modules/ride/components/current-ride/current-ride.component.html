@@ -5,9 +5,9 @@
             [departure]="departure"
             [destination]="destination"
             [arrivalTime]="arrivalTime"></app-current-ride-details>
-        <app-map *ngIf="rideFound"></app-map>
+        <app-map *ngIf="rideFound===1"></app-map>
     </div>
-    <div id="buttonsArea">
+    <div *ngIf="rideFound===1" id="buttonsArea">
         <button type="button" (click)="openPanicDialog()" id="panicButton">PANIC</button>
         <button *ngIf="role==='DRIVER'" (click)="finishRide()" type="button"  id="finishButton">FINISH</button>
         
