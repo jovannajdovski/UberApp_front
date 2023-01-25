@@ -61,6 +61,7 @@ export class NotificationsComponent implements AfterViewChecked {
     });
     const passengerIds:number[]=[];
     notification.ride.passengers.forEach( (value) => {
+      console.log(value.id);
       passengerIds.push(value.id);
     }); 
     const message:MessageRequest={"message":"Ride is accepted", "rideId": notification.ride.id, "type":MessageType.RIDE};

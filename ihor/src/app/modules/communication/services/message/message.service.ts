@@ -44,18 +44,25 @@ export class MessageService {
   }
   private getChatsFromMessages(result: MessagesResponse) {
     const chats:Chat[]=[];
-    let firstIndex=0;
-    for (let i = 0; i < result.totalCount; i++) {
-      if(result.results.at(i)?.rideId!==result.results.at(firstIndex)?.rideId)
-      {
-        const chat=this.createChat(result,firstIndex,i);
-        chats.push(chat);
-        firstIndex=i;
-      }
+    if(result.totalCount>0)
+    {
+      const loggedUserId=Number(this.authService.getId());
+      let firstIndex=0, currentOtherUserId, lastOtherUserId=(result.results.at(0)?.receiverId||0)+(result.results.at(0)?.senderId||0)-loggedUserId;
       
+      for (let i = 0; i < result.totalCount; i++) {
+
+        currentOtherUserId=(result.results.at(i)?.receiverId||0)+(result.results.at(i)?.senderId||0)-loggedUserId;
+        if(result.results.at(i)?.rideId!==result.results.at(firstIndex)?.rideId || currentOtherUserId!==lastOtherUserId)
+        {
+          const chat=this.createChat(result,firstIndex,i);
+          chats.push(chat);
+          firstIndex=i;
+          lastOtherUserId=currentOtherUserId;
+        }
+        
+      }
+      chats.push(this.createChat(result,firstIndex,result.totalCount));
     }
-    if(result.totalCount>0) chats.push(this.createChat(result,firstIndex,result.totalCount));
-    
     return chats;
   }
   private createChat(result: MessagesResponse, firstIndex: number, lastIndex: number): Chat {
