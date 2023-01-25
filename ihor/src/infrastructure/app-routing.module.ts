@@ -25,6 +25,7 @@ import { PassengerHistoryComponent } from 'src/app/modules/history/components/pa
 import { RideDetailComponent } from 'src/app/modules/history/components/ride-detail/ride-detail.component';
 import { LeaveReviewComponent } from 'src/app/modules/history/components/leave-review/leave-review.component';
 import { ReviewListComponent } from 'src/app/modules/history/components/review-list/review-list.component';
+import { AcceptedRidesComponent } from 'src/app/modules/driver/components/accepted-rides/accepted-rides.component';
 
 const routes: Routes = [
   {path:'login', component: LoginComponent},
@@ -62,6 +63,7 @@ const routes: Routes = [
   {path:'ride-detail', component: RideDetailComponent},
   {path:'leave-review', component: LeaveReviewComponent},
   {path:'review-list', component: ReviewListComponent},
+  {path:'accepted-rides', component: AcceptedRidesComponent},
 ];
 
 @NgModule({
