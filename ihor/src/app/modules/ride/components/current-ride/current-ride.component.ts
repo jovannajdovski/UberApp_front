@@ -58,8 +58,8 @@ export class CurrentRideComponent implements OnInit {
 
   ngOnInit(){
     this.initializeWebSocketConnection();
-    // this.stompClient.send("api/socket-subscriber/vehicle/"+this.ride.id+ "/current-location/"+localStorage.getItem('user'));
-    this.stompClient.send("api/socket-subscriber/send/message");
+    
+    //this.stompClient.send("api/socket-subscriber/send/message");
   
   }
 
@@ -76,6 +76,9 @@ export class CurrentRideComponent implements OnInit {
   }
   openGlobalSocket() {
     console.log("open global socket");
+    console.log("gvvvvv");
+    console.log(localStorage.getItem("user")?.substring(1,localStorage.getItem("user")!.length-1));
+    this.stompClient.send("api/socket-subscriber/vehicle/"+this.ride.id+ "/current-location/"+localStorage.getItem("user")?.substring(1,localStorage.getItem("user")!.length-1));
     this.stompClient.subscribe("api/socket-publisher/"+"vehicle/current-location/"+this.ride.id, (message: { body: string; }) => {
       this.handleResult(message);
     });
