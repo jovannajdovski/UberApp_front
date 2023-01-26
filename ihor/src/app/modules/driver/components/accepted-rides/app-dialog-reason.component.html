@@ -1,0 +1,13 @@
+<form id="addDriver">
+  <h1>Hello, what is your reason of cancelation?</h1>
+
+  <div class="field-container">
+    
+      <mat-form-field appearance="outline" class="field">
+        <mat-label>Reason</mat-label>
+        <input matInput name="reason" [(ngModel)]="data.reason">
+      </mat-form-field>
+    
+  </div>
+  <button type="button"  id="loginbtn" [mat-dialog-close]="data.reason" cdkFocusInitial >Cancel ride</button>
+</form>

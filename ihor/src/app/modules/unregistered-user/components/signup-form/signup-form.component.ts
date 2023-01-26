@@ -15,13 +15,13 @@ export class SignupFormComponent implements OnInit {
   hasError = false;
 
   allTextPattern = "[a-zA-Z][a-zA-Z]*";
-  phoneNumberPattern = "[0-9]*";
+  phoneNumberPattern = "[0-9 +]?[0-9]+[0-9 \\-]+";
   streetAddressPattern = "^[a-zA-Z0-9,'-]*$"
 
   signupForm = new FormGroup({
     name: new FormControl('', [Validators.pattern(this.allTextPattern), Validators.required]),
     surname: new FormControl('', [Validators.pattern(this.allTextPattern), Validators.required]),
-    phoneNumber: new FormControl('', [Validators.pattern(this.phoneNumberPattern), Validators.minLength(10), Validators.maxLength(10), Validators.required]),
+    phoneNumber: new FormControl('', [Validators.pattern(this.phoneNumberPattern), Validators.minLength(6), Validators.maxLength(20), Validators.required]),
     streetAddress: new FormControl('', [Validators.required]),
     email: new FormControl('', [Validators.email, Validators.required]),
     password: new FormControl('', [Validators.minLength(6), Validators.required]),
@@ -47,7 +47,7 @@ export class SignupFormComponent implements OnInit {
     if (this.signupForm.valid) {
       this.registrationService.registerPassenger(registration).subscribe({
         next: (result) => {
-          alert("Successfull registration");
+          this.router.navigate(['/verify-account']);
         },
         error: (error) => {
           if (error instanceof HttpErrorResponse) {

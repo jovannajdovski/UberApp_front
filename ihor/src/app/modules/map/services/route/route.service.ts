@@ -7,6 +7,34 @@ import { BehaviorSubject } from 'rxjs';
   providedIn: 'root'
 })
 export class RouteService {
+  private offers = false;
+  private startFromOffers = "";
+  private finalFromOffers = "";
+
+  public getOffers(){
+    return this.offers;
+  }
+
+  public getStartFromOffers(){
+    return this.startFromOffers;
+  }
+
+  public getFinalFromOffers(){
+    return this.finalFromOffers;
+  }
+
+  public setOffers(offer:boolean){
+    this.offers = offer;
+  }
+
+  public setStartFromOffers(start:string){
+    this.startFromOffers = start;
+  }
+
+  public setFinalFromOffers(final:string){
+    this.finalFromOffers = final;
+  }
+
   private start$ = new BehaviorSubject<any>({});
   selectedStart$ = this.start$.asObservable();
 

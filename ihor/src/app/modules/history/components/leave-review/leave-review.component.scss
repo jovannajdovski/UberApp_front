@@ -1,11 +1,7 @@
-#background {
-    background-image: url("../../../../../assets/images/uber_background2.jpg");
+#alignment {
     width: 100%;
     height: 100%;
     position: absolute;
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
     display: flex;
     justify-content: center;
 }
@@ -31,37 +27,48 @@
     color: #FFFFFF;
 }
 
-#lockicon{
+#review-icon{
     color: #FFFFFF;
-    font-size: 100px;
+    font-size: 70px;
 }
 
 h1 {
     font-weight: 500;
     font-size: 42px;
-    line-height: 82px;
+    line-height: 60px;
     letter-spacing: 0.1px;
-    margin: 5px 40px;
+    margin: 5px 5px;
     /* margin-bottom: auto; */
+}
+
+.col{
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
 }
 
 
 form {
-    margin: 30px 40px;
+    margin: 10px 10px;
     width: 70%;
+    height: 70%;
     display: flex;
     flex-direction: column;
     justify-content: center;
-    align-items: stretch;
+    align-items: center;
     text-align: center;
 }
 
-#password, #confirmpassword {
+
+#drivercom, #vehiclecom {
+    height: 30%;
     margin: 10px 0;
 }
 
-#password input, #confirmpassword input {
-    height: 45px;
+#drivercom textarea, #vehiclecom textarea {
     color: white;
 }
 
@@ -73,15 +80,54 @@ form {
     color: white;
 }
 
+//input outline color
+::ng-deep .mat-form-field-appearance-outline.ng-valid div {
+    border-color: white!important;
+}
 
-#resetbtn {
+//input outline color
+::ng-deep .mat-form-field-appearance-outline.ng-pristine div {
+    border-color: white!important;
+}
+
+//change color of label
+::ng-deep .mat-form-field-appearance-outline.ng-valid mat-label {
+    color: white !important;
+}
+
+//change color of label
+::ng-deep .mat-form-field-appearance-outline.ng-pristine mat-label {
+    color: white !important;
+}
+
+//change color of input
+::ng-deep .mat-form-field-appearance-outline input {
+    color: white !important;
+}
+
+//change color of input
+::ng-deep .mat-form-field-appearance-outline textarea {
+    color: white !important;
+}
+
+//change color of placeholder
+::ng-deep .mat-form-field-appearance-outline input::placeholder {
+    color: rgb(173, 171, 171) !important;
+}
+
+:host ::ng-deep .mat-form-field-appearance-outline .mdc-text-field--outlined {
+    border-color: white !important;
+}
+
+#ratebtn {
     transition: all .5s ease;
     background: #282E33;
     border: 3px solid #FFE32B;
     box-shadow: 0px 4px 4px rgba(255, 248, 54, 0.397);
     border-radius: 8px;
-    height: 45px;
+    height: 60px;
     margin-top: 20px;
+    width: 70%;
 
     align-items: center;
     text-align: center;
@@ -91,7 +137,7 @@ form {
     color: #FFE32B;
 }
 
-#resetbtn:hover {
+#ratebtn:hover {
     transform: translateY(-0.25em);
     background: #FFE32B;
     border: 1px solid rgba(#000, .05);
@@ -99,20 +145,34 @@ form {
     color: #282E33;
 }
 
-
-#toLogin {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: center;
-    font-size: 16px;
-    margin-top: 20px;
+#ratebtn:disabled {
+    background: #9b8601;
+    border: 1px solid rgba(#000, .05);
+    box-shadow: 0px 4px 4px rgba(15, 15, 15, 0.397);
+    color: #282E33;
 }
 
-#toLogin #login {
-    font-weight: bold;
-    cursor: pointer;
-    margin: 0 5px;
+.rating{
+    margin-top: 10px;
+    margin-bottom: 20px;
+    width: 100%;
+    height: 15%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-size: 20px;
+}
+
+.rating bar-rating{
+    width: 70%;
+    --br-gap: 20px;
+    justify-self: center;
+}
+
+.comment{
+    width: 100%;
+    height: 30%;
 }
 
 
@@ -134,7 +194,7 @@ form {
         margin-bottom: 0;
     }
 
-    #lockicon {
+    #review-icon {
         margin-top: 120px;
         margin-bottom: 10px;
         /* margin-bottom: auto; */
@@ -143,3 +203,4 @@ form {
         font-size: 28px;
     }
 }
+

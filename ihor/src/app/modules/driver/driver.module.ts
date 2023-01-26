@@ -5,13 +5,17 @@ import { DriverHomeComponent } from './components/driver-home/driver-home.compon
 import { MapModule } from '../map/map.module';
 import { VehicleDataComponent } from './components/vehicle-data/vehicle-data.component';
 import { EditVehicleComponent } from './components/edit-vehicle/edit-vehicle.component';
-import { FormGroup, FormControl, Validators, ReactiveFormsModule } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
 import { DriverProfileComponent } from './components/driver-profile/driver-profile.component';
 import { AccountModule } from '../account/account.module';
 import { DriverWorktimeComponent } from './components/driver-worktime/driver-worktime.component';
 import { DriverNextRideComponent } from './components/driver-next-ride/driver-next-ride.component';
 
 
+import { AcceptedRidesComponent } from './components/accepted-rides/accepted-rides.component';
+import { SharedModule } from "../shared/shared.module";
+import { DialogReasonComponent } from './components/accepted-rides/accepted-rides.component';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -20,14 +24,18 @@ import { DriverNextRideComponent } from './components/driver-next-ride/driver-ne
     EditVehicleComponent,
     DriverProfileComponent,
     DriverWorktimeComponent,
-    DriverNextRideComponent
+    DriverNextRideComponent,
+    AcceptedRidesComponent,
+    DialogReasonComponent
   ],
   imports: [
     CommonModule,
     MaterialModule,
     MapModule,
     ReactiveFormsModule,
-    AccountModule
+    AccountModule,
+    SharedModule,
+    FormsModule
   ]
 })
 export class DriverModule { }

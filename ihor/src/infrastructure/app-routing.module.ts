@@ -18,6 +18,15 @@ import { ResetPasswordComponent } from 'src/app/modules/unregistered-user/compon
 import { SignupComponent } from 'src/app/modules/unregistered-user/components/signup/signup.component';
 import { UnregisteredUserHomeComponent } from 'src/app/modules/unregistered-user/components/unregistered-user-home/unregistered-user-home.component';
 import { CurrentRideComponent } from 'src/app/modules/ride/components/current-ride/current-ride.component';
+import { VerifyAccountComponent } from 'src/app/modules/unregistered-user/components/verify-account/verify-account/verify-account.component';
+import { AccountActivatedComponent } from 'src/app/modules/unregistered-user/components/account-activated/account-activated/account-activated.component';
+import { EmailForForgotPasswordComponent } from 'src/app/modules/unregistered-user/components/email-for-forgot-password/email-for-forgot-password/email-for-forgot-password.component';
+import { DriverHistoryComponent } from 'src/app/modules/history/components/driver-history/driver-history.component';
+import { PassengerHistoryComponent } from 'src/app/modules/history/components/passenger-history/passenger-history.component';
+import { RideDetailComponent } from 'src/app/modules/history/components/ride-detail/ride-detail.component';
+import { LeaveReviewComponent } from 'src/app/modules/history/components/leave-review/leave-review.component';
+import { ReviewListComponent } from 'src/app/modules/history/components/review-list/review-list.component';
+import { AcceptedRidesComponent } from 'src/app/modules/driver/components/accepted-rides/accepted-rides.component';
 
 const routes: Routes = [
   {path:'login', component: LoginComponent},
@@ -47,7 +56,16 @@ const routes: Routes = [
   {path:'edit-vehicle', component: EditVehicleComponent},
   {path:'driver/profile', component: DriverProfileComponent},
   {path:'passenger/profile', component: PassengerProfileComponent},
-  {path:'current-ride', component: CurrentRideComponent}
+  {path:'current-ride', component: CurrentRideComponent},
+  {path:'verify-account', component: VerifyAccountComponent},
+  {path:'account-activated', component: AccountActivatedComponent},
+  {path:'email-for-forgot-password', component: EmailForForgotPasswordComponent},
+  {path:'driver/history', component: DriverHistoryComponent},
+  {path:'passenger/history', component: PassengerHistoryComponent},
+  {path:'ride-detail', component: RideDetailComponent},
+  {path:'leave-review', component: LeaveReviewComponent},
+  {path:'review-list', component: ReviewListComponent},
+  {path:'accepted-rides', component: AcceptedRidesComponent},
 ];
 
 @NgModule({
