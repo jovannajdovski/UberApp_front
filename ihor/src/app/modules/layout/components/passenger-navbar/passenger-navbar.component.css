@@ -1,123 +1,134 @@
-.navbar-button{
-    box-sizing: border-box;
-    
-    font-size: 16px;
-    font-weight: 800;
-    font-family: 'Nunito';
-    letter-spacing: 0.3px;
-    
-    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-    padding: 8px;
-    
-    width: 94px;
-    height: 35px;
-    min-width: 94px;
-    color: white;
-    background-color: rgba(38, 50, 56, 0.5);
-    
+.navbar-button {
+  box-sizing: border-box;
+
+  font-size: 16px;
+  font-weight: 800;
+  font-family: 'Nunito';
+  letter-spacing: 0.3px;
+
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  padding: 8px;
+
+  width: 94px;
+  height: 35px;
+  min-width: 94px;
+  color: white !important;
+  background-color: rgba(38, 50, 56, 0.5) !important;
+
 }
 
-#sign-out-button
-{
-    border-radius: 8px;
-    margin: 10px;
-    color: white;
-    background-color: rgba(38, 50, 56, 0.5);
-}
-#schedule-button,#inbox-button, #history-button,#profile-button
-{
-    border-radius: 0;
-    margin: 10px 0;
-}
-.selected-button{
-    
-    color: rgba(38, 50, 56, 0.5);
-    background-color: white;
-}
-#schedule-button{
-    border-radius: 8px 0 0 8px;
-}
-#profile-button{
-    border-radius: 0 8px 8px 0;
-}
-#currentRideBtn{
-    box-sizing: border-box;
-    
-    font-size: 18px;
-    font-weight: 800;
-    font-family: 'Nunito';
-    letter-spacing: 0.3px;
-    color:white;
-    background-color: #52D45A;
-    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-    border-radius: 8px;
-    padding: 8px 16px;
-    
-    margin: auto 0;
-    width: 250px;
-    height: 50px;
-    min-width: 150px;
+#sign-out-button {
+  border-radius: 8px;
+  margin: 10px;
+  color: white;
+  background-color: rgba(38, 50, 56, 0.5);
 }
 
-#sign-out-button:hover
-{
-    color: rgba(38, 50, 56, 0.5);
-    background-color: white;
+#schedule-button, #inbox-button, #history-button, #profile-button {
+  border-radius: 0;
+  margin: 10px 0;
 }
 
-#passenger-left-div{
-    box-sizing: content-box;
-    width: 200px;
+.selected-button {
+  color: rgba(38, 50, 56, 0.5) !important;
+  background-color: white !important;
 }
-#passenger-mid-div{
-    box-sizing: content-box;
-    width: 300px;
+
+#schedule-button {
+  border-radius: 8px 0 0 8px;
 }
-#passenger-right-div{
-    box-sizing: content-box;
-    width: 100px;
+
+#profile-button {
+  border-radius: 0 8px 8px 0;
 }
-#passenger{
-    box-sizing: content-box;
-    width: 100%;
-    display: flex;
-    flex-direction: row;
-    flex-wrap: nowrap;
-    align-items: flex-end;
-    gap: 0px;
+
+#currentRideBtn {
+  box-sizing: border-box;
+
+  font-size: 18px;
+  font-weight: 800;
+  font-family: 'Nunito';
+  letter-spacing: 0.3px;
+  color: white;
+  background-color: #52D45A;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 8px;
+  padding: 8px 16px;
+
+  margin: auto 0;
+  width: 250px;
+  height: 50px;
+  min-width: 150px;
 }
+
+#sign-out-button:hover {
+  color: rgba(38, 50, 56, 0.5);
+  background-color: white;
+}
+
+#passenger-left-div {
+  box-sizing: content-box;
+  width: 200px;
+}
+
+#passenger-mid-div {
+  box-sizing: content-box;
+  width: 300px;
+}
+
+#passenger-right-div {
+  box-sizing: content-box;
+  width: 100px;
+}
+
+#passenger {
+  box-sizing: content-box;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  align-items: flex-end;
+  gap: 0px;
+}
+
 @media (max-width: 1500px) {
-    
-    #passenger-left-div{
-        width: 50px;
-    }
-    #passenger-mid-div{
-        width: 100px;
-    }
-    #passenger-right-div{
-        width: 50px;
-    }
+
+  #passenger-left-div {
+    width: 50px;
   }
+
+  #passenger-mid-div {
+    width: 100px;
+  }
+
+  #passenger-right-div {
+    width: 50px;
+  }
+}
+
 @media (max-width: 1100px) {
-    #currentRideBtn{
-        width: 150px;
-        font-size:14px;
-    }
-    #passenger-left-div{
-        width: 0;
-    }
-    #passenger-mid-div{
-        width: 50px;
-    }
+  #currentRideBtn {
+    width: 150px;
+    font-size: 14px;
+  }
+
+  #passenger-left-div {
+    width: 0;
+  }
+
+  #passenger-mid-div {
+    width: 50px;
+  }
 
 
 }
+
 @media (max-width: 580px) {
-    .navbar-button{
-        box-sizing: border-box;
-        font-size: 14px;
-        width: 75px;
-        min-width: 75px;
-        
-    }
+  .navbar-button {
+    box-sizing: border-box;
+    font-size: 14px;
+    width: 75px;
+    min-width: 75px;
+
   }
+}

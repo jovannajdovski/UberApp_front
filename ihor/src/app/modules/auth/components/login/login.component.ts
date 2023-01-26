@@ -32,7 +32,7 @@ export class LoginComponent implements OnInit {
     if (this.loginForm.valid) {
       this.authService.login(login).subscribe({
         next: (result) => {
-          localStorage.setItem('user', JSON.stringify(result.jwt));
+          localStorage.setItem('user', JSON.stringify(result.accessToken));
           this.authService.setUser();
 
           if (this.authService.getRole() == "DRIVER") {
@@ -51,7 +51,7 @@ export class LoginComponent implements OnInit {
       });
     }
   }
-  
+
   toForgot() {
     this.router.navigate(['/forgot-password']);
   }

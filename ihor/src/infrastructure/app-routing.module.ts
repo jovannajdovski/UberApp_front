@@ -17,23 +17,25 @@ import { ForgotPasswordComponent } from 'src/app/modules/unregistered-user/compo
 import { ResetPasswordComponent } from 'src/app/modules/unregistered-user/components/reset-password/reset-password.component';
 import { SignupComponent } from 'src/app/modules/unregistered-user/components/signup/signup.component';
 import { UnregisteredUserHomeComponent } from 'src/app/modules/unregistered-user/components/unregistered-user-home/unregistered-user-home.component';
+import {AuthGuard} from "../app/modules/auth/guards/auth.guard";
+import {RoleGuard} from "../app/modules/auth/guards/role.guard";
 
 const routes: Routes = [
   {path:'login', component: LoginComponent},
   {path:'signup', component: SignupComponent},
   {path: '', redirectTo: 'home', pathMatch: 'full' },
   {path: 'administrator',
-    canActivate:[],
+    canActivate:[RoleGuard, AuthGuard],
+    data: {expectedRoles: "ADMINISTRATOR"},
     component:AdministratorHomeComponent,
     children: [
-      { path: "", redirectTo: 'profile', pathMatch: 'full'},
+      { path: "profile", component: AdminProfileComponent},
       { path: "drivers", component: DriversComponent},
-      { path: "profile", component: AdminProfileComponent}
+      { path: "", redirectTo: 'profile', pathMatch: 'full'}
     ]
   },
   {path:'driver', canActivate:[], component:DriverHomeComponent},
   {path:'inbox', canActivate:[], component: InboxComponent},
-  { path: '', redirectTo: 'home', pathMatch: 'full' },
   {path: 'passenger', canActivate:[], component:PassengerHomeComponent},
   {path: 'driver', canActivate:[], component:DriverHomeComponent},
   {path: 'inbox', canActivate:[], component: InboxComponent},

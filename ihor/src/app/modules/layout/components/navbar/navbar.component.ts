@@ -10,10 +10,11 @@ export class NavbarComponent implements OnInit{
     role: any;
 
     constructor(private authService: AuthService) {}
-  
+
     ngOnInit(): void {
       this.authService.userState$.subscribe((result) => {
         this.role = result;
       });
+      this.authService.setUser();
     }
 }
