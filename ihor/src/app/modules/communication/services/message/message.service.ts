@@ -98,7 +98,7 @@ export class MessageService {
     this.sendMessageToBack(request, receiverId).subscribe({
       next: (result) => {
         let chats=this.chats$.getValue();
-        const chat:Chat=chats.find(object => {return object.rideId === result.rideId;})||{image: '', name: '', messages: [], rideId:-1, receiverId:-1};
+        const chat:Chat=chats.find(object => {return object.rideId === result.rideId && (object.receiverId===result.receiverId || object.receiverId===result.senderId)})||{image: '', name: '', messages: [], rideId:-1, receiverId:-1};
         chat.messages.push({timestamp: toDate(result.timeOfSending), content: result.message, myself: true, type: result.type});
         
         chats = chats.filter(item => item !== chat);

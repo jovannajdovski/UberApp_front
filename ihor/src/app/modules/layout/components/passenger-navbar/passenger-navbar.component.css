@@ -12,8 +12,8 @@
     width: 94px;
     height: 35px;
     min-width: 94px;
-    color: white;
-    background-color: rgba(38, 50, 56, 0.5);
+    color: white !important;
+    background-color: rgba(38, 50, 56, 0.5) !important;
     
 }
 
@@ -31,8 +31,8 @@
 }
 .selected-button{
     
-    color: rgba(38, 50, 56, 0.5);
-    background-color: white;
+    color: rgba(38, 50, 56, 0.5) !important;
+    background-color: white !important;
 }
 #schedule-button{
     border-radius: 8px 0 0 8px;

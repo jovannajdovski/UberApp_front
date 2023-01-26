@@ -1,19 +1,34 @@
 import { HttpErrorResponse } from '@angular/common/http';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/modules/auth/services/auth.service';
-import { Ride } from 'src/app/modules/passenger/model/ride';
+import { Location, Ride } from 'src/app/modules/passenger/model/ride';
 import { CurrentRideService } from '../../services/current-ride/current-ride.service';
 import { PanicService } from '../../services/panic/panic.service';
 import { PanicReasonDialogComponent } from '../panic-reason-dialog/panic-reason-dialog.component';
+// import * as Stomp from 'stompjs';
+ import * as SockJS from 'sockjs-client';
+import { Stomp } from '@stomp/stompjs';
+//import {SockJS} from 'sockjs-client';
+
 
 @Component({
   selector: 'app-current-ride',
   templateUrl: './current-ride.component.html',
   styleUrls: ['./current-ride.component.css']
 })
-export class CurrentRideComponent {
+export class CurrentRideComponent implements OnInit {
+  private stompClient: any;
+  ride!:Ride;
+  role="";
+  rideFound=0;
+  departure="?"
+  destination="?"
+  arrivalTime="??:??"
+  dialogRef!: MatDialogRef<PanicReasonDialogComponent>
+  
+  
   constructor(private currentRideService:CurrentRideService, private authService:AuthService,
      private router:Router, private dialog:MatDialog, private panicService:PanicService)
   {
@@ -27,6 +42,7 @@ export class CurrentRideComponent {
         this.destination=value.locations[0].destination.address;
         const arrivalDateTime=new Date((new Date(value.startTime).getTime()+value.estimatedTimeInMinutes*60000))
         this.arrivalTime=arrivalDateTime.getHours().toString().padStart(2, "0")+":"+arrivalDateTime.getMinutes().toString().padStart(2, "0");
+        
       }
       else
         this.rideFound=2;
@@ -39,13 +55,39 @@ export class CurrentRideComponent {
         this.sendPanic(value);
     });
   }
-  ride!:Ride;
-  role="";
-  rideFound=0;
-  departure="?"
-  destination="?"
-  arrivalTime="??:??"
-  dialogRef!: MatDialogRef<PanicReasonDialogComponent>
+
+  ngOnInit(){
+    this.initializeWebSocketConnection();
+    // this.stompClient.send("api/socket-subscriber/vehicle/"+this.ride.id+ "/current-location/"+localStorage.getItem('user'));
+    this.stompClient.send("api/socket-subscriber/send/message");
+  
+  }
+
+  initializeWebSocketConnection() {
+    // serverUrl je vrednost koju smo definisali u registerStompEndpoints() metodi na serveru
+    const  ws = new SockJS('http://localhost:8080/api/socket');
+    this.stompClient = Stomp.over(ws);
+    
+    console.log("initialize web socket");
+    this.stompClient.connect({},  () => {
+      this.openGlobalSocket()
+    });
+
+  }
+  openGlobalSocket() {
+    console.log("open global socket");
+    this.stompClient.subscribe("api/socket-publisher/"+"vehicle/current-location/"+this.ride.id, (message: { body: string; }) => {
+      this.handleResult(message);
+    });
+  }
+  handleResult(message: { body: string; }) {
+    console.log("Handle result");
+    if (message.body) {
+      const location: Location = JSON.parse(message.body);
+      console.log(location.latitude+" - "+location.longitude);
+    }
+  }
+
   openPanicDialog()
   {
     this.dialogRef = this.dialog.open(PanicReasonDialogComponent);

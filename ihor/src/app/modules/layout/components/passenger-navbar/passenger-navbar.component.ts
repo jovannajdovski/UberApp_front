@@ -14,17 +14,18 @@ export class PassengerNavbarComponent {
   }  
   toSchedule(){
     this.selectedPage=SelectedPage.SCHEDULE;
+    console.log("toschedule");
     this.router.navigate(['/passenger']);
   }
-  toInbox(){
+  toInbox(){console.log("inbox");
     this.selectedPage=SelectedPage.INBOX;
     this.router.navigate(['/inbox']);   
   }
-  toHistory(){
+  toHistory(){console.log("hist");
     this.selectedPage=SelectedPage.HISTORY;
     this.router.navigate(['/passenger/history']);
   }
-  toProfile(){
+  toProfile(){console.log("profile");
     this.selectedPage=SelectedPage.PROFILE;
     this.router.navigate(['/passenger/profile']); 
   }

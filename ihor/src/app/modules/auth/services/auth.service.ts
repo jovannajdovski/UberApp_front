@@ -18,7 +18,9 @@ export class AuthService {
   user$ = new BehaviorSubject("UNREGISTERED_USER");
   userState$ = this.user$.asObservable();
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) {
+    // this.user$.next(this.getRole());
+  }
   
   login(auth: Login): Observable<Token> {
     return this.http.post<Token>(environment.apiHost + "user/login",
