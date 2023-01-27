@@ -1,5 +1,5 @@
 import { HttpErrorResponse } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
+import { AfterContentInit, AfterViewChecked, AfterViewInit, Component, OnInit } from '@angular/core';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/modules/auth/services/auth.service';
@@ -18,7 +18,7 @@ import { Stomp } from '@stomp/stompjs';
   templateUrl: './current-ride.component.html',
   styleUrls: ['./current-ride.component.css']
 })
-export class CurrentRideComponent implements OnInit {
+export class CurrentRideComponent implements OnInit, AfterViewChecked {
   private stompClient: any;
   ride!:Ride;
   role="";
@@ -26,11 +26,36 @@ export class CurrentRideComponent implements OnInit {
   departure="?"
   destination="?"
   arrivalTime="??:??"
+  subscribed=false;
   dialogRef!: MatDialogRef<PanicReasonDialogComponent>
   
   
   constructor(private currentRideService:CurrentRideService, private authService:AuthService,
      private router:Router, private dialog:MatDialog, private panicService:PanicService)
+  {
+    this.role=authService.getRole();
+  }
+  ngOnInit(){
+    this.subscribeOnPanic();
+    this.subscribeOnPendingRides();
+    
+    //this.stompClient.send("api/socket-subscriber/send/message");
+    
+  }
+  ngAfterViewChecked()
+  {
+    // if(this.subscribed)
+    //   this.simulateSendingLocation();
+  }
+  subscribeOnPanic()
+  {
+    this.panicService.panicGot$.subscribe((value)=>{
+      this.dialogRef.close("success");
+      if(value!="")
+        this.sendPanic(value);
+    });
+  }
+  subscribeOnPendingRides()
   {
     this.currentRideService.getCurrentRide();
     this.currentRideService.currentRideGot$.subscribe((value)=>{
@@ -42,29 +67,13 @@ export class CurrentRideComponent implements OnInit {
         this.destination=value.locations[0].destination.address;
         const arrivalDateTime=new Date((new Date(value.startTime).getTime()+value.estimatedTimeInMinutes*60000))
         this.arrivalTime=arrivalDateTime.getHours().toString().padStart(2, "0")+":"+arrivalDateTime.getMinutes().toString().padStart(2, "0");
-        
+        this.initializeWebSocketConnection();
       }
       else
         this.rideFound=2;
     })
-    this.role=authService.getRole();
-
-    this.panicService.panicGot$.subscribe((value)=>{
-      this.dialogRef.close("success");
-      if(value!="")
-        this.sendPanic(value);
-    });
   }
-
-  ngOnInit(){
-    this.initializeWebSocketConnection();
-    
-    //this.stompClient.send("api/socket-subscriber/send/message");
-  
-  }
-
   initializeWebSocketConnection() {
-    // serverUrl je vrednost koju smo definisali u registerStompEndpoints() metodi na serveru
     const  ws = new SockJS('http://localhost:8080/api/socket');
     this.stompClient = Stomp.over(ws);
     
@@ -75,13 +84,13 @@ export class CurrentRideComponent implements OnInit {
 
   }
   openGlobalSocket() {
-    console.log("open global socket");
-    console.log("gvvvvv");
-    console.log(localStorage.getItem("user")?.substring(1,localStorage.getItem("user")!.length-1));
-    this.stompClient.send("api/socket-subscriber/vehicle/"+this.ride.id+ "/current-location/"+localStorage.getItem("user")?.substring(1,localStorage.getItem("user")!.length-1));
+    this.subscribed=true;
     this.stompClient.subscribe("api/socket-publisher/"+"vehicle/current-location/"+this.ride.id, (message: { body: string; }) => {
       this.handleResult(message);
     });
+    
+    const token=localStorage.getItem("user")?.substring(1,localStorage.getItem("user")!.length-1);
+    this.stompClient.send("api/socket-subscriber/vehicle/"+this.ride.id+ "/current-location/"+token);
   }
   handleResult(message: { body: string; }) {
     console.log("Handle result");
@@ -90,7 +99,19 @@ export class CurrentRideComponent implements OnInit {
       console.log(location.latitude+" - "+location.longitude);
     }
   }
-
+  // simulateSendingLocation()
+  // {
+  //   console.log("Usao u simulaciju");
+  //   // eslint-disable-next-line no-constant-condition
+  //   while(true)
+  //   {
+  //     setTimeout( () => {
+  //       const token=localStorage.getItem("user")?.substring(1,localStorage.getItem("user")!.length-1);
+  //       this.stompClient.send("api/socket-subscriber/vehicle/"+this.ride.id+ "/current-location/"+token);
+  //       console.log(new Date());
+  //     }, 2000);
+  //   }
+  // }
   openPanicDialog()
   {
     this.dialogRef = this.dialog.open(PanicReasonDialogComponent);
@@ -114,8 +135,10 @@ export class CurrentRideComponent implements OnInit {
     
   }
   finishRide(){
+    
     this.currentRideService.finishRideBack(this.ride.id).subscribe({
       next: (result) => {
+        this.stompClient.disconnect();
         this.router.navigate(['/driver']);
       },
       error: (error) => {

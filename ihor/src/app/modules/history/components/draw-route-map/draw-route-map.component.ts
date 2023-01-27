@@ -100,6 +100,7 @@ export class DrawRouteMapComponent implements AfterViewInit{
 
 
     route.on('routeselected', (e) => {
+      console.log("route selected");
       const r = e.route;
       const line = L.Routing.line(r);
       const bounds = line.getBounds();

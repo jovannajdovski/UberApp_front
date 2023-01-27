@@ -7,6 +7,7 @@ import { CurrentRideDetailsComponent } from "./components/current-ride-details/c
 import { PanicReasonDialogComponent } from './components/panic-reason-dialog/panic-reason-dialog.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MaterialModule } from 'src/infrastructure/material.module';
+import { CurrentRideMapComponent } from './components/current-ride-map/current-ride-map.component';
 
 
 
@@ -15,7 +16,8 @@ import { MaterialModule } from 'src/infrastructure/material.module';
         CurrentRideComponent,
         NoCurrentRideComponent,
         CurrentRideDetailsComponent,
-        PanicReasonDialogComponent
+        PanicReasonDialogComponent,
+        CurrentRideMapComponent
     ],
     imports: [
         CommonModule,

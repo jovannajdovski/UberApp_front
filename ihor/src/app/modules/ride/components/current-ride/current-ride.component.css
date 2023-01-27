@@ -1,4 +1,4 @@
-app-map{
+app-current-ride-map{
     position: relative;
     margin: 20px;
     height: 85%;
@@ -84,7 +84,7 @@ button{
         height: 50%;
     }
 
-    app-map{
+    app-current-ride-map{
         margin: 20px;
         height: 50%;
         width: 90%;

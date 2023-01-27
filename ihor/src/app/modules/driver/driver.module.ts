@@ -16,6 +16,7 @@ import { AcceptedRidesComponent } from './components/accepted-rides/accepted-rid
 import { SharedModule } from "../shared/shared.module";
 import { DialogReasonComponent } from './components/accepted-rides/accepted-rides.component';
 import { FormsModule } from '@angular/forms';
+import { DriverMapComponent } from './components/driver-map/driver-map.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,8 @@ import { FormsModule } from '@angular/forms';
     DriverWorktimeComponent,
     DriverNextRideComponent,
     AcceptedRidesComponent,
-    DialogReasonComponent
+    DialogReasonComponent,
+    DriverMapComponent
   ],
   imports: [
     CommonModule,

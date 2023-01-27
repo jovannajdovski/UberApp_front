@@ -285,6 +285,7 @@ export class MapComponent implements AfterViewInit, OnDestroy, OnInit {
     }).addTo(this.map);
 
     route.on('routeselected', (e) => {
+      console.log("route selected");
       const r = e.route;
       const line = L.Routing.line(r);
       const bounds = line.getBounds();
@@ -292,6 +293,7 @@ export class MapComponent implements AfterViewInit, OnDestroy, OnInit {
     });
 
     route.on('routesfound', (e) => {
+      console.log("route found");
       this.routes = e.routes;
       this.routeService.setEstimatedRoutes(e.routes);
     });
