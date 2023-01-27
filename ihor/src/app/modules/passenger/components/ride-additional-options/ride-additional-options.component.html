@@ -1,27 +1,37 @@
 <div class="container">
 
-    <h1>Additionals</h1>
-    <div id="topEmptySpace"></div>
-    <form [formGroup]="additionalsForm" (ngSubmit)="nextStep()">
-      <mat-form-field id="vehicleType" name="vehicleType" appearance="outline">
-          <mat-label>Vehicle type</mat-label>
-          <mat-select [(value)]="selectedType">
-            <mat-option [value]="0"></mat-option>
-            <mat-option [value]="option.value" *ngFor="let option of vehicleTypes">{{ option.viewValue }}</mat-option>
-          </mat-select>
-          <mat-error class="correct"></mat-error>
-      </mat-form-field>
-      <mat-checkbox [checked]="babiesAllowed" (change)="toggleBabies($event)" id="babyCheckbox" name="babiesAllowed" class="checkbox">Baby transport</mat-checkbox>
-      <mat-checkbox [checked]="petsAllowed" (change)="togglePets($event)" id="petsCheckbox" name="petsAllowed" class="checkbox">Pets transport</mat-checkbox>
+  <h1>Additional</h1>
+  <div id="topEmptySpace"></div>
+  <form [formGroup]="additionalsForm" (ngSubmit)="nextStep()">
+    <mat-form-field id="vehicleType" name="vehicleType" appearance="outline">
+      <mat-label>Vehicle type</mat-label>
+      <mat-select [(value)]="selectedType">
+        <mat-option class="vehicle-option" [value]="0"></mat-option>
+        <mat-option class="vehicle-option" [value]="option.value" *ngFor="let option of vehicleTypes">{{ option.viewValue }}</mat-option>
+      </mat-select>
+      <mat-error class="correct"></mat-error>
+    </mat-form-field>
+    <div class="checkbox-container">
+      <mat-checkbox [checked]="babiesAllowed" (change)="toggleBabies($event)" id="babyCheckbox" name="babiesAllowed"
+                    class="checkbox">Baby transport
+      </mat-checkbox>
+      <mat-checkbox [checked]="petsAllowed" (change)="togglePets($event)" id="petsCheckbox" name="petsAllowed"
+                    class="checkbox">Pets transport
+      </mat-checkbox>
+    </div>
 
-      <input placeholder="24hr format" aria-label="24hr format" 
-                  [ngxTimepicker]="rideTime" 
-                  [format]="24"  readonly>
-      <ngx-material-timepicker (timeChanged)="onChangeTime($event)" formControlName="rideTime" #rideTime></ngx-material-timepicker>
+    <input placeholder="Choose desired time" aria-label="24hr format" class="time-picker"
+           [ngxTimepicker]="rideTime"
+           [format]="24" readonly>
+
+    <ngx-material-timepicker (timeChanged)="onChangeTime($event)" formControlName="rideTime"
+                             #rideTime>
+
+    </ngx-material-timepicker>
 
 
-      <div id="bottomEmptySpace"></div>
-      <button type="submit" id="continueButton">Continue order</button>
-    </form>
-    
+    <div id="bottomEmptySpace"></div>
+    <button type="submit" id="continueButton">Continue order</button>
+  </form>
+
 </div>

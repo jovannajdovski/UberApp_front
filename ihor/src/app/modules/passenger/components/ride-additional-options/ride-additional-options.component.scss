@@ -1,112 +1,166 @@
 .container {
-    box-sizing: border-box;
-    width: 485px;
-    height: 100%;
-    background: #282E33;
-    border: 1px solid rgba(255, 255, 255, 0.25);
-    border-radius: 10px;
-    filter: drop-shadow(0px 4px 4px rgba(64, 58, 16, 0.5));
-    
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+  box-sizing: border-box;
+  width: 485px;
+  height: 100%;
+  background: #282E33;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  border-radius: 10px;
+  filter: drop-shadow(0px 4px 4px rgba(64, 58, 16, 0.5));
 
-    font-weight: 400;
-    font-size: 16px;
-    color: #FFFFFF;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  font-weight: 400;
+  font-size: 16px;
+  color: #FFFFFF;
 }
+
 h1 {
-    font-family: 'nunito';
-    font-style: normal;
-    font-weight: 400;
-    font-size: 36px;
-    line-height: 24px;
+  font-family: 'nunito';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 36px;
+  line-height: 24px;
 }
+
 form {
-    margin: 40px;
-    margin-top: 20px;
-    width: 90%;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: stretch;
-    text-align: center;
+  width: 90%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: stretch;
+  text-align: center;
 }
+
 #continueButton {
-    transition: all .5s ease;
-    background: #282E33;
-    border: 3px solid #FFE32B;
-    box-shadow: 0px 4px 4px rgba(255, 248, 54, 0.397);
-    border-radius: 20px;
-    height: 45px;
-    width: 60%;
-    text-align: center;
-    align-self: center;
-    letter-spacing: 0.3px;
-    font-weight: 800;
-    font-size: 16px;
-    color: #FFE32B;
+  transition: all .5s ease;
+  background: #282E33;
+  border: 3px solid #FFE32B;
+  box-shadow: 0px 4px 4px rgba(255, 248, 54, 0.397);
+  border-radius: 20px;
+  height: 45px;
+  width: 60%;
+  text-align: center;
+  align-self: center;
+  letter-spacing: 0.3px;
+  font-weight: 800;
+  font-size: 16px;
+  color: #FFE32B;
 }
 
 #continueButton:hover {
-    background: #FFE32B;
-    border: 1px solid rgba(#000, .05);
-    box-shadow: 0px 4px 4px rgba(15, 15, 15, 0.397);
-    color: #282E33;
+  background: #FFE32B;
+  border: 1px solid rgba(#000, .05);
+  box-shadow: 0px 4px 4px rgba(15, 15, 15, 0.397);
+  color: #282E33;
 }
 
-#topEmptySpace
-{
-    height: 10%;
+#topEmptySpace {
+  height: 10%;
 }
-#bottomEmptySpace
-{
-    height: 150px;
-}
-#vehicleType input{
-    color: white;
 
+#bottomEmptySpace {
+  height: 150px;
 }
-#babyCheckbox{
-    margin-top: 100px;
+
+#vehicleType input {
+  color: white;
 }
-.correct{
-    color: white;
+
+.checkbox-container {
+  margin-top: 2em;
+
+  display: flex;
+  justify-content: space-around;
 }
+
+::ng-deep .checkbox-container mat-checkbox {
+  transform: scale(1.4);
+}
+
+//checkbox text color change
+::ng-deep .checkbox-container .mdc-checkbox__background {
+  border-color: white !important;
+}
+
+//checkbox text color change
+::ng-deep .checkbox-container label {
+  color: white !important;
+}
+
+.time-picker {
+  margin-top: 3em;
+  padding: 1em;
+  background: #282E33;
+  border: 1px solid white;
+  color: white;
+  font-size: 16px;
+}
+
+.correct {
+  color: white;
+}
+
 //input outline color
-::ng-deep .mat-form-field-appearance-outline.ng-valid div {
-    border-color: white!important;
+::ng-deep .mat-form-field-appearance-outline div {
+  border-color: white !important;
 }
 
 //input outline color
-::ng-deep .mat-form-field-appearance-outline.ng-pristine div {
-    border-color: white!important;
+::ng-deep .mat-form-field-appearance-outline div {
+  border-color: white !important;
 }
 
 //change color of label
-::ng-deep .mat-form-field-appearance-outline.ng-valid mat-label {
-    color: white !important;
+::ng-deep .mat-form-field-appearance-outline mat-label {
+  color: white !important;
 }
 
 //change color of label
-::ng-deep .mat-form-field-appearance-outline.ng-pristine mat-label {
-    color: white !important;
+::ng-deep .mat-form-field-appearance-outline mat-label {
+  color: white !important;
 }
 
 //change color of input
 ::ng-deep .mat-form-field-appearance-outline input {
-    color: white !important;
+  color: white !important;
 }
 
 //change color of placeholder
 ::ng-deep .mat-form-field-appearance-outline input::placeholder {
-    color: gray !important;
+  color: gray !important;
 }
-mat-option.mat-mdc-option{
-    max-height: 30px;
-    min-height: 30px;
+
+//change color of border for pagination
+::ng-deep mat-form-field div {
+  border-color: white !important;
 }
-.mat-mdc-select-value-text{
-    color: black;
+
+//change color of border for pagination
+::ng-deep .vehicle-option {
+  color: white !important;
+  background-color: #282E33 !important;
+  border-top: 0.5px solid grey !important;
+  border-right: 0.5px solid grey !important;
+  border-left: 0.5px solid grey !important;
+  padding: 1em 1em 1em 1em !important;
+}
+
+::ng-deep .vehicle-option:hover {
+  background-color: grey !important;
+}
+
+::ng-deep .vehicle-option:last-of-type {
+  border-bottom: 0.5px solid grey !important;
+}
+
+mat-option.mat-mdc-option {
+  max-height: 30px;
+  min-height: 30px;
+}
+
+.mat-mdc-select-value-text {
+  color: black;
 }
