@@ -1,10 +1,21 @@
-import { Component } from '@angular/core';
+import { AfterViewInit, Component, Input, OnInit } from '@angular/core';
 import * as L from 'leaflet';
 import { RideHistoryService } from 'src/app/modules/history/services/ride-history/ride-history.service';
+import { Location } from 'src/app/modules/passenger/model/ride';
 import { CurrentRideService } from '../../services/current-ride/current-ride.service';
 
 const yellowPin = L.icon({
   iconUrl: '/assets/images/yellowpin.png',
+  shadowUrl: 'assets/marker-shadow.png',
+
+  iconSize: [41, 41],
+  iconAnchor: [12, 41],
+  popupAnchor: [1, -34],
+  tooltipAnchor: [16, -28],
+  shadowSize: [41, 41]
+});
+const redIcon = L.icon({
+  iconUrl: '/assets/images/car.png',
   shadowUrl: 'assets/marker-shadow.png',
 
   iconSize: [41, 41],
@@ -20,18 +31,32 @@ L.Marker.prototype.options.icon = yellowPin;
   templateUrl: './current-ride-map.component.html',
   styleUrls: ['./current-ride-map.component.css']
 })
-export class CurrentRideMapComponent {
+export class CurrentRideMapComponent implements OnInit, AfterViewInit{
+  
   constructor(private currentRideService: CurrentRideService) 
     {
-      currentRideService.currentRideGot$.subscribe((value)=>
+      
+      
+    }
+
+    ngOnInit(){
+      this.currentRideService.currentRideGot$.subscribe((value)=>
       {
         this.long1 = value.locations[0].departure.longitude;
-      this.long2 = value.locations[0].destination.longitude;
-      this.lat1 = value.locations[0].departure.latitude;
-      this.lat2 = value.locations[0].destination.latitude;
+        this.long2 = value.locations[0].destination.longitude;
+        this.lat1 = value.locations[0].departure.latitude;
+        this.lat2 = value.locations[0].destination.latitude;
+        this.currentLocation={"address":"","latitude":this.lat1,"longitude":this.long1};
+        
       }
       );
-      
+      this.currentRideService.currentLocationChanged$.subscribe((value)=>
+      {
+        if(this.marker)
+          this.removeMarker();
+        this.currentLocation=value;
+        this.addMarker();
+      })
     }
   
     private map!: L.Map;
@@ -40,10 +65,11 @@ export class CurrentRideMapComponent {
     private long2 = 0;
     private lat1 = 0;
     private lat2 = 0;
-  
+    private currentLocation!:Location;
     private waypointsNoDrag!: L.LatLng[];
+    private marker!: L.Marker;
   
-    ngAfterViewInit(): void {
+    ngAfterViewInit(){
       this.initMap();
       this.drawRoute();
     }
@@ -116,5 +142,17 @@ export class CurrentRideMapComponent {
       //   this.map.fitBounds(bounds);
       // });
   
+    }
+    private addMarker()
+    {
+      const lon = this.currentLocation.longitude;
+      const lat = this.currentLocation.latitude;
+      this.marker = L.marker([lat, lon], {icon: redIcon});
+      //marker.bindPopup(this.popupService.makeVehiclePopup(v));
+      this.marker.addTo(this.map);
+    }
+    private removeMarker()
+    {
+      this.map.removeLayer(this.marker);
     }
 }

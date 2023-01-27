@@ -2,7 +2,7 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { AuthService } from 'src/app/modules/auth/services/auth.service';
-import { ActivatePanic, Ride } from 'src/app/modules/passenger/model/ride';
+import { ActivatePanic, Location, Ride } from 'src/app/modules/passenger/model/ride';
 import { environment } from 'src/environments/environment';
 
 @Injectable({
@@ -11,7 +11,14 @@ import { environment } from 'src/environments/environment';
 export class CurrentRideService {
   private currentRide$=new BehaviorSubject<any>(null);
   currentRideGot$=this.currentRide$.asObservable();
+  public currentLocation$=new BehaviorSubject<any>(null);
+  currentLocationChanged$=this.currentLocation$.asObservable();
   constructor(private http:HttpClient, private authService: AuthService) { }
+
+  public setCurrentLocation(location:Location)
+  {
+    this.currentLocation$.next(location);
+  }
 
   public getCurrentRide()
   {

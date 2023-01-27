@@ -93,9 +93,9 @@ export class CurrentRideComponent implements OnInit, AfterViewChecked {
     this.stompClient.send("api/socket-subscriber/vehicle/"+this.ride.id+ "/current-location/"+token);
   }
   handleResult(message: { body: string; }) {
-    console.log("Handle result");
     if (message.body) {
       const location: Location = JSON.parse(message.body);
+      this.currentRideService.setCurrentLocation(location);
       console.log(location.latitude+" - "+location.longitude);
     }
   }
