@@ -28,6 +28,11 @@ export class DriverNavbarComponent {
     this.selectedPage=SelectedPage.PROFILE;
     this.router.navigate(['/driver/profile']);   
   }
+
+  toAcceptedRides(){
+    this.selectedPage=SelectedPage.ACCEPTEDRIDES;
+    this.router.navigate(['/accepted-rides']);   
+  }
   logout(){
     
   }
@@ -37,5 +42,5 @@ export class DriverNavbarComponent {
   }
 }
 enum SelectedPage {
-  CURRENT_RIDE, HOME, INBOX, HISTORY, PROFILE
+  CURRENT_RIDE, HOME, INBOX, HISTORY, PROFILE, ACCEPTEDRIDES
 }

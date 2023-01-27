@@ -24,7 +24,7 @@
     color: white;
     background-color: rgba(38, 50, 56, 0.5);
 }
-#home-button,#inbox-button, #history-button,#profile-button
+#home-button,#inbox-button, #history-button,#profile-button, #next-rides-button
 {
     border-radius: 0;
     margin: 10px 0;
@@ -37,7 +37,7 @@
 #home-button{
     border-radius: 8px 0 0 8px;
 }
-#profile-button{
+#next-rides-button{
     border-radius: 0 8px 8px 0;
 }
 #currentRideBtn{

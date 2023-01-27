@@ -59,6 +59,14 @@ export class RideHistoryService {
     this.reviewsForRide$.next(reviewsForRide);
   }
 
+  private estimatedRoutes$ = new BehaviorSubject<any>({});
+  selectedEstimatedRoutes$ = this.estimatedRoutes$.asObservable();
+
+  setEstimatedRoutes(routes: any) {
+    this.estimatedRoutes$.next(routes);
+  }
+
+
   private lon1!:number;
   private lat1!:number;
   private lon2!:number;
@@ -94,6 +102,14 @@ export class RideHistoryService {
     return this.http.get<RidePageListDTO>(environment.apiHost+'passenger/'+id+"/ride",{params:queryParams});
   }
 
+  getPassengerFinishedRides(id: number, page:number, size:number, sort:string): Observable<RidePageListDTO>{
+    let queryParams = new HttpParams();
+    queryParams = queryParams.append("page",page);
+    queryParams = queryParams.append("size",size);
+    queryParams = queryParams.append("sort",sort);
+    return this.http.get<RidePageListDTO>(environment.apiHost+'passenger/'+id+"/ride/finished",{params:queryParams});
+  }
+
   getDriverRides(id: number, page:number, size:number, sort:string, from:string, to:string): Observable<RidePageListDTO>{
     let queryParams = new HttpParams();
     queryParams = queryParams.append("page",page);
@@ -102,6 +118,14 @@ export class RideHistoryService {
     queryParams = queryParams.append("from",from);
     queryParams = queryParams.append("to",to);
     return this.http.get<RidePageListDTO>(environment.apiHost+'driver/'+id+"/ride",{params:queryParams});
+  }
+
+  getDriverFinishedRides(id: number, page:number, size:number, sort:string): Observable<RidePageListDTO>{
+    let queryParams = new HttpParams();
+    queryParams = queryParams.append("page",page);
+    queryParams = queryParams.append("size",size);
+    queryParams = queryParams.append("sort",sort);
+    return this.http.get<RidePageListDTO>(environment.apiHost+'driver/'+id+"/ride/finished",{params:queryParams});
   }
 
   getReviewsForMultipleRide(idRides: number[]): Observable<ReviewsForRideDTO[]>{

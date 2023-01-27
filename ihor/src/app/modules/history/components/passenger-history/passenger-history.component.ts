@@ -38,7 +38,7 @@ export class PassengerHistoryComponent implements OnInit{
     d.setFullYear(d.getFullYear() - 1);
     const from = d.toISOString().slice(0, -1);
 
-    this.rideHistoryService.getPassengerRides(passengerId, 0, 100, "startTime,asc", from, to).subscribe({
+    this.rideHistoryService.getPassengerFinishedRides(passengerId, 0, 100, "startTime,asc").subscribe({
       next: (result) => {
         this.rideList = result;
         if (result.totalCount != 0) {
