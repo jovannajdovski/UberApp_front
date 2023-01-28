@@ -14,7 +14,7 @@ export class OrderRideService {
   
   private additionals$ = new BehaviorSubject<any>({});
   additionalsChoosed$ = this.additionals$.asObservable();
-
+  ride!:Ride;
   private friends$ = new BehaviorSubject<any>({});
   friendsChoosed$ = this.friends$.asObservable();
 
@@ -34,7 +34,6 @@ export class OrderRideService {
   "scheduledTime": "2023-01-16T01:30:06.134"};
 
    public setCoordinates(lat1:number, long1:number,lat2:number, long2:number){
-      console.log("setovao koordinate");
       this.newRide.locations[0].departure.latitude=lat1;
       this.newRide.locations[0].departure.longitude=long1;
       this.newRide.locations[0].destination.latitude=lat2;
@@ -43,13 +42,11 @@ export class OrderRideService {
       console.log(this.newRide.locations[0].departure.longitude);
    }
    public setAddresses(start: string, final: string) {
-    console.log("setovao adrese");
     this.newRide.locations[0].departure.address=start;
     this.newRide.locations[0].destination.address=final;
   }
 
   public setAdditionals(vehicleType: number, babiesAllowed: boolean, petsAllowed: boolean, scheduledTime: Date){
-    console.log("setovao dodatno");
     this.newRide.babyTransport=babiesAllowed;
     this.newRide.petTransport=petsAllowed;
     this.newRide.vehicleType=vehicleType;
@@ -77,6 +74,7 @@ export class OrderRideService {
     this.orderRideBack().subscribe({
       next: (result) => {
         this.rideOrdered$.next(1);
+        this.ride=result;
       },
       error: (error) => {
         if (error instanceof HttpErrorResponse) {

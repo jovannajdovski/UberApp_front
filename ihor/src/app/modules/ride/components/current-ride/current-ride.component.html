@@ -1,6 +1,7 @@
 <div id="content">
     <div id="container">
         <app-no-current-ride *ngIf="rideFound===2"></app-no-current-ride>
+        <app-current-ride-finished [rideNoStatus]="rideNoStatus" ngIf="rideFound===3"></app-current-ride-finished>
         <app-current-ride-details *ngIf="rideFound===1"
             [departure]="departure"
             [destination]="destination"

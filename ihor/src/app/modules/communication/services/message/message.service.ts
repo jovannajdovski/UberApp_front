@@ -4,12 +4,14 @@ import { environment } from 'src/environments/environment';
 import { Observable, BehaviorSubject } from 'rxjs';
 import { AuthService } from 'src/app/modules/auth/services/auth.service';
 import { Chat, MessagesResponse, MessageType, MessageRequest, SentMessageResponse } from '../../model/message';
+import * as SockJS from 'sockjs-client';
+import { Stomp } from '@stomp/stompjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class MessageService {
-
+  stompClient:any;
   private chat$ = new BehaviorSubject<Chat>({image: '', name: '', messages: [], rideId:-1, receiverId:-1}); //open chat
   observableChat$ = this.chat$.asObservable();//open chat
 
@@ -27,6 +29,8 @@ export class MessageService {
     
     this.chat$.next(chat);
     this.selectedChatRideId$.next(chat.rideId);
+    //this.initializeWebSocketConnection(chat);
+
   }
   public getMessages()
   {
@@ -103,10 +107,13 @@ export class MessageService {
         
         chats = chats.filter(item => item !== chat);
         chats.unshift(chat);
-        
         this.chats$.next(chats);
+
         //this.getMessages();
-        this.openChat(chat);
+        //this.openChat(chat);
+        const senderId=this.authService.getId();
+        this.stompClient.send("api/socket-subscriber/send/message/"+chat.rideId+"/"+senderId+"/"+chat.receiverId,{}, result.message);
+        
       },
       error: (error) => {
         if (error instanceof HttpErrorResponse) {
@@ -125,41 +132,37 @@ export class MessageService {
   public sendMultipleMessageToBack(message: MessageRequest, userIds: number[]):Observable<any>{
     return this.http.post<any>(environment.apiHost+"user/send-messages",{"message": message, "userIds": userIds});
   }
+
+
+
+
+//   initializeWebSocketConnection(chat:Chat) {
+//     const  ws = new SockJS('http://localhost:8080/api/socket');
+//     this.stompClient = Stomp.over(ws);
+    
+//     this.stompClient.connect({},  () => {
+//       //this.openGlobalSocket(chat)
+//     });
+
+//   }
+//   openGlobalSocket(chat:Chat) {
+//     this.stompClient.subscribe("api/socket-publisher/ride-chat/"+chat.rideId, (message: {body: string }) => {
+//       this.handleResult(message,chat);
+//     });
+//   }
+
+//   handleResult(message: { body: string }, chat:Chat) {
+//     if (message.body) {
+//       console.log(message.body);
+//       const userMessage: {"message":string, "fromId":number,"rideId":number} = JSON.parse(message.body);
+//       if(Number(this.authService.getId())!=userMessage.fromId)
+//         chat.messages.push({timestamp: toDate(new Date()), content: userMessage.message, myself: false, type: MessageType.RIDE});
+//     }
+//   }
 }
-// function toDate(str: string): Date{
-//   console.log(str);
-//   const date= new Date();
-//   date.setFullYear(Number(str.substring(0,4)));
-//   date.setMonth(Number(str.substring(5,7)));
-//   date.setDate(Number(str.substring(8,10)));
-//   date.setHours(Number(str.substring(11,13)));
-//   date.setMinutes(Number(str.substring(14,16)));
-//   return date;
-// }
 function toDate(str: any): Date{
-  console.log(str);
-  console.log(typeof(str));
+
   return str;
 }
-
-
-
-// const date1=new Date('2022-12-16T10:24:00'); //prebaciti u servis
-// const date2=new Date('2022-12-17T03:24:00');
-// const date3=new Date('2022-12-18T02:24:00');
-// const date4=new Date('2022-12-17T06:24:00');
-// const date5=new Date('2022-12-19T10:24:00');
-// const message1: Message={ timestamp: date1, content: 'Samo jako', myself: false, type: MessageType.PANIC}
-// const message2: Message={ timestamp: date2, content: 'BORJAN', myself: true, type: MessageType.RIDE}
-// const message3: Message={ timestamp: date3, content: 'BORJAN', myself: false, type: MessageType.PANIC}
-// const message4: Message={ timestamp: date4, content: 'Dobar' + '\xa0\xa0\xa0\xa0\xa0\xa0\xa0' + 'dan', myself: false, type: MessageType.RIDE}
-// const message5: Message={ timestamp: date5, content: 'PROFESORE', myself: false, type: MessageType.RIDE}
-// const messages=[[message1,message2,message3],[message4,message5]];
-// const chat1={image: "", name: "Mrsulja SUPPORT", messages: messages[0], type: MessageType.SUPPORT,rideId:1, receiverId:1}
-// const chat2={image: "", name: "Stevan Gostojic", messages: messages[1], type: MessageType.PANIC,rideId:1, receiverId:1}
-// const chatsDummy=[ 
-//       chat1,
-//       chat2,
-//     ];
 
 

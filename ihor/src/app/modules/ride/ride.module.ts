@@ -8,6 +8,7 @@ import { PanicReasonDialogComponent } from './components/panic-reason-dialog/pan
 import { ReactiveFormsModule } from '@angular/forms';
 import { MaterialModule } from 'src/infrastructure/material.module';
 import { CurrentRideMapComponent } from './components/current-ride-map/current-ride-map.component';
+import { CurrentRideFinishedComponent } from './components/current-ride-finished/current-ride-finished.component';
 
 
 
@@ -17,7 +18,8 @@ import { CurrentRideMapComponent } from './components/current-ride-map/current-r
         NoCurrentRideComponent,
         CurrentRideDetailsComponent,
         PanicReasonDialogComponent,
-        CurrentRideMapComponent
+        CurrentRideMapComponent,
+        CurrentRideFinishedComponent
     ],
     imports: [
         CommonModule,

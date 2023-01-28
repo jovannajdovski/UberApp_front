@@ -7,6 +7,9 @@ import { Ride } from 'src/app/modules/passenger/model/ride';
 import { environment } from 'src/environments/environment';
 import { EndWorkHour, StartWorkHour, WorkHours } from '../../model/work-hours';
 
+import * as SockJS from 'sockjs-client';
+import { Stomp } from '@stomp/stompjs';
+
 @Injectable({
   providedIn: 'root'
 })
@@ -18,6 +21,33 @@ export class WorkTimeService {
   constructor(private http:HttpClient, private authService: AuthService) { }
 
   private currentShiftId=0;
+
+  private stompClient: any;
+
+  initializeWebSocketConnection() {
+    const  ws = new SockJS('http://localhost:8080/api/socket');
+    this.stompClient = Stomp.over(ws);
+    
+    this.stompClient.connect({},  () => {
+      this.openGlobalSocket()
+    });
+
+  }
+  openGlobalSocket() {
+    const driverId=this.authService.getId();
+    this.stompClient.subscribe("api/socket-publisher/"+driverId+"/work-hours", (message: {body: string }) => {
+      this.handleResult(message);
+    });
+
+    this.stompClient.send("api/socket-subscriber/"+driverId+"/work-hours");
+  }
+  handleResult(message: { body: string }) {
+    if (message.body) {
+      const body: {"value":number} = JSON.parse(message.body);
+      this.remainedWorktime$.next(body.value);
+    }
+  }
+
   public getRemainedWorktime()
   {
     this.getRemainedWorktimeBack().subscribe({

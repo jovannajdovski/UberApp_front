@@ -17,6 +17,7 @@ export class CurrentRideService {
 
   public setCurrentLocation(location:Location)
   {
+    console.log("set current location");
     this.currentLocation$.next(location);
   }
 
