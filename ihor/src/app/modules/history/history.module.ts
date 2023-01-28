@@ -15,6 +15,8 @@ import { LeaveReviewComponent } from './components/leave-review/leave-review.com
 import { BarRatingModule } from "ngx-bar-rating";
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { SharedModule } from "../shared/shared.module";
+import { AdminHistoryComponent } from './components/admin-history/admin-history.component';
+import { AdminRideDetailComponent } from './components/admin-ride-detail/admin-ride-detail.component';
 
 
 @NgModule({
@@ -27,6 +29,8 @@ import { SharedModule } from "../shared/shared.module";
     DrawRouteMapComponent,
     ReviewListComponent,
     LeaveReviewComponent,
+    AdminHistoryComponent,
+    AdminRideDetailComponent,
   ],
   imports: [
     CommonModule,

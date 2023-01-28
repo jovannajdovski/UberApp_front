@@ -1,44 +1,62 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { Profile } from 'src/app/modules/account/model/profile';
 import { AuthService } from 'src/app/modules/auth/services/auth.service';
+import { DriverService } from 'src/app/modules/driver/services/driver.service';
 import { ReviewsForRideDTO, RideNoStatusDTO, RidePageListDTO } from '../../model/RidePageListDTO';
 import { RideHistoryService } from '../../services/ride-history/ride-history.service';
 
 @Component({
-  selector: 'app-driver-history',
-  templateUrl: './driver-history.component.html',
-  styleUrls: ['./driver-history.component.scss']
+  selector: 'app-admin-history',
+  templateUrl: './admin-history.component.html',
+  styleUrls: ['./admin-history.component.scss']
 })
-export class DriverHistoryComponent implements OnInit {
-
+export class AdminHistoryComponent implements OnInit{
   public rideList: RidePageListDTO | undefined;
   public reviewsList: ReviewsForRideDTO[] = [];
   public reviewAvg: string[] = [];
   public idRides: number[] = [];
+  public drivers: Profile[] = [];
   hasError: boolean;
+  public driversLoaded = 0;
+  public reviewsLoaded = false;
 
   constructor(private router: Router,
     private rideHistoryService: RideHistoryService,
-    private authService: AuthService) {
+    private authService: AuthService,
+    private driverService: DriverService) {
     this.hasError = false;
   }
 
   ngOnInit(): void {
-    const driverId = this.authService.getId();
     let d = new Date();
     d = new Date(d.getTime() - d.getTimezoneOffset() * 60000)
     const to = d.toISOString().slice(0, -1);
     d.setFullYear(d.getFullYear() - 1);
     const from = d.toISOString().slice(0, -1);
 
-    this.rideHistoryService.getDriverFinishedRides(driverId, 0, 100, "startTime,desc").subscribe({
+    this.rideHistoryService.getAdminFinishedRides(0, 100, "startTime,asc").subscribe({
       next: (result) => {
         this.rideList = result;
         if (result.totalCount != 0) {
           for (const ride of result.results) {
             this.idRides.push(ride.id);
+
+            this.driverService.getDriver(ride.driver.id).subscribe({
+              next: (result) => {
+                this.drivers.push(result);
+                this.driversLoaded++;
+              },
+              error: (error) => {
+                if (error instanceof HttpErrorResponse) {
+                  this.hasError = true;
+                }
+              },
+            });
+
           }
+          
 
           this.rideHistoryService.getReviewsForMultipleRide(this.idRides).subscribe({
             next: (result) => {
@@ -46,6 +64,7 @@ export class DriverHistoryComponent implements OnInit {
               for (const review of this.reviewsList) {
                 this.reviewAvg.push(this.getAverage(review));
               }
+              this.reviewsLoaded = true;
             },
             error: (error) => {
               if (error instanceof HttpErrorResponse) {
@@ -61,6 +80,7 @@ export class DriverHistoryComponent implements OnInit {
         }
       },
     });
+    
   }
 
   getAverage(reviewsList: ReviewsForRideDTO): string {
@@ -116,17 +136,28 @@ export class DriverHistoryComponent implements OnInit {
     return ride.totalCost+" RSD";
   }
 
-  toRideDetail(ride: RideNoStatusDTO, reviewsForRide: ReviewsForRideDTO) {
+  getDriverName(driver: Profile): string {
+    return driver.name+" "+driver.surname;
+  }
 
-    this.rideHistoryService.setDriver(1);
+  getDriverPicture(driver: Profile): string {
+    if (!driver.profilePicture){
+      return "assets/images/user.png"
+    }
+    return driver.profilePicture;
+  }
+
+  toRideDetail(ride: RideNoStatusDTO, reviewsForRide: ReviewsForRideDTO) {
+    this.rideHistoryService.setDriver(2);
+
+    this.rideHistoryService.setSettedRide(ride);
+    this.rideHistoryService.setSettedReview(reviewsForRide);
 
     this.rideHistoryService.setDrawRoute(ride.locations[0].departure.longitude,
       ride.locations[0].destination.longitude,
       ride.locations[0].departure.latitude,
       ride.locations[0].destination.latitude);
-
-    this.rideHistoryService.setSettedRide(ride);
-    this.rideHistoryService.setSettedReview(reviewsForRide);
+      
     this.router.navigate(['/ride-detail']);
   }
 }

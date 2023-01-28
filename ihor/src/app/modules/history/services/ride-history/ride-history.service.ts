@@ -128,6 +128,14 @@ export class RideHistoryService {
     return this.http.get<RidePageListDTO>(environment.apiHost+'driver/'+id+"/ride/finished",{params:queryParams});
   }
 
+  getAdminFinishedRides(page:number, size:number, sort:string): Observable<RidePageListDTO>{
+    let queryParams = new HttpParams();
+    queryParams = queryParams.append("page",page);
+    queryParams = queryParams.append("size",size);
+    queryParams = queryParams.append("sort",sort);
+    return this.http.get<RidePageListDTO>(environment.apiHost+"admin/ride/finished",{params:queryParams});
+  }
+
   getReviewsForMultipleRide(idRides: number[]): Observable<ReviewsForRideDTO[]>{
     return this.http.post<ReviewsForRideDTO[]>(environment.apiHost+"review/rides",idRides);
   }

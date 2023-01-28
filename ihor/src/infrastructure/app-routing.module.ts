@@ -27,6 +27,7 @@ import { RideDetailComponent } from 'src/app/modules/history/components/ride-det
 import { LeaveReviewComponent } from 'src/app/modules/history/components/leave-review/leave-review.component';
 import { ReviewListComponent } from 'src/app/modules/history/components/review-list/review-list.component';
 import { AcceptedRidesComponent } from 'src/app/modules/driver/components/accepted-rides/accepted-rides.component';
+import { AdminHistoryComponent } from 'src/app/modules/history/components/admin-history/admin-history.component';
 
 const routes: Routes = [
   {path:'login', component: LoginComponent},
@@ -62,6 +63,7 @@ const routes: Routes = [
   {path:'email-for-forgot-password', component: EmailForForgotPasswordComponent},
   {path:'driver/history', component: DriverHistoryComponent},
   {path:'passenger/history', component: PassengerHistoryComponent},
+  {path:'admin/history', component: AdminHistoryComponent},
   {path:'ride-detail', component: RideDetailComponent},
   {path:'leave-review', component: LeaveReviewComponent},
   {path:'review-list', component: ReviewListComponent},
