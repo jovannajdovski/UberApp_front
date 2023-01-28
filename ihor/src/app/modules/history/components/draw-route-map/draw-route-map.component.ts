@@ -107,12 +107,9 @@ export class DrawRouteMapComponent implements AfterViewInit{
       this.map.fitBounds(bounds);
     });
 
-    // route.on('routesfound', (e) => {
-    //   const r = e.route;
-    //   const line = L.Routing.line(r);
-    //   const bounds = line.getBounds();
-    //   this.map.fitBounds(bounds);
-    // });
+    route.on('routesfound', (e) => {
+      this.rideHistoryService.setEstimatedRoutes(e.routes);
+    });
 
   }
 }

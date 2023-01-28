@@ -1,0 +1,46 @@
+<div id="alignment">
+    <h1 id="title">Ride History</h1>
+    <div id="container" *ngFor="let ride of rideList?.results; let i = index;" (click)="toRideDetail(ride,reviewsList[i])">
+        <div id="content">
+            <div class="row">
+                <div class="start-row">
+                    <span class="iconify star-icon" data-icon="material-symbols:star"></span>
+                    <div *ngIf="reviewsLoaded" id="rating">{{reviewAvg[i]}}</div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="start-row">
+                    <span class="iconify" data-icon="material-symbols:calendar-month"></span>
+                    <div id="start-date">{{getStartDate(ride)}}</div>
+                </div>
+                <div class="end-row">
+                    <span class="iconify" data-icon="ic:baseline-access-time"></span>
+                    <div id="start-time">{{getStartTime(ride)}}</div>
+                </div>
+            </div>
+
+            <div class="row" id="last-row">
+                <div class="start-row">
+                    <span class="iconify route-icon" data-icon="material-symbols:route"></span>
+                    <div class="col">
+                        <div id="start-address">{{getStartPlace(ride)}}</div>
+                        <div id="end-address">{{getEndPlace(ride)}}</div>
+                    </div>
+                </div>
+            </div>
+            <div class="row" id="last-row">
+                <div class="start-row">
+
+                    <img *ngIf="driversLoaded===idRides.length" src={{getDriverPicture(drivers[i])}} id="driver-picture">
+                    <div *ngIf="driversLoaded===idRides.length" id="driver-name">{{getDriverName(drivers[i])}}</div>
+
+                </div>
+                <div class="end-row">
+                    <span class="iconify money-icon" data-icon="ic:baseline-attach-money"></span>
+                    <div id="cost">{{getCost(ride)}}</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

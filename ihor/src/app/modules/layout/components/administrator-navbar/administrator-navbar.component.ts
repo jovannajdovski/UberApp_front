@@ -22,6 +22,7 @@ export class AdministratorNavbarComponent {
   }
   toHistory(){
     this.selectedPage=SelectedPage.HISTORY;
+    this.router.navigate(['/admin/history']);   
   }
   toUsers(){
     this.selectedPage=SelectedPage.USERS;

@@ -2,27 +2,31 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Profile } from 'src/app/modules/account/model/profile';
+import { DriverService } from 'src/app/modules/driver/services/driver.service';
+import { RouteService } from 'src/app/modules/map/services/route/route.service';
 import { PassengerService } from 'src/app/modules/passenger/services/passenger.service';
 import { ReviewsForRideDTO, RideNoStatusDTO } from '../../model/RidePageListDTO';
 import { RideHistoryService } from '../../services/ride-history/ride-history.service';
 
 @Component({
-  selector: 'app-driver-ride-detail',
-  templateUrl: './driver-ride-detail.component.html',
-  styleUrls: ['./driver-ride-detail.component.scss']
+  selector: 'app-admin-ride-detail',
+  templateUrl: './admin-ride-detail.component.html',
+  styleUrls: ['./admin-ride-detail.component.scss']
 })
-export class DriverRideDetailComponent implements OnInit{
-
+export class AdminRideDetailComponent implements OnInit{
   public ride!: RideNoStatusDTO;
   public reviews!: ReviewsForRideDTO;
   public hasError: boolean;
+  public driver!: Profile;
   public passengers: Profile[] = [];
-  public distance = '';
 
+  public distance = '';
+  public driverLoaded = false;
   public passengersLoaded = false;
 
   constructor(private rideHistoryService: RideHistoryService,
     private router: Router,
+    private driverService: DriverService,
     private passengerService: PassengerService) {
 
     this.ride = rideHistoryService.getSettedRide();
@@ -39,6 +43,18 @@ export class DriverRideDetailComponent implements OnInit{
         this.distance = this.toKM(element.summary.totalDistance)
         
       });
+    });
+
+    this.driverService.getDriver(this.ride.driver.id).subscribe({
+      next: (result) => {
+        this.driver = result;
+        this.driverLoaded = true;
+      },
+      error: (error) => {
+        if (error instanceof HttpErrorResponse) {
+          this.hasError = true;
+        }
+      },
     });
 
     for (const passenger of this.ride.passengers) {
@@ -68,7 +84,6 @@ export class DriverRideDetailComponent implements OnInit{
   toReviews(): void {
     this.router.navigate(['/review-list']);
   }
-
 
   getAverage(reviewsList: ReviewsForRideDTO): string {
     if (!reviewsList.reviews.length) {
@@ -131,6 +146,16 @@ export class DriverRideDetailComponent implements OnInit{
     return ride.totalCost + " RSD";
   }
 
+  getDriverName(driver: Profile): string {
+    return driver.name + " " + driver.surname;
+  }
+
+  getDriverPicture(driver: Profile): string {
+    if (!driver.profilePicture) {
+      return "assets/images/user.png"
+    }
+    return driver.profilePicture;
+  }
 
   getPassengerName(driver: Profile): string {
     return driver.name + " " + driver.surname;

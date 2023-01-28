@@ -24,6 +24,7 @@ export class PassengerRideDetailComponent implements OnInit {
   public driver!: Profile;
   public passengers: Profile[] = [];
 
+  public distance = '';
   public driverLoaded = false;
   public passengersLoaded = false;
 
@@ -42,6 +43,17 @@ export class PassengerRideDetailComponent implements OnInit {
   }
 
   ngOnInit(): void {
+
+    this.rideHistoryService.selectedEstimatedRoutes$.subscribe((value) => {
+      console.log(value.length);
+      value.forEach((element: any) => {
+        console.log(element);
+        this.distance = this.toKM(element.summary.totalDistance)
+        
+      });
+    });
+
+
     this.favoritesService.isRideFavorite(this.ride.locations[0].departure.address,
       this.ride.locations[0].destination.address).subscribe({
         next: (result) => {
@@ -127,6 +139,15 @@ export class PassengerRideDetailComponent implements OnInit {
         },
       });
     }
+  }
+
+  toKM(disInMeters:number){
+    const distance = Math.floor(disInMeters/100);
+    return distance/10+" km";
+  }
+
+  getDistance(){
+    return this.distance;
   }
 
   toReviews(): void {
