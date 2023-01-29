@@ -50,7 +50,9 @@ export class MessageService {
     const chats:Chat[]=[];
     if(result.totalCount>0)
     {
-      const loggedUserId=Number(this.authService.getId());
+      let loggedUserId=Number(this.authService.getId());
+      if(this.authService.getRole()=="ADMIN")
+        loggedUserId=0;
       let firstIndex=0, currentOtherUserId, lastOtherUserId=(result.results.at(0)?.receiverId||0)+(result.results.at(0)?.senderId||0)-loggedUserId;
       
       for (let i = 0; i < result.totalCount; i++) {
@@ -71,14 +73,18 @@ export class MessageService {
   }
   private createChat(result: MessagesResponse, firstIndex: number, lastIndex: number): Chat {
     const chat:Chat={image: "", name: "", messages: [], rideId:-1, receiverId:-1};
-    const userId=this.authService.getId();
+    let userId=Number(this.authService.getId());
+    if(this.authService.getRole()=="ADMIN")
+      userId=0;
     const anotherUserId=(result.results.at(firstIndex)?.receiverId ||0) +(result.results.at(firstIndex)?.senderId ||0) -userId;
     const rideId=result.results.at(firstIndex)?.rideId||0;
     let message;
     chat.name=this.getUserAndRideInfo(anotherUserId,rideId);
+    if(userId==0) chat.name="User id: "+anotherUserId;
+    if(anotherUserId==0) chat.name="LIVE SUPPORT";
+
     chat.rideId=rideId;
     chat.receiverId=anotherUserId;
-    this.authService.getId();
     for (let i = firstIndex; i < lastIndex; i++)
     {
       message=result.results.at(i);
@@ -91,7 +97,7 @@ export class MessageService {
     return chat;
   }
   private getUserAndRideInfo(userId:number, rideId:number):string{
-      return "Korisnik: " + userId+' ,voznja: '+rideId; //dobaviti sa beka
+      return "User: " + userId+' ,ride: '+rideId; //dobaviti sa beka
   }
   private getMessagesFromBack():Observable<MessagesResponse>{
     const userId=this.authService.getId();
@@ -112,7 +118,7 @@ export class MessageService {
         //this.getMessages();
         //this.openChat(chat);
         const senderId=this.authService.getId();
-        this.stompClient.send("api/socket-subscriber/send/message/"+chat.rideId+"/"+senderId+"/"+chat.receiverId,{}, result.message);
+        this.initializeWebSocketConnection(chat,result.message);
         
       },
       error: (error) => {
@@ -121,10 +127,6 @@ export class MessageService {
         }
       },
      });
-
-    /*chatsDummy[chatId].messages.push(message);
-    this.chats$.next(chatsDummy);
-    this.openChat(chatsDummy[chatId]);*/
   }
   private sendMessageToBack(request: MessageRequest, receiverId: number):Observable<SentMessageResponse>{
     return this.http.post<SentMessageResponse>(environment.apiHost+'user/'+receiverId+'/message', request);
@@ -132,34 +134,24 @@ export class MessageService {
   public sendMultipleMessageToBack(message: MessageRequest, userIds: number[]):Observable<any>{
     return this.http.post<any>(environment.apiHost+"user/send-messages",{"message": message, "userIds": userIds});
   }
-
-
-
-
-//   initializeWebSocketConnection(chat:Chat) {
-//     const  ws = new SockJS('http://localhost:8080/api/socket');
-//     this.stompClient = Stomp.over(ws);
+  initializeWebSocketConnection(chat:Chat, message:string) {
+    const  ws = new SockJS('http://localhost:8080/api/socket');
+    this.stompClient = Stomp.over(ws);
     
-//     this.stompClient.connect({},  () => {
-//       //this.openGlobalSocket(chat)
-//     });
+    this.stompClient.connect({},  () => {
+      this.openGlobalSocket(chat, message)
+    });
 
-//   }
-//   openGlobalSocket(chat:Chat) {
-//     this.stompClient.subscribe("api/socket-publisher/ride-chat/"+chat.rideId, (message: {body: string }) => {
-//       this.handleResult(message,chat);
-//     });
-//   }
-
-//   handleResult(message: { body: string }, chat:Chat) {
-//     if (message.body) {
-//       console.log(message.body);
-//       const userMessage: {"message":string, "fromId":number,"rideId":number} = JSON.parse(message.body);
-//       if(Number(this.authService.getId())!=userMessage.fromId)
-//         chat.messages.push({timestamp: toDate(new Date()), content: userMessage.message, myself: false, type: MessageType.RIDE});
-//     }
-//   }
+  }
+  openGlobalSocket(chat:Chat, message:string) {
+    let userId=this.authService.getId();
+    if(this.authService.getRole()=="ADMIN")
+      userId=0;
+    this.stompClient.send("api/socket-subscriber/send/message/"+chat.rideId+"/"+userId+"/"+chat.receiverId,{}, message);
+        
+  }
 }
+
 function toDate(str: any): Date{
 
   return str;

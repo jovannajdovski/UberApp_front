@@ -3,7 +3,7 @@ import { AfterContentInit, AfterViewChecked, AfterViewInit, Component, OnInit } 
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/modules/auth/services/auth.service';
-import { Location, Ride } from 'src/app/modules/passenger/model/ride';
+import { Location, Ride, UserForRide, VehicleCategory } from 'src/app/modules/passenger/model/ride';
 import { CurrentRideService } from '../../services/current-ride/current-ride.service';
 import { PanicService } from '../../services/panic/panic.service';
 import { PanicReasonDialogComponent } from '../panic-reason-dialog/panic-reason-dialog.component';
@@ -214,4 +214,5 @@ export class CurrentRideComponent implements OnInit, AfterViewChecked {
       petTransport:ride.petTransport,rejection:ride.rejection,scheduledTime:ride.scheduledTime,startTime:ride.startTime,totalCost:ride.totalCost};
 
   }
+  
 }

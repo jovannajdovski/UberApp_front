@@ -1,8 +1,8 @@
 <div id="container">
     <h1>Notifications</h1>
     <div id="notifications_container">
-        <div *ngFor="let notification of notifications" [ngSwitch]="notification.type" [ngClass]="notification.type===notificationType.NEW_RIDE ? 'notification new-ride' : 'notification'">
-            <div *ngSwitchCase="notificationType.NEW_RIDE">
+        <div *ngFor="let notification of notifications" [ngSwitch]="notification.type" [ngClass]="notification.type===notificationType.NEW_RIDE_DRIVER ? 'notification new-ride' : 'notification'">
+            <div *ngSwitchCase="notificationType.NEW_RIDE_DRIVER">
                 <div id="gridContainer">
                     <div class="icon">
                         <img src="../../../../../assets/images/car_icon.png" alt="Icon">
@@ -29,6 +29,27 @@
                     <div class="empty"></div>
                 </div>
             </div>
+            <div *ngSwitchCase="notificationType.NEW_RIDE_PASSENGER">
+                <div class="passenger-new-ride-grid">
+                    <div class="small-icon">
+                        <img src="../../../assets/images/car_icon.png" alt="Icon">
+                    </div>
+                        <p class="small-header">NEW RIDE</p>
+                    <div class="user-icon">
+                        <img class="small-img" src="../../../assets/images/clock.png" alt="Icon">
+                    </div>
+                    <p class="person basic-text">{{notification.ride.scheduledTime.substring(11,16)}}</p>
+                    <p id="timestamp" class="small-timestamp basic-text">{{notification.timestamp}}</p>
+                    <div class="car-icon">
+                        <img class="small-img" src="../../../assets/images/car.png" alt="Icon">
+                    </div> 
+                    <p class="ride basic-text">{{notification.ride.locations[0].departure.address+' - '+
+                        notification.ride.locations[0].destination.address}}</p>
+                    <!-- <p class="panic-reason basic-text">"{{notification.reason}}"</p> -->
+                    
+                </div>
+                
+            </div>
             <div *ngSwitchCase="notificationType.REMINDER">
                 <div class="icon">
                     <img src="../../../assets/images/info.png" alt="Icon">
@@ -44,6 +65,27 @@
                 <div class="data">
                     
                 </div>
+            </div>
+            <div *ngSwitchCase="notificationType.PANIC">
+                <div class="small-grid">
+                    <div class="small-icon">
+                        <img src="../../../assets/images/rejection.png" alt="Icon">
+                    </div>
+                        <p class="small-header">PANIC</p>
+                    <div class="user-icon">
+                        <img class="small-img" src="../../../assets/images/user.png" alt="Icon">
+                    </div>
+                    <p class="person basic-text">{{notification.user}}</p>
+                    <p id="timestamp" class="small-timestamp basic-text">{{notification.timestamp}}</p>
+                    <div class="car-icon">
+                        <img class="small-img" src="../../../assets/images/car_icon.png" alt="Icon">
+                    </div> 
+                    <p class="ride basic-text">{{notification.ride.locations[0].departure.address+' - '+
+                        notification.ride.locations[0].destination.address+ ' (id: '+notification.ride.id+')'}}</p>
+                    <p class="panic-reason basic-text">"{{notification.reason}}"</p>
+                    
+                </div>
+                
             </div>
         </div>
     </div>

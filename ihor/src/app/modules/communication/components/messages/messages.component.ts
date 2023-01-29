@@ -52,8 +52,11 @@ export class MessagesComponent implements OnInit{
 
   }
   openGlobalSocket() {
-    const userId=this.authService.getId();
+    let userId=this.authService.getId();
+    if(this.authService.getRole()=="ADMIN")
+      userId=0;
     this.stompClient.subscribe("api/socket-publisher/user-chat/"+userId, (message: {body: string }) => {
+      console.log("primio");
       this.handleResult(message);
     });
   }

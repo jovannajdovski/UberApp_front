@@ -15,16 +15,32 @@ app-notifications{
     position: relative;
     height: 85%;
     width: 20%;
+    min-width: 280px;
 }
 app-messages{
     margin-top: 2%;
     position: relative;
     height: 85%;
     width: 20%;
+    min-width: 280px;
 }
 app-chat{
     margin-top: 2%;
     position: relative;
     height: 85%;
     width: 50%;
+    min-width: 700px;
+}
+@media(max-width: 1300px) {
+    
+    app-notifications{
+        width: 40%;
+    }
+    app-messages{
+        width: 40%;
+    }
+    app-chat{
+        
+        width: 90%;
+    }
 }
