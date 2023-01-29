@@ -11,7 +11,7 @@
     flex-direction: column;
     justify-content: flex-end;
     align-items: center;
-    gap: 25%;
+    gap: 20%;
     font-weight: 400;
     font-size: 16px;
     color: #FFFFFF;
@@ -24,7 +24,7 @@ h1 {
     font-size: 36px;
     line-height: 24px;
 }
-#continueButton {
+#continueButton, #reviewButton {
     transition: all .5s ease;
     background: #282E33;
     border: 3px solid #FFE32B;
@@ -40,7 +40,7 @@ h1 {
     color: #FFE32B;
 }
 
-#continueButton:hover {
+#continueButton:hover, #reviewButton:hover{
     background: #FFE32B;
     border: 1px solid rgba(#000, .05);
     box-shadow: 0px 4px 4px rgba(15, 15, 15, 0.397);

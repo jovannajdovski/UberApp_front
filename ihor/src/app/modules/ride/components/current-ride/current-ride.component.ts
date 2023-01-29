@@ -22,6 +22,10 @@ import { RideHistoryService } from 'src/app/modules/history/services/ride-histor
 })
 export class CurrentRideComponent implements OnInit, AfterViewChecked {
   private stompClient: any;
+  private stompClientFinishedRide: any;
+  private stompClientFinishedRideSubscribe: any;
+  private stompClientPanic: any;
+
   ride!:Ride;
   role="";
   rideFound=0;
@@ -41,7 +45,7 @@ export class CurrentRideComponent implements OnInit, AfterViewChecked {
   ngOnInit(){
     this.subscribeOnPanic();
     this.subscribeOnPendingRides();
-    
+    this.initializeFinishRideSubscribeWebSocketConnection();
     
   }
   ngAfterViewChecked()
@@ -138,10 +142,10 @@ export class CurrentRideComponent implements OnInit, AfterViewChecked {
   }
   initializePanicWebSocketConnection(message:string) {
     const  ws = new SockJS('http://localhost:8080/api/socket');
-    this.stompClient = Stomp.over(ws);
+    this.stompClientPanic = Stomp.over(ws);
     
     console.log("initialize web socket");
-    this.stompClient.connect({},  () => {
+    this.stompClientPanic.connect({},  () => {
       this.openPanicGlobalSocket(message)
     });
 
@@ -149,40 +153,41 @@ export class CurrentRideComponent implements OnInit, AfterViewChecked {
   openPanicGlobalSocket(message:string) {    
     const token=localStorage.getItem("user")?.substring(1,localStorage.getItem("user")!.length-1);
     const userId=this.authService.getId();
-    this.stompClient.send("api/socket-subscriber/send/panic/"+userId+"/"+this.ride.id, {}, message)
+    this.stompClientPanic.send("api/socket-subscriber/send/panic/"+userId+"/"+this.ride.id, {}, message)
   }
   initializeFinishRideWebSocketConnection() {
     const  ws = new SockJS('http://localhost:8080/api/socket');
-    this.stompClient = Stomp.over(ws);
+    this.stompClientFinishedRide = Stomp.over(ws);
     
     console.log("initialize web socket");
-    this.stompClient.connect({},  () => {
-      this.openGlobalSocket()
+    this.stompClientFinishedRide.connect({},  () => {
+      this.openFinishRideGlobalSocket()
     });
 
   }
   openFinishRideGlobalSocket() {
         
-    this.stompClient.send("api/socket-subscriber/finish-ride/"+this.ride.id);
-    this.stompClient.disconnect();
+    this.stompClientFinishedRide.send("api/socket-subscriber/finish-ride/"+this.ride.id);
+    this.stompClientFinishedRide.disconnect();
   }
   initializeFinishRideSubscribeWebSocketConnection() {
     const  ws = new SockJS('http://localhost:8080/api/socket');
-    this.stompClient = Stomp.over(ws);
+    this.stompClientFinishedRideSubscribe = Stomp.over(ws);
     
-    this.stompClient.connect({},  () => {
-      this.openGlobalSocket()
+    this.stompClientFinishedRideSubscribe.connect({},  () => {
+      this.openFinishRideSubscribeGlobalSocket()
     });
 
   }
   openFinishRideSubscribeGlobalSocket() {
     const userId=this.authService.getId();
-    this.stompClient.subscribe("api/socket-publisher/" +"finished-ride/"+userId, (message: {body: string }) => {
-      this.handleResult(message);
+    this.stompClientFinishedRideSubscribe.subscribe("api/socket-publisher/" +"finished-ride/"+userId, (message: {body: string }) => {
+      this.handleResultFinishRide(message);
     });
   }
   handleResultFinishRide(message: { body: string }) {
-    if (message.body) {
+    if (message.body && this.authService.getRole()==="PASSENGER") {
+      this.stompClient.disconnect();
       const ride: Ride = JSON.parse(message.body);
       this.getWithoutStatus(ride);
       this.rideFound=3;

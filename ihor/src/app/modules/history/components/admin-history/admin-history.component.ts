@@ -36,7 +36,7 @@ export class AdminHistoryComponent implements OnInit{
     d.setFullYear(d.getFullYear() - 1);
     const from = d.toISOString().slice(0, -1);
 
-    this.rideHistoryService.getAdminFinishedRides(0, 100, "startTime,asc").subscribe({
+    this.rideHistoryService.getAdminFinishedRides(0, 100, "startTime,desc").subscribe({
       next: (result) => {
         this.rideList = result;
         if (result.totalCount != 0) {

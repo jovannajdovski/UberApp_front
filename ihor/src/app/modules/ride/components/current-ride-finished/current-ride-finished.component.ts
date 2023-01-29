@@ -24,6 +24,6 @@ export class CurrentRideFinishedComponent implements OnInit{
   }
   leaveReview(){
     this.rideHistoryService.setSettedRide(this.rideNoStatus)
-    this.router.navigate([''])
+    this.router.navigate(['/leave-review'])
   }
 }
