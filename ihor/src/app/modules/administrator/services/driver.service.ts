@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { Driver } from '../model/Driver';
 import {DriversPageResponse} from "../model/DriversPageResponse";
+import {PageRequest} from "../model/PageRequest";
 
 @Injectable({
   providedIn: 'root'
@@ -13,9 +14,13 @@ export class DriverService {
   constructor(private http: HttpClient) {
   }
 
-  getAll(request: any): Observable<DriversPageResponse> {
-    const params = request;
-    return this.http.get<DriversPageResponse>(environment.apiHost + 'driver', {params});
+  getAll(request: PageRequest): Observable<DriversPageResponse> {
+    return this.http.get<DriversPageResponse>(environment.apiHost + 'driver', {
+      params: {
+        page: request.page,
+        size: request.size
+      }
+    });
   }
 
   updateDriver(driver: Driver): Observable<Driver> {

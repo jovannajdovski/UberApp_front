@@ -1,10 +1,10 @@
-import { Injectable } from '@angular/core';
+import {Injectable, OnDestroy} from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
-export class SharedService {
+export class SharedService{
   private snackMessage$ = new BehaviorSubject<any>({});
   newSnackMessage$ = this.snackMessage$.asObservable();
 
@@ -13,4 +13,10 @@ export class SharedService {
   openSnack(message: string) {
     this.snackMessage$.next(message);
   }
+
+  dismiss() {
+    this.snackMessage$ = new BehaviorSubject<any>({})
+    this.newSnackMessage$ = this.snackMessage$.asObservable();
+  }
+
 }

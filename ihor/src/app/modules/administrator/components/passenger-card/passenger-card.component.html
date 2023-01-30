@@ -1,0 +1,23 @@
+<div class="card">
+  <div class="banner-image"></div>
+  <button *ngIf="!passenger.blocked"
+          class="ban-button"
+          mat-fab aria-label="Ban driver button"
+          (click)="blockPassenger()"
+  >
+    <mat-icon>report</mat-icon>
+  </button>
+  <button *ngIf="passenger.blocked"
+          class="unban-button"
+          mat-fab
+          aria-label="Unban driver button"
+          (click)="unblockPassenger()"
+  >
+    <mat-icon>report_off</mat-icon>
+  </button>
+  <img [src]="passengerImage" alt="profile image" class="profile-image"/>
+  <h1 [ngClass]="{'red-header': passenger.blocked}" class="name">{{ passenger.name }} {{ passenger.surname }}</h1>
+  <p class="description">{{ passenger.email }}</p>
+  <button class="btn btn-green" (click)="showStatistics()">Stats</button>
+</div>
+

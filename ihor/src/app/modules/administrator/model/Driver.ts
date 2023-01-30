@@ -7,6 +7,6 @@ export interface Driver {
     password: string,
     profilePicture: string,
     telephoneNumber: string,
-    isBlocked: boolean,
-    isActive: boolean
+    blocked: boolean,
+    active: boolean
 }

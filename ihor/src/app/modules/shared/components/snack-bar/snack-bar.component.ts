@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { SharedService } from '../../services/shared.service';
 
@@ -7,7 +7,7 @@ import { SharedService } from '../../services/shared.service';
   templateUrl: './snack-bar.component.html',
   styleUrls: ['./snack-bar.component.css'],
 })
-export class SnackBarComponent implements OnInit {
+export class SnackBarComponent implements OnInit, OnDestroy {
   constructor(
     private _snackBar: MatSnackBar,
     private sharedService: SharedService
@@ -27,4 +27,7 @@ export class SnackBarComponent implements OnInit {
     });
   }
 
+  ngOnDestroy(): void {
+    this.sharedService.dismiss();
+  }
 }

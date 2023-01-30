@@ -1,7 +1,22 @@
 <div class="card">
   <div class="banner-image"></div>
-  <img [src]="driverImage" alt="profile image" class="profile-image" />
-  <h1 class="name">{{ driver.name }} {{ driver.surname }}</h1>
+  <button *ngIf="!driver.blocked"
+          class="ban-button"
+          mat-fab aria-label="Ban driver button"
+          (click)="blockDriver()"
+  >
+    <mat-icon>report</mat-icon>
+  </button>
+  <button *ngIf="driver.blocked"
+          class="unban-button"
+          mat-fab
+          aria-label="Unban driver button"
+          (click)="unblockDriver()"
+  >
+    <mat-icon>report_off</mat-icon>
+  </button>
+  <img [src]="driverImage" alt="profile image" class="profile-image"/>
+  <h1 [ngClass]="{'red-header': driver.blocked}" class="name">{{ driver.name }} {{ driver.surname }}</h1>
   <p class="description">{{ driver.email }}</p>
   <button class="btn" (click)="openEditDriverDialog()">Edit</button>
   <button class="btn btn-green" (click)="showStatistics()">Stats</button>

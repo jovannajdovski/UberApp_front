@@ -13,6 +13,8 @@ import { AppRoutingModule } from 'src/infrastructure/app-routing.module';
 import { AdminProfileComponent } from './components/admin-profile/admin-profile.component';
 import { AccountModule } from '../account/account.module';
 import {MatDatepickerModule} from "@angular/material/datepicker";
+import { PassengersComponent } from './components/passengers/passengers.component';
+import { PassengerCardComponent } from './components/passenger-card/passenger-card.component';
 
 @NgModule({
   declarations: [
@@ -21,7 +23,9 @@ import {MatDatepickerModule} from "@angular/material/datepicker";
     AddDriverDialogComponent,
     EditDriverDialogComponent,
     DriversComponent,
-    AdminProfileComponent
+    AdminProfileComponent,
+    PassengersComponent,
+    PassengerCardComponent
   ],
     imports: [
         CommonModule,

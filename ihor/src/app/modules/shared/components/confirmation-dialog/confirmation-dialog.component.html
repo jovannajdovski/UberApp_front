@@ -1,0 +1,10 @@
+<div class="dialog">
+  <h1 [ngClass]="{'red': warning}" mat-dialog-title>{{title}}</h1>
+  <div mat-dialog-content class="message">
+    {{message}}
+  </div>
+  <div mat-dialog-actions class="button-holder">
+    <button mat-button mat-dialog-close (click)="cancel()">Cancel</button>
+    <button [ngClass]="{'red-btn': warning}" mat-button mat-dialog-close cdkFocusInitial (click)="confirm()">Confirm</button>
+  </div>
+</div>
