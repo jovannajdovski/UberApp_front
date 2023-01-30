@@ -20,6 +20,7 @@ import { UnregisteredUserHomeComponent } from 'src/app/modules/unregistered-user
 import {AuthGuard} from "../app/modules/auth/guards/auth.guard";
 import {RoleGuard} from "../app/modules/auth/guards/role.guard";
 import {GlobalStatisticsComponent} from "../app/modules/statistics/components/global-statistics/global-statistics.component";
+import {DriverStatisticsComponent} from "../app/modules/statistics/components/driver-statistics/driver-statistics.component";
 
 const routes: Routes = [
   {path:'login', component: LoginComponent},
@@ -33,7 +34,8 @@ const routes: Routes = [
       { path: "profile", component: AdminProfileComponent},
       { path: "drivers", component: DriversComponent},
       { path: "statistics", component: GlobalStatisticsComponent},
-      { path: "", redirectTo: 'statistics', pathMatch: 'full'}
+      { path: "statistics/driver/:id", component: DriverStatisticsComponent},
+      { path: "", redirectTo: 'statistics/driver/2', pathMatch: 'full'}
     ]
   },
   {path:'driver', canActivate:[], component:DriverHomeComponent},

@@ -1,7 +1,8 @@
 import { Component, Input } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { Driver } from '../../model/driver';
+import { Driver } from '../../model/Driver';
 import { EditDriverDialogComponent } from '../edit-driver-dialog/edit-driver-dialog.component';
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-driver-card',
@@ -13,6 +14,7 @@ export class DriverCardComponent {
   @Input() driverEdited!: () => void;
 
   constructor(
+    private router: Router,
     private dialog: MatDialog
     ) {}
 
@@ -26,5 +28,9 @@ export class DriverCardComponent {
         this.driverEdited();
       }
     });
+  }
+
+  showStatistics() {
+    this.router.navigate(["administrator/statistics/driver/" + this.driver.id.toString()]);
   }
 }

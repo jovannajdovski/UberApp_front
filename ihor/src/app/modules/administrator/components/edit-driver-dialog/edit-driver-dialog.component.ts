@@ -3,7 +3,7 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { match } from 'src/app/modules/unregistered-user/components/signup-form/signup-form.component';
-import { Driver } from '../../model/driver';
+import { Driver } from '../../model/Driver';
 import { DriverService } from '../../services/driver.service';
 import { AddDriverDialogComponent } from '../add-driver-dialog/add-driver-dialog.component';
 
@@ -20,7 +20,7 @@ export class EditDriverDialogComponent implements OnInit {
   allTextPattern = "[a-zA-Z][a-zA-Z]*";
   phoneNumberPattern = "[0-9]*";
   streetAddressPattern = "^[a-zA-Z0-9,'-]*$"
-  
+
   driverInfoForm = new FormGroup({
     name: new FormControl('', [Validators.pattern(this.allTextPattern), Validators.required]),
     surname: new FormControl('', [Validators.pattern(this.allTextPattern), Validators.required]),
@@ -29,7 +29,7 @@ export class EditDriverDialogComponent implements OnInit {
     email: new FormControl('', [Validators.email, Validators.required]),
     password: new FormControl('', [Validators.minLength(6), Validators.required])
   });
-  
+
   constructor(
     @Inject(MAT_DIALOG_DATA) private data: Driver,
     private dialogRef: MatDialogRef<AddDriverDialogComponent>,

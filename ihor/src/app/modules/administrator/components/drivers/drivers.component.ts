@@ -4,7 +4,7 @@ import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { Observable } from 'rxjs';
 import { SharedService } from 'src/app/modules/shared/services/shared.service';
-import { Driver } from '../../model/driver';
+import { Driver } from '../../model/Driver';
 import { DriverService } from '../../services/driver.service';
 import { AddDriverDialogComponent } from '../add-driver-dialog/add-driver-dialog.component';
 
@@ -68,12 +68,12 @@ export class DriversComponent implements OnInit, AfterViewInit, OnDestroy {
     });
   }
 
-  driverEdited = ()=>{ 
+  driverEdited = ()=>{
     this.openSnackBar("Driver edited successfully");
     this.getDrivers({ page: this.currentPage.toString(), size: this.pageSize.toString() });
   }
 
-  openSnackBar = (message: string)=>{  
+  openSnackBar = (message: string)=>{
     this.sharedService.openSnack(message);
   }
 
@@ -81,8 +81,8 @@ export class DriversComponent implements OnInit, AfterViewInit, OnDestroy {
     this.currentPage = event.pageIndex;
     this.pageSize=event.pageSize;
 
-    const request = { 
-      page: event.pageIndex.toString(), 
+    const request = {
+      page: event.pageIndex.toString(),
       size: event.pageSize.toString()
     };
     this.getDrivers(request);
@@ -97,8 +97,8 @@ export class DriversComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    if (this.dataSource) { 
-      this.dataSource.disconnect(); 
+    if (this.dataSource) {
+      this.dataSource.disconnect();
     }
   }
 }

@@ -1,0 +1,198 @@
+.center-screen {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  min-height: 100vh;
+  min-height: 100dvh;
+}
+
+.section {
+  width: 75%;
+}
+
+.section-padding {
+  padding: 1em 2em 2em 2em;
+}
+
+.section-bg {
+  background-color: #282E33;
+  border: 1px solid white;
+}
+
+.chart-section {
+  margin-bottom: 2em;
+}
+
+h1 {
+  color: white;
+  font-weight: 300;
+  font-size: 3em;
+}
+
+h2 {
+  color: white;
+  font-size: 2em;
+  text-align: left;
+  font-weight: bold;
+}
+
+h3 {
+  text-align: left;
+  font-size: 1.5em;
+  color: white;
+  font-weight: 1200;
+}
+
+.flex-container {
+  display: flex;
+  justify-content: space-between;
+}
+
+.flex-container-center {
+  display: flex;
+  justify-content: space-around;
+}
+
+.date-picker {
+  margin-top: auto;
+  margin-bottom: auto;
+}
+
+:host ::ng-deep .date-picker div {
+  color: white !important;
+  border-color: white !important;
+}
+
+:host ::ng-deep .date-picker mat-label {
+  color: white !important;
+  border-color: white !important;
+}
+
+:host ::ng-deep .date-picker span {
+  color: white !important;
+}
+
+:host ::ng-deep .date-picker svg {
+  color: white !important;
+}
+
+.chip-list {
+  align-self: center;
+}
+
+:host ::ng-deep .chip-list button {
+  cursor: pointer !important;
+}
+
+:host ::ng-deep .stats-options label {
+  color: white;
+  font-size: 1.5em;
+}
+
+.mdc-form-field {
+  margin-right: 100px;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  grid-template-rows: 1fr 1fr;
+  grid-gap: 3em;
+  margin-top: 4em;
+}
+
+mat-card {
+  background-color: green;
+  border-radius: 8px;
+  width: 25em;
+  height: 12em;
+  padding: 1em;
+}
+
+mat-icon {
+  transform: scale(2);
+  color: white;
+}
+
+.graph {
+  margin-top: 2em;
+}
+
+.dashboard-cards {
+  margin-top: 2em;
+}
+
+.circle {
+  background: black;
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  text-align: center;
+  justify-content: center;
+}
+
+.card-info {
+  text-align: left;
+  vertical-align: top;
+  margin-top: 0.5em;
+}
+
+.stat-value {
+  font-size: 3em;
+  margin-top: 0;
+  margin-bottom: 0;
+  vertical-align: top;
+}
+
+.stat-desc {
+  font-size: 1.5em;
+  font-weight: 500;
+  color: #FFe32b;
+  margin-bottom: 0;
+}
+
+@media screen and (max-width: 768px) {
+  .stats-options {
+    width: 100%;
+  }
+
+  mat-card {
+    width: 100%;
+  }
+
+  :host ::ng-deep .stats-options label {
+    color: white;
+    font-size: 1.25em;
+    font-weight: bold;
+  }
+}
+
+@media screen and (max-width: 1024px) {
+  .center-screen {
+    margin-top: 4em;
+  }
+
+  .flex-container-responsive {
+    flex-direction: column !important;
+    justify-content: center;
+  }
+
+  .flex-container-center {
+    flex-direction: column !important;
+    align-items: center;
+  };
+
+  mat-card {
+    margin-bottom: 2em;
+  }
+
+  :host ::ng-deep .stats-options label {
+    color: white;
+    font-size: 1.25em;
+  }
+}
+
