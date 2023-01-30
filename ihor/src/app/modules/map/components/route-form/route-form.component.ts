@@ -36,11 +36,13 @@ export class RouteFormComponent {
     
     this.authService.userState$.subscribe((value) => {
       console.log(value);
-      if(value=="UNREGISTERED_USER")
+      if(value=="UNREGISTERED_USER" && !routeService.getOffers())
         this.unregisteredUser = true;
       else
         this.unregisteredUser=false;
     })
+
+    this.routeService.setOffers(false);
   }
 
   options: string[] = [];

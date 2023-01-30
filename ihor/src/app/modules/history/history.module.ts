@@ -17,6 +17,7 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { SharedModule } from "../shared/shared.module";
 import { AdminHistoryComponent } from './components/admin-history/admin-history.component';
 import { AdminRideDetailComponent } from './components/admin-ride-detail/admin-ride-detail.component';
+import { RouteRechoiceComponent } from './components/route-rechoice/route-rechoice.component';
 
 
 @NgModule({
@@ -31,6 +32,7 @@ import { AdminRideDetailComponent } from './components/admin-ride-detail/admin-r
     LeaveReviewComponent,
     AdminHistoryComponent,
     AdminRideDetailComponent,
+    RouteRechoiceComponent,
   ],
   imports: [
     CommonModule,

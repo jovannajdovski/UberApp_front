@@ -3,6 +3,17 @@ import * as L from 'leaflet';
 import { RideHistoryService } from 'src/app/modules/history/services/ride-history/ride-history.service';
 import { MarkerService } from 'src/app/modules/map/services/map/marker.service';
 
+const greenIcon = L.icon({
+  iconUrl: '/assets/images/freecar.png',
+  shadowUrl: 'assets/marker-shadow.png',
+
+  iconSize: [41, 41],
+  iconAnchor: [12, 41],
+  popupAnchor: [1, -34],
+  tooltipAnchor: [16, -28],
+  shadowSize: [41, 41]
+});
+
 const redIcon = L.icon({
   iconUrl: '/assets/images/car.png',
   shadowUrl: 'assets/marker-shadow.png',
@@ -39,7 +50,7 @@ export class DriverMapComponent implements AfterViewInit{
   
     ngAfterViewInit(): void {
       this.initMap();
-      this.markerService.makeVehicleMarkers(this.map, redIcon);
+      this.markerService.makeVehicleMarkers(this.map, redIcon, greenIcon);
       
     }
   

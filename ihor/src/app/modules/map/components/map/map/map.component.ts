@@ -191,7 +191,7 @@ export class MapComponent implements AfterViewInit, OnDestroy, OnInit {
     this.disableMarkers=false;
     console.log("disabled false");
     this.initMap();
-    this.markerService.makeVehicleMarkers(this.map, redIcon);
+    this.markerService.makeVehicleMarkers(this.map, redIcon, greenIcon);
 
     this.registerOnClick();
     this.findRoute();
