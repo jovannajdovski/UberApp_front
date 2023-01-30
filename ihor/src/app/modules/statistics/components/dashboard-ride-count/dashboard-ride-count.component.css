@@ -1,0 +1,95 @@
+.section {
+  width: 75%;
+}
+
+.section-bg {
+  background-color: #282E33;
+  border: 1px solid white;
+}
+
+.section-padding {
+  padding: 1em 2em 2em 2em;
+}
+
+.flex-container {
+  display: flex;
+  justify-content: space-between;
+}
+
+.flex-container-center {
+  display: flex;
+  justify-content: space-around;
+}
+
+h2 {
+  color: white;
+  font-size: 2em;
+  text-align: left;
+  font-weight: bold;
+}
+
+.dashboard-cards {
+  margin-top: 2em;
+}
+
+mat-card {
+  background-color: green;
+  border-radius: 8px;
+  width: 25em;
+  height: 12em;
+  padding: 1em;
+}
+
+mat-icon {
+  transform: scale(2);
+  color: white;
+}
+
+.card-info {
+  text-align: left;
+  vertical-align: top;
+  margin-top: 0.5em;
+}
+
+h3 {
+  text-align: left;
+  font-size: 1.5em;
+  color: white;
+  font-weight: 1200;
+}
+
+.stat-value {
+  font-size: 3em;
+  margin-top: 0;
+  margin-bottom: 0;
+  vertical-align: top;
+}
+
+.stat-desc {
+  font-size: 1.5em;
+  font-weight: 500;
+  color: #FFe32b;
+  margin-bottom: 0;
+}
+
+.circle {
+  background: black;
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  text-align: center;
+  justify-content: center;
+}
+
+@media screen and (max-width: 1024px) {
+  .flex-container-center {
+    flex-direction: column !important;
+    align-items: center;
+  }
+
+  mat-card {
+    margin-bottom: 2em;
+  }
+}

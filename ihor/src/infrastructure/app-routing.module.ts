@@ -19,6 +19,7 @@ import { SignupComponent } from 'src/app/modules/unregistered-user/components/si
 import { UnregisteredUserHomeComponent } from 'src/app/modules/unregistered-user/components/unregistered-user-home/unregistered-user-home.component';
 import {AuthGuard} from "../app/modules/auth/guards/auth.guard";
 import {RoleGuard} from "../app/modules/auth/guards/role.guard";
+import {GlobalStatisticsComponent} from "../app/modules/statistics/components/global-statistics/global-statistics.component";
 
 const routes: Routes = [
   {path:'login', component: LoginComponent},
@@ -31,7 +32,8 @@ const routes: Routes = [
     children: [
       { path: "profile", component: AdminProfileComponent},
       { path: "drivers", component: DriversComponent},
-      { path: "", redirectTo: 'profile', pathMatch: 'full'}
+      { path: "statistics", component: GlobalStatisticsComponent},
+      { path: "", redirectTo: 'statistics', pathMatch: 'full'}
     ]
   },
   {path:'driver', canActivate:[], component:DriverHomeComponent},

@@ -12,7 +12,7 @@ import { AppRoutingModule } from 'src/infrastructure/app-routing.module';
 
 import { AdminProfileComponent } from './components/admin-profile/admin-profile.component';
 import { AccountModule } from '../account/account.module';
-
+import {MatDatepickerModule} from "@angular/material/datepicker";
 
 @NgModule({
   declarations: [
@@ -23,14 +23,15 @@ import { AccountModule } from '../account/account.module';
     DriversComponent,
     AdminProfileComponent
   ],
-  imports: [
-    CommonModule,
-    AppRoutingModule,
-    MaterialModule,
-    ReactiveFormsModule,
-    SharedModule,
-    AccountModule
-  ],
+    imports: [
+        CommonModule,
+        AppRoutingModule,
+        MaterialModule,
+        ReactiveFormsModule,
+        SharedModule,
+        AccountModule,
+        MatDatepickerModule
+    ],
   exports: [
     DriversComponent,
     AdminProfileComponent

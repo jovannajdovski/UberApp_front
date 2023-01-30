@@ -1,8 +1,9 @@
-import { HttpErrorResponse } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
-import { AuthService } from '../../services/auth.service';
+import {HttpErrorResponse} from '@angular/common/http';
+import {Component, OnInit} from '@angular/core';
+import {FormGroup, FormControl, Validators} from '@angular/forms';
+import {Router} from '@angular/router';
+import {AuthService} from '../../services/auth.service';
+import {Credentials} from "../../model/credentials";
 
 @Component({
   selector: 'app-login',
@@ -10,21 +11,23 @@ import { AuthService } from '../../services/auth.service';
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit {
-  hide=true;
+  hide = true;
 
   loginForm = new FormGroup({
-    email: new FormControl('',[Validators.email, Validators.required]),
-    password: new FormControl('',[Validators.minLength(6), Validators.required]),
+    email: new FormControl('', [Validators.email, Validators.required]),
+    password: new FormControl('', [Validators.minLength(6), Validators.required]),
     keepLogin: new FormControl(),
   });
   hasError = false;
 
-  constructor(private authService: AuthService, private router: Router) { }
+  constructor(private authService: AuthService, private router: Router) {
+  }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+  }
 
   login() {
-    const login : Login = {
+    const login: Credentials = {
       email: this.loginForm.value.email,
       password: this.loginForm.value.password,
     }
@@ -67,9 +70,4 @@ export class LoginComponent implements OnInit {
   toSignup() {
     this.router.navigate(['/signup']);
   }
-}
-
-export interface Login {
-  email?: string | null;
-  password?: string | null;
 }

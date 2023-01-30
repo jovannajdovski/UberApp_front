@@ -3,37 +3,37 @@ import {Injectable} from '@angular/core';
 import {JwtHelperService} from '@auth0/angular-jwt';
 import {BehaviorSubject, Observable} from 'rxjs';
 import {environment} from 'src/environments/environment';
-import {Login} from '../components/login/login.component';
 import {Token} from "../model/token";
+import {Credentials} from "../model/credentials";
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-
-  user$ = new BehaviorSubject("UNREGISTERED_USER");
+  defaultRole = "UNREGISTERED";
+  user$ = new BehaviorSubject(this.defaultRole);
   userState$ = this.user$.asObservable();
 
   constructor(private http: HttpClient) {}
 
-  login(auth: Login): Observable<Token> {
+  login(auth: Credentials): Observable<Token> {
     return this.http.post<Token>(environment.apiHost + "user/login",
-    {
-      email: auth.email,
-      password: auth.password
-    })
+      {
+        email: auth.email,
+        password: auth.password
+      })
   }
 
-  logout(email: string, password: string): Observable<Token> {
-    return this.http.post<Token>(environment.apiHost + "user/logout",
-    {
-      email: email,
-      password: password
-    })
+  logout(): Observable<string> {
+    return this.http.get(environment.apiHost + "user/logout", {responseType: 'text'});
   }
 
   setUser(): void {
     this.user$.next(this.getRole());
+  }
+
+  setDefaultRole(): void {
+    this.user$.next(this.defaultRole);
   }
 
   getRole(): any {

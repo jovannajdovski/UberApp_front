@@ -21,6 +21,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatAutocompleteModule } from '@angular/material/autocomplete'
 import {MatPaginatorModule} from '@angular/material/paginator';
 import {MatTableModule} from '@angular/material/table';
+import {MatNativeDateModule} from "@angular/material/core";
 
 @NgModule({
   imports: [
@@ -71,7 +72,8 @@ import {MatTableModule} from '@angular/material/table';
     MatRippleModule,
     MatAutocompleteModule,
     MatPaginatorModule,
-    MatTableModule
+    MatTableModule,
+    MatNativeDateModule
   ],
 })
 export class MaterialModule {}
