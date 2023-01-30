@@ -1,8 +1,8 @@
 <div class="card">
   <div class="banner-image"></div>
-  <img src="https://material.angular.io/assets/img/examples/shiba2.jpg" alt="profile image" class="profile-image" />
+  <img [src]="driverImage" alt="profile image" class="profile-image" />
   <h1 class="name">{{ driver.name }} {{ driver.surname }}</h1>
   <p class="description">{{ driver.email }}</p>
   <button class="btn" (click)="openEditDriverDialog()">Edit</button>
-  <button class="btn btn-green" (click)="showStatistics()">Report</button>
+  <button class="btn btn-green" (click)="showStatistics()">Stats</button>
 </div>

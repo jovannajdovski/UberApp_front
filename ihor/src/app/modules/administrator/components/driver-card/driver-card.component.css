@@ -5,18 +5,19 @@
 }
 
 .card {
-  box-shadow: 0px 2px 8px 0px var(--clr-gray-light);
+  box-shadow: 0 2px 8px 0 var(--clr-gray-light);
   text-align: center;
   border-radius: 1rem;
   position: relative;
   overflow: hidden;
   border: 1px solid gray;
+  background-color: #323940;
 }
 
 .banner-image {
   position:absolute;
-  background-image: url("https://material.angular.io/assets/img/examples/shiba2.jpg");
-  height: 10rem;
+  background-image: url("src/assets/images/dark_car.jpg");
+  height: 8.5rem;
   width: 100%;
   background-position: center;
   background-repeat: no-repeat;
@@ -24,18 +25,19 @@
 }
 
 .profile-image {
-  width: 8rem;
-  clip-path: circle(60px at center);
-  margin-top: 4.5rem;
+  width: 6.5rem;
+  clip-path: circle(45px at center);
+  margin-top: 4rem;
 }
 
 .name {
   color: white;
   font-size: 1.5rem;
+  margin-top: 0.2em;
 }
 
 .description {
-  margin: 1rem 2rem;
+  margin: 1.5rem 2rem;
   font-size: 0.9rem;
   color: white;
 }

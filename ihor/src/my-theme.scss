@@ -75,6 +75,6 @@ $my-green-theme: mat.define-light-theme((
 @include mat.slide-toggle-theme($my-green-theme);
 @include mat.checkbox-theme($my-ihor-theme);
 @include mat.snack-bar-theme($my-green-theme);
-@include mat.datepicker-theme($my-ihor-theme);
+@include mat.datepicker-theme($my-green-theme);
 @include mat.radio-theme($my-green-theme);
 @include mat.chips-theme($my-green-theme);

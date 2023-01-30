@@ -84,6 +84,7 @@ export class DriverStatisticsComponent implements OnInit {
   id = 0;
 
   driver!: Profile;
+  driverImage: any;
 
   constructor(private route: ActivatedRoute,
               private driverService: DriverService,
@@ -107,6 +108,10 @@ export class DriverStatisticsComponent implements OnInit {
     this.driverService.getDriver(this.id).subscribe({
       next: (result) => {
         this.driver = result;
+        if (this.driver.profilePicture == null)
+          this.driverImage = "assets/images/user_missing.png";
+        else
+          this.driverImage = this.driver.profilePicture;
       },
       error: (error) => {
         if (error instanceof HttpErrorResponse) {

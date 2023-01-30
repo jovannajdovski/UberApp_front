@@ -29,6 +29,8 @@ h1 {
   color: white;
   font-weight: 300;
   font-size: 3em;
+  margin: 0;
+  align-self: center;
 }
 
 h2 {
@@ -169,6 +171,17 @@ mat-icon {
     font-size: 1.25em;
     font-weight: bold;
   }
+}
+
+.profile-image {
+  width: 6rem;
+  clip-path: circle(40px at center);
+  margin-right: 1.5em;
+  align-self: center;
+}
+
+.img-container {
+  margin-bottom: 1.5em;
 }
 
 @media screen and (max-width: 1024px) {
