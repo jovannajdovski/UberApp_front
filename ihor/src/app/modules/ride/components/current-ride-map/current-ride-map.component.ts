@@ -24,6 +24,16 @@ const redIcon = L.icon({
   tooltipAnchor: [16, -28],
   shadowSize: [41, 41]
 });
+const greenIcon = L.icon({
+  iconUrl: '/assets/images/freecar.png',
+  shadowUrl: 'assets/marker-shadow.png',
+
+  iconSize: [41, 41],
+  iconAnchor: [12, 41],
+  popupAnchor: [1, -34],
+  tooltipAnchor: [16, -28],
+  shadowSize: [41, 41]
+});
 
 L.Marker.prototype.options.icon = yellowPin;
 @Component({
@@ -52,8 +62,6 @@ export class CurrentRideMapComponent implements OnInit, AfterViewInit{
       );
       this.currentRideService.currentLocationChanged$.subscribe((value)=>
       {
-        if(this.marker)
-          this.removeMarker();
         this.currentLocation=value;
         this.addMarker();
       })
@@ -145,14 +153,18 @@ export class CurrentRideMapComponent implements OnInit, AfterViewInit{
     }
     private addMarker()
     {
-      const lon = this.currentLocation.longitude;
-      const lat = this.currentLocation.latitude;
-      this.marker = L.marker([lat, lon], {icon: redIcon});
-      //marker.bindPopup(this.popupService.makeVehiclePopup(v));
-      this.marker.addTo(this.map);
-    }
-    private removeMarker()
-    {
-      this.map.removeLayer(this.marker);
+      console.log(this.currentLocation.address);
+      if(this.currentLocation.address=="finish")
+        this.marker.setIcon(greenIcon);
+      else{
+        if(this.marker)
+          this.map.removeLayer(this.marker);
+        console.log("pravi marker");
+        const lon = this.currentLocation.longitude;
+        const lat = this.currentLocation.latitude;
+        this.marker = L.marker([lat, lon], {icon: redIcon});
+        //marker.bindPopup(this.popupService.makeVehiclePopup(v));
+        this.marker.addTo(this.map);
+      }
     }
 }
