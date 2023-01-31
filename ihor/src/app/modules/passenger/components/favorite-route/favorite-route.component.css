@@ -1,0 +1,42 @@
+#routeContainer{
+  height: 60px;
+  /* padding: 0px 16px; */
+  border: 0.2px solid #282E33;
+}
+#route{
+  transition: none;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  align-items: flex-start;
+  gap: 15px;
+  height: auto;
+
+  height: 100%;
+}
+
+.iconify{
+  font-size: 1.5em;
+  color: yellow;
+}
+
+::ng-deep .mdc-list-item__content {
+  display: flex !important;
+  align-items: center !important;
+}
+
+::ng-deep .mat-mdc-list-item-unscoped-content {
+  display: flex !important;
+}
+
+button {
+  background-color: red;
+  color: white;
+  border: none;
+  height: 100%;
+  align-self: center;
+}
+
+button:hover {
+  cursor: pointer;
+}

@@ -5,18 +5,14 @@
     </div>
 
     <mat-selection-list #routeList [multiple]="false" id="routeList">
-      <mat-list-option *ngFor="let route of demofavoriteRoutes; let i = index" [value]="route" id="routeContainer"
-        (click)="selectRoute(i)">
-        <div id="route">
-          <div id="icon">
-            <span class="iconify" data-icon="material-symbols:star"></span>
-          </div>
-          <div id="addresses">
-            <div matListItemLine id="route-name">{{route.startPoint}} - {{route.endPoint}}</div>
-          </div>
-        </div>
-      </mat-list-option>
+      <app-favorite-route *ngFor="let route of favoriteRoutes"
+                          [favoriteRoute]="route"
+                          [toastCallback]="toastCallback"
+      >
+      </app-favorite-route>
     </mat-selection-list>
 
   </div>
 </div>
+
+<app-snack-bar></app-snack-bar>

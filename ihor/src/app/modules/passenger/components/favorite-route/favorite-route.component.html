@@ -1,0 +1,12 @@
+<mat-list-option id="routeContainer">
+  <div id="route">
+    <div id="icon">
+      <span class="iconify" data-icon="material-symbols:star"></span>
+    </div>
+    <div id="addresses">
+      <div matListItemLine id="route-name">{{favoriteRoute.locations[0].departure.address}}
+        - {{favoriteRoute.locations[0].destination.address}}</div>
+    </div>
+    <button (click)="removeRoute()" >Remove</button>
+  </div>
+</mat-list-option>

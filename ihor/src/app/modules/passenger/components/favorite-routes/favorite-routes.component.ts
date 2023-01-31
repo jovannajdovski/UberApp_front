@@ -1,40 +1,47 @@
-import { Component } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
+import {FavoriteRoute} from "../../model/FavoriteRoute";
+import {FavoriteRouteService} from "../../services/favorite-route.service";
+import {SharedService} from "../../../shared/services/shared.service";
 
 @Component({
   selector: 'app-favorite-routes',
   templateUrl: './favorite-routes.component.html',
   styleUrls: ['./favorite-routes.component.css']
 })
-export class FavoriteRoutesComponent {
+export class FavoriteRoutesComponent implements OnInit {
 
-  public favoriteRoutes: { startPoint: string, endPoint: string }[]
+  @Input() id!: number;
+  favoriteRoutes!: FavoriteRoute[];
 
-  public demofavoriteRoutes: { startPoint: string, endPoint: string }[] =
-   [
-    {startPoint: "Bulevar Oslobodjenja 32", endPoint:"Gogoljeva 23"},
-    {startPoint: "Bulevar Oslobodjenja 32", endPoint:"Gogoljeva 23"},
-    {startPoint: "Bulevar Oslobodjenja 32", endPoint:"Gogoljeva 23"},
-    {startPoint: "Bulevar Oslobodjenja 32", endPoint:"Gogoljeva 23"},
-  ];
-
-  constructor() {
-    this.favoriteRoutes = [];
-
-    // this.favoriteRouteService.selectedFavoriteRoutes$.subscribe((value) => {
-    //   value.forEach((element: any) => {
-    //     console.log(element);
-    //     this.favoriteRoutes.push({
-    //       startPoint:element.start,
-    //       endPoint:element.end           
-    //     })
-    //   });
-    // });
-
+  constructor(
+    private favoriteRouteService: FavoriteRouteService,
+    private sharedService: SharedService
+  ) {
   }
 
-  selectRoute(i:number){
-    console.log(i);
-  //  this.routeService.setRouteSelect(i);
+  toastCallback = (message: string) => {
+    this.openSnackBar(message);
+    this.fetchFavoriteRoutes();
+  }
+
+  openSnackBar = (message: string) => {
+    this.sharedService.openSnack(message);
+  }
+
+  fetchFavoriteRoutes() {
+    this.favoriteRouteService.getFavoriteRoutes(this.id).subscribe({
+      next: (response) => {
+        this.favoriteRoutes = response;
+        console.log(response)
+      },
+      error: (err) => {
+        console.log(err);
+      }
+    });
+  }
+
+  ngOnInit(): void {
+    this.fetchFavoriteRoutes();
   }
 
 }
