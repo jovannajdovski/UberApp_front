@@ -41,6 +41,7 @@ export class AdministratorNavbarComponent {
   }
 
   logout() {
+    localStorage.clear();
     this.authService.logout().subscribe({
       next: () => {
         localStorage.clear();

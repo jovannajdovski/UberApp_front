@@ -15,6 +15,7 @@ export class RoleGuard implements CanActivate {
   canActivate(route: ActivatedRouteSnapshot): boolean {
     const expectedRoles: string[] = route.data['expectedRoles'].split('|', 3);
     const role = this.auth.getRole();
+
     if (expectedRoles.indexOf(role) === -1) {
       switch (role) {
         case ("PASSENGER"):
@@ -23,7 +24,7 @@ export class RoleGuard implements CanActivate {
         case ("DRIVER"):
           this.router.navigate(['/driver']);
           return false;
-        case ("ADMINISTRATOR"):
+        case ("ADMIN"):
           this.router.navigate(['/administrator']);
           return false;
       }

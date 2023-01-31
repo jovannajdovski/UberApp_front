@@ -22,38 +22,43 @@ import {RoleGuard} from "../app/modules/auth/guards/role.guard";
 import {GlobalStatisticsComponent} from "../app/modules/statistics/components/global-statistics/global-statistics.component";
 import {DriverStatisticsComponent} from "../app/modules/statistics/components/driver-statistics/driver-statistics.component";
 import {PassengersComponent} from "../app/modules/administrator/components/passengers/passengers.component";
+import {
+  PassengerStatisticsComponent
+} from "../app/modules/statistics/components/passenger-statistics/passenger-statistics.component";
 
 const routes: Routes = [
-  {path:'login', component: LoginComponent},
-  {path:'signup', component: SignupComponent},
-  {path: '', redirectTo: 'home', pathMatch: 'full' },
-  {path: 'administrator',
-    canActivate:[RoleGuard, AuthGuard],
-    data: {expectedRoles: "ADMINISTRATOR"},
-    component:AdministratorHomeComponent,
+  {path: 'login', component: LoginComponent},
+  {path: 'signup', component: SignupComponent},
+  {path: '', redirectTo: 'home', pathMatch: 'full'},
+  {
+    path: 'administrator',
+    canActivate: [RoleGuard, AuthGuard],
+    data: {expectedRoles: "ADMIN"},
+    component: AdministratorHomeComponent,
     children: [
-      { path: "profile", component: AdminProfileComponent},
-      { path: "drivers", component: DriversComponent},
-      { path: "passengers", component: PassengersComponent},
-      { path: "statistics", component: GlobalStatisticsComponent},
-      { path: "statistics/driver/:id", component: DriverStatisticsComponent},
-      { path: "", redirectTo: 'passengers', pathMatch: 'full'}
+      {path: 'profile', component: AdminProfileComponent},
+      {path: 'drivers', component: DriversComponent},
+      {path: 'passengers', component: PassengersComponent},
+      {path: 'statistics', component: GlobalStatisticsComponent},
+      {path: 'statistics/driver/:id', component: DriverStatisticsComponent},
+      {path: 'statistics/passenger/:id', component: PassengerStatisticsComponent},
+      {path: '', redirectTo: 'passengers', pathMatch: 'full'}
     ]
   },
-  {path:'driver', canActivate:[], component:DriverHomeComponent},
-  {path:'inbox', canActivate:[], component: InboxComponent},
-  {path: 'passenger', canActivate:[], component:PassengerHomeComponent},
-  {path: 'driver', canActivate:[], component:DriverHomeComponent},
-  {path: 'inbox', canActivate:[], component: InboxComponent},
-  {path:'home', component: UnregisteredUserHomeComponent},
-  {path:'forgot-password', component: ForgotPasswordComponent},
-  {path:'password-changed', component: PasswordChangedComponent},
-  {path:'reset-password', component: ResetPasswordComponent},
-  {path:'edit-profile', component: EditProfileComponent},
-  {path:'edit-password', component: EditPasswordComponent},
-  {path:'edit-vehicle', component: EditVehicleComponent},
-  {path:'driver/profile', component: DriverProfileComponent},
-  {path:'passenger/profile', component: PassengerProfileComponent},
+  {path: 'driver', canActivate: [], component: DriverHomeComponent},
+  {path: 'inbox', canActivate: [], component: InboxComponent},
+  {path: 'passenger', canActivate: [], component: PassengerHomeComponent},
+  {path: 'driver', canActivate: [], component: DriverHomeComponent},
+  {path: 'inbox', canActivate: [], component: InboxComponent},
+  {path: 'home', component: UnregisteredUserHomeComponent},
+  {path: 'forgot-password', component: ForgotPasswordComponent},
+  {path: 'password-changed', component: PasswordChangedComponent},
+  {path: 'reset-password', component: ResetPasswordComponent},
+  {path: 'edit-profile', component: EditProfileComponent},
+  {path: 'edit-password', component: EditPasswordComponent},
+  {path: 'edit-vehicle', component: EditVehicleComponent},
+  {path: 'driver/profile', component: DriverProfileComponent},
+  {path: 'passenger/profile', component: PassengerProfileComponent},
 ];
 
 @NgModule({

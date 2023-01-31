@@ -11,6 +11,8 @@ import {MatChipsModule} from "@angular/material/chips";
 import { DashboardRideCountComponent } from './components/dashboard-ride-count/dashboard-ride-count.component';
 import { DashboardRideDistanceComponent } from './components/dashboard-ride-distance/dashboard-ride-distance.component';
 import { DriverStatisticsComponent } from './components/driver-statistics/driver-statistics.component';
+import { PassengerStatisticsComponent } from './components/passenger-statistics/passenger-statistics.component';
+import { DashboardMoneySpentComponent } from './components/dashboard-money-spent/dashboard-money-spent.component';
 
 let CanvasJSChart = CanvasJSAngularChart.CanvasJSChart;
 
@@ -21,7 +23,9 @@ let CanvasJSChart = CanvasJSAngularChart.CanvasJSChart;
     CanvasJSChart,
     DashboardRideCountComponent,
     DashboardRideDistanceComponent,
-    DriverStatisticsComponent
+    DriverStatisticsComponent,
+    PassengerStatisticsComponent,
+    DashboardMoneySpentComponent
   ],
   imports: [
     CommonModule,

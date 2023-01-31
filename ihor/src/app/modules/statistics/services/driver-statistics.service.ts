@@ -14,16 +14,24 @@ export class DriverStatisticsService {
 
 
   getRideCountStatistics(id: number, from: Date, to: Date): Observable<RideCountStatistics> {
-    const fromString = this.datePipe.transform(from, 'yyyy-MM-ddThh:mm:ss');
-    const toString = this.datePipe.transform(to, 'yyyy-MM-ddThh:mm:ss');
-    return this.http.get<RideCountStatistics>(environment.apiHost + "driver/" + id.toString() +
-      "/ride-count?from=" + fromString + "&to=" + toString)
+    const fromString = this.datePipe.transform(from, 'yyyy-MM-ddThh:mm:ss') ?? new Date().toString();
+    const toString = this.datePipe.transform(to, 'yyyy-MM-ddThh:mm:ss') ?? new Date().toString();
+    return this.http.get<RideCountStatistics>(environment.apiHost + "driver/" + id.toString() + "/ride-count", {
+      params: {
+        from: fromString,
+        to: toString
+      }
+    })
   }
 
   getRideDistanceStatistics(id: number, from: Date, to: Date): Observable<RideDistanceStatistics> {
-    const fromString = this.datePipe.transform(from, 'yyyy-MM-ddThh:mm:ss');
-    const toString = this.datePipe.transform(to, 'yyyy-MM-ddThh:mm:ss');
-    return this.http.get<RideDistanceStatistics>(environment.apiHost + "driver/" + id.toString() +
-      "/distance?from=" + fromString + "&to=" + toString)
+    const fromString = this.datePipe.transform(from, 'yyyy-MM-ddThh:mm:ss') ?? new Date().toString();
+    const toString = this.datePipe.transform(to, 'yyyy-MM-ddThh:mm:ss') ?? new Date().toString();
+    return this.http.get<RideDistanceStatistics>(environment.apiHost + "driver/" + id.toString() + "/distance", {
+      params: {
+        from: fromString,
+        to: toString
+      }
+    })
   }
 }
