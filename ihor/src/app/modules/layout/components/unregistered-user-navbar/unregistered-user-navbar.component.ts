@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { AuthService } from 'src/app/modules/auth/services/auth.service';
 
 @Component({
   selector: 'app-unregistered-user-navbar',
@@ -7,7 +8,9 @@ import { Router } from '@angular/router';
   styleUrls: ['./unregistered-user-navbar.component.css']
 })
 export class UnregisteredUserNavbarComponent {
-  constructor(private router:Router) {}  
+  constructor(private router:Router, private authService:AuthService) {
+    this.authService.setUser()
+  }  
   toLogin() {
     this.router.navigate(['/login']);
   }

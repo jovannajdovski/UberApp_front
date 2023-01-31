@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { AuthService } from 'src/app/modules/auth/services/auth.service';
+import { WorkTimeService } from 'src/app/modules/driver/services/work-time/work-time.service';
 
 @Component({
   selector: 'app-driver-navbar',
@@ -9,8 +11,9 @@ import { Router } from '@angular/router';
 export class DriverNavbarComponent {
   public selectedPage:any;
   public enumSP=SelectedPage;
-  constructor(private router:Router) {
+  constructor(private router:Router, private authService:AuthService, private workTimeService:WorkTimeService) {
     this.toHome();
+    this.authService.setUser();
   }  
   toHome(){
     this.selectedPage=SelectedPage.HOME;
@@ -34,7 +37,9 @@ export class DriverNavbarComponent {
     this.router.navigate(['/accepted-rides']);   
   }
   logout(){
-    
+    this.workTimeService.endShift();
+    localStorage.removeItem('user');
+    this.router.navigate(['/login']);
   }
   toCurrentRide(){
     this.selectedPage=SelectedPage.CURRENT_RIDE;

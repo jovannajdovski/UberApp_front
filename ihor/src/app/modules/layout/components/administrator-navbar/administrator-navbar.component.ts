@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { AuthService } from 'src/app/modules/auth/services/auth.service';
 
 @Component({
   selector: 'app-administrator-navbar',
@@ -9,8 +10,9 @@ import { Router } from '@angular/router';
 export class AdministratorNavbarComponent {
   public selectedPage:any;
   public enumSP=SelectedPage;
-  constructor(private router:Router) {
+  constructor(private router:Router, private authService:AuthService) {
     this.toHome();
+    this.authService.setUser();
   }  
   toHome(){
     this.selectedPage=SelectedPage.HOME;
@@ -33,7 +35,8 @@ export class AdministratorNavbarComponent {
     this.router.navigate(['/administrator/profile']);   
   }
   logout(){
-    
+    localStorage.removeItem('user');
+    this.router.navigate(['/login']);
   }
 }
 enum SelectedPage {

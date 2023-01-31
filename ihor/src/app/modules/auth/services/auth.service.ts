@@ -51,7 +51,7 @@ export class AuthService {
       return String(role).substring(5);
     }
     
-    return null;
+    return "UNREGISTERED_USER";
   }
 
   getId(): any {

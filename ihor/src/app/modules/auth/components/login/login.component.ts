@@ -22,7 +22,10 @@ export class LoginComponent implements OnInit {
   hasError = false;
 
   constructor(private authService: AuthService, private routeService:RouteService,
-           private router: Router, private workTimeService:WorkTimeService) { }
+           private router: Router, private workTimeService:WorkTimeService) { 
+            
+    this.authService.setUser();
+  }
 
   ngOnInit(): void {}
 
@@ -38,6 +41,7 @@ export class LoginComponent implements OnInit {
           console.log(result);
           console.log(result.accessToken);
           localStorage.setItem('user', JSON.stringify(result.accessToken));
+          
           this.authService.setUser();
 
           if (this.authService.getRole() == "DRIVER") {
