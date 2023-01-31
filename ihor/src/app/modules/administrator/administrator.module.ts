@@ -4,7 +4,7 @@ import { MaterialModule } from 'src/infrastructure/material.module';
 import { DriverCardComponent } from './components/driver-card/driver-card.component';
 import { AdministratorHomeComponent } from './components/administrator-home/administrator-home.component';
 import { AddDriverDialogComponent } from './components/add-driver-dialog/add-driver-dialog.component';
-import { ReactiveFormsModule } from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { SharedModule } from '../shared/shared.module';
 import { EditDriverDialogComponent } from './components/edit-driver-dialog/edit-driver-dialog.component';
 import { DriversComponent } from './components/drivers/drivers.component';
@@ -15,6 +15,7 @@ import { AccountModule } from '../account/account.module';
 import {MatDatepickerModule} from "@angular/material/datepicker";
 import { PassengersComponent } from './components/passengers/passengers.component';
 import { PassengerCardComponent } from './components/passenger-card/passenger-card.component';
+import {MatStepperModule} from "@angular/material/stepper";
 
 @NgModule({
   declarations: [
@@ -34,7 +35,9 @@ import { PassengerCardComponent } from './components/passenger-card/passenger-ca
         ReactiveFormsModule,
         SharedModule,
         AccountModule,
-        MatDatepickerModule
+        MatDatepickerModule,
+        MatStepperModule,
+        FormsModule
     ],
   exports: [
     DriversComponent,

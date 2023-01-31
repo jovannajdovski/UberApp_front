@@ -10,7 +10,7 @@
           <span *ngIf="driverInfoForm.get('name')?.errors?.['required']" class="input-error" >Field is required</span>
         </mat-error>
       </mat-form-field>
-    
+
       <mat-form-field class="field field-small" appearance="outline">
         <mat-label>Surname</mat-label>
         <input matInput type="text" placeholder="Doe" name="surname" formControlName="surname">
@@ -20,16 +20,16 @@
         </mat-error>
       </mat-form-field>
     </div>
-  
+
     <mat-form-field appearance="outline" class="field">
       <mat-label>Email</mat-label>
-      <input matInput type="email" placeholder="name@example.com" name="email" formControlName="email">
+      <input readonly matInput type="email" placeholder="name@example.com" name="email" formControlName="email">
       <mat-error *ngIf="driverInfoForm.get('email')?.invalid && driverInfoForm.get('email')?.touched" >
         <span *ngIf="driverInfoForm.get('email')?.errors?.['email']" class="input-error" >Email must be in correct format</span>
         <span *ngIf="driverInfoForm.get('email')?.errors?.['required']" class="input-error" >Email is required</span>
       </mat-error>
     </mat-form-field>
-  
+
     <mat-form-field appearance="outline" class="field">
       <mat-label>Phone number</mat-label>
       <input matInput type="text" placeholder="0123456789" name="phoneNumber" formControlName="phoneNumber">
@@ -39,7 +39,7 @@
         <span *ngIf="driverInfoForm.get('phoneNumber')?.errors?.['required']" class="input-error" >Field is required</span>
       </mat-error>
     </mat-form-field>
-  
+
     <mat-form-field appearance="outline" class="field">
       <mat-label>Street Address</mat-label>
       <input matInput type="text" placeholder="1234 Main Street" name="streetAddress" formControlName="streetAddress">
@@ -47,20 +47,6 @@
         <span *ngIf="driverInfoForm.get('streetAddress')?.errors?.['required']" class="input-error" >Field is required</span>
       </mat-error>
     </mat-form-field>
-  
-    <mat-form-field appearance="outline" class="field">
-      <mat-label>Password</mat-label>
-      <input matInput [type]="hidePassword ? 'password' : 'text'" name="password" formControlName="password">
-      <button mat-icon-button matSuffix (click)="hidePassword = !hidePassword" [attr.aria-label]="'Hide password'"
-        [attr.aria-pressed]="hidePassword">
-        <mat-icon>{{hidePassword ? 'visibility_off' : 'visibility'}}</mat-icon>
-      </button>
-      <mat-error *ngIf="driverInfoForm.get('password')?.invalid && driverInfoForm.get('password')?.touched" >
-        <span *ngIf="driverInfoForm.get('password')?.errors?.['checkpasswords']" class="input-error" >Not valid format</span>
-        <span *ngIf="driverInfoForm.get('password')?.errors?.['minlength']" class="input-error" >Must contain atleast 6 characters</span>
-        <span *ngIf="driverInfoForm.get('password')?.errors?.['required']" class="input-error" >Field is required</span>
-      </mat-error>
-    </mat-form-field>
-  
+
     <button type="submit" id="loginbtn" [disabled]="!driverInfoForm.valid" >Edit</button>
 </form>

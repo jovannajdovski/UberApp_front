@@ -30,8 +30,7 @@ export class DriverService {
         surname: driver.surname,
         telephoneNumber: driver.telephoneNumber,
         email: driver.email,
-        address: driver.address,
-        password: driver.password
+        address: driver.address
       })
   }
 }

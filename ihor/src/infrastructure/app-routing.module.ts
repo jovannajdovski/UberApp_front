@@ -42,7 +42,7 @@ const routes: Routes = [
       {path: 'statistics', component: GlobalStatisticsComponent},
       {path: 'statistics/driver/:id', component: DriverStatisticsComponent},
       {path: 'statistics/passenger/:id', component: PassengerStatisticsComponent},
-      {path: '', redirectTo: 'passengers', pathMatch: 'full'}
+      {path: '', redirectTo: 'drivers', pathMatch: 'full'}
     ]
   },
   {path: 'driver', canActivate: [], component: DriverHomeComponent},

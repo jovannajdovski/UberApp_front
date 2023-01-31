@@ -60,9 +60,9 @@ export class DriverCardComponent implements OnInit{
     dialogRef.afterClosed().subscribe(result => {
       if (result == "success") {
         this.userService.block(this.driver.id).subscribe({
-          next: () => {
+          next: (result: string) => {
             this.changeDriverStatus(true);
-            this.toastCallback("Driver is successfully blocked");
+            this.toastCallback(result);
           },
           error: (error) => {
             if (error instanceof HttpErrorResponse) {
@@ -86,9 +86,9 @@ export class DriverCardComponent implements OnInit{
     dialogRef.afterClosed().subscribe(result => {
       if (result == "success") {
         this.userService.unblock(this.driver.id).subscribe({
-          next: () => {
+          next: (result: string) => {
             this.changeDriverStatus(false);
-            this.toastCallback("Driver is successfully unblocked");
+            this.toastCallback(result);
           },
           error: (error) => {
             if (error instanceof HttpErrorResponse) {

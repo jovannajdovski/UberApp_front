@@ -45,9 +45,9 @@ export class PassengerCardComponent implements OnInit{
     dialogRef.afterClosed().subscribe(result => {
       if (result == "success") {
         this.userService.block(this.passenger.id).subscribe({
-          next: () => {
+          next: (result) => {
             this.changePassengerStatus(true);
-            this.toastCallback("Passenger is successfully blocked");
+            this.toastCallback(result);
           },
           error: (error) => {
             if (error instanceof HttpErrorResponse) {
@@ -71,9 +71,9 @@ export class PassengerCardComponent implements OnInit{
     dialogRef.afterClosed().subscribe(result => {
       if (result == "success") {
         this.userService.unblock(this.passenger.id).subscribe({
-          next: () => {
+          next: (result) => {
             this.changePassengerStatus(false);
-            this.toastCallback("Passenger is successfully unblocked");
+            this.toastCallback(result);
           },
           error: (error) => {
             if (error instanceof HttpErrorResponse) {

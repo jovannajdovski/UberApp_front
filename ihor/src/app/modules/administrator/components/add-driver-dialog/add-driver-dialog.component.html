@@ -1,91 +1,163 @@
-<form [formGroup]="addDriverForm" (ngSubmit)="signup()" id="addDriver">
-  <h1>Add driver</h1>
+<div class="content" id="addDriverContent">
+  <mat-stepper [linear]="true" #stepper>
+    <mat-step [stepControl]="addDriverForm" label="Add driver">
+      <form [formGroup]="addDriverForm" id="addDriver">
+        <div class="field-container">
+          <mat-form-field class="field field-small" appearance="outline">
+            <mat-label>Name</mat-label>
+            <input matInput type="text" placeholder="John" name="name" formControlName="name">
+            <mat-error *ngIf="addDriverForm.get('name')?.invalid && addDriverForm.get('name')?.touched">
+              <span *ngIf="addDriverForm.get('name')?.errors?.['pattern']" class="input-error">Not valid format</span>
+              <span *ngIf="addDriverForm.get('name')?.errors?.['required']" class="input-error">Field is required</span>
+            </mat-error>
+          </mat-form-field>
 
-  <div class="field-container">
-    <mat-form-field class="field field-small" appearance="outline">
-      <mat-label>Name</mat-label>
-      <input matInput type="text" placeholder="John" name="name" formControlName="name">
-      <mat-error *ngIf="addDriverForm.get('name')?.invalid && addDriverForm.get('name')?.touched">
-        <span *ngIf="addDriverForm.get('name')?.errors?.['pattern']" class="input-error">Not valid format</span>
-        <span *ngIf="addDriverForm.get('name')?.errors?.['required']" class="input-error">Field is required</span>
-      </mat-error>
-    </mat-form-field>
+          <mat-form-field class="field field-small" appearance="outline">
+            <mat-label>Surname</mat-label>
+            <input matInput type="text" placeholder="Doe" name="surname" formControlName="surname">
+            <mat-error *ngIf="addDriverForm.get('surname')?.invalid && addDriverForm.get('surname')?.touched">
+              <span *ngIf="addDriverForm.get('surname')?.errors?.['pattern']"
+                    class="input-error">Not valid format</span>
+              <span *ngIf="addDriverForm.get('surname')?.errors?.['required']"
+                    class="input-error">Field is required</span>
+            </mat-error>
+          </mat-form-field>
+        </div>
 
-    <mat-form-field class="field field-small" appearance="outline">
-      <mat-label>Surname</mat-label>
-      <input matInput type="text" placeholder="Doe" name="surname" formControlName="surname">
-      <mat-error *ngIf="addDriverForm.get('surname')?.invalid && addDriverForm.get('surname')?.touched">
-        <span *ngIf="addDriverForm.get('surname')?.errors?.['pattern']" class="input-error">Not valid format</span>
-        <span *ngIf="addDriverForm.get('surname')?.errors?.['required']" class="input-error">Field is required</span>
-      </mat-error>
-    </mat-form-field>
-  </div>
-
-  <mat-form-field appearance="outline" class="field">
-    <mat-label>Email</mat-label>
-    <input matInput type="email" placeholder="name@example.com" name="email" formControlName="email">
-    <mat-error *ngIf="addDriverForm.get('email')?.invalid && addDriverForm.get('email')?.touched">
+        <mat-form-field appearance="outline" class="field">
+          <mat-label>Email</mat-label>
+          <input matInput type="email" placeholder="name@example.com" name="email" formControlName="email">
+          <mat-error *ngIf="addDriverForm.get('email')?.invalid && addDriverForm.get('email')?.touched">
       <span *ngIf="addDriverForm.get('email')?.errors?.['email']"
             class="input-error">Email must be in correct format</span>
-      <span *ngIf="addDriverForm.get('email')?.errors?.['required']" class="input-error">Email is required</span>
-    </mat-error>
-  </mat-form-field>
+            <span *ngIf="addDriverForm.get('email')?.errors?.['required']" class="input-error">Email is required</span>
+          </mat-error>
+        </mat-form-field>
 
-  <mat-form-field appearance="outline" class="field">
-    <mat-label>Phone number</mat-label>
-    <input matInput type="text" placeholder="0123456789" name="phoneNumber" formControlName="phoneNumber">
-    <mat-error *ngIf="addDriverForm.get('phoneNumber')?.invalid && addDriverForm.get('phoneNumber')?.touched">
-        <span *ngIf="addDriverForm.get('phoneNumber')?.errors?.['minlength'] ||
-        addDriverForm.get('phoneNumber')?.errors?.['maxlength'] || addDriverForm.get('phoneNumber')?.errors?.['pattern']"
-              class="input-error">Not valid format</span>
-      <span *ngIf="addDriverForm.get('phoneNumber')?.errors?.['required']" class="input-error">Field is required</span>
-    </mat-error>
-  </mat-form-field>
+        <mat-form-field appearance="outline" class="field">
+          <mat-label>Phone number</mat-label>
+          <input matInput type="text" placeholder="0123456789" name="phoneNumber" formControlName="phoneNumber">
+          <mat-error *ngIf="addDriverForm.get('phoneNumber')?.invalid && addDriverForm.get('phoneNumber')?.touched">
+            <span *ngIf="addDriverForm.get('phoneNumber')?.errors?.['required']"
+                  class="input-error">Field is required</span>
+          </mat-error>
+        </mat-form-field>
 
-  <mat-form-field appearance="outline" class="field">
-    <mat-label>Street Address</mat-label>
-    <input matInput type="text" placeholder="1234 Main Street" name="streetAddress" formControlName="streetAddress">
-    <mat-error *ngIf="addDriverForm.get('streetAddress')?.invalid && addDriverForm.get('streetAddress')?.touched">
+        <mat-form-field appearance="outline" class="field">
+          <mat-label>Street Address</mat-label>
+          <input matInput type="text" placeholder="1234 Main Street" name="streetAddress"
+                 formControlName="streetAddress">
+          <mat-error *ngIf="addDriverForm.get('streetAddress')?.invalid && addDriverForm.get('streetAddress')?.touched">
       <span *ngIf="addDriverForm.get('streetAddress')?.errors?.['required']"
             class="input-error">Field is required</span>
-    </mat-error>
-  </mat-form-field>
+          </mat-error>
+        </mat-form-field>
 
-  <mat-form-field appearance="outline" class="field">
-    <mat-label>Password</mat-label>
-    <input matInput [type]="hidePassword ? 'password' : 'text'" name="password" formControlName="password">
-    <button mat-icon-button matSuffix (click)="hidePassword = !hidePassword" [attr.aria-label]="'Hide password'"
-            [attr.aria-pressed]="hidePassword">
-      <mat-icon>{{hidePassword ? 'visibility_off' : 'visibility'}}</mat-icon>
-    </button>
-    <mat-error *ngIf="addDriverForm.get('password')?.invalid && addDriverForm.get('password')?.touched">
+        <mat-form-field appearance="outline" class="field">
+          <mat-label>Password</mat-label>
+          <input matInput [type]="hidePassword ? 'password' : 'text'" name="password" formControlName="password">
+          <button mat-icon-button matSuffix (click)="hidePassword = !hidePassword" [attr.aria-label]="'Hide password'"
+                  [attr.aria-pressed]="hidePassword">
+            <mat-icon>{{hidePassword ? 'visibility_off' : 'visibility'}}</mat-icon>
+          </button>
+          <mat-error *ngIf="addDriverForm.get('password')?.invalid && addDriverForm.get('password')?.touched">
       <span *ngIf="addDriverForm.get('password')?.errors?.['checkpasswords']"
             class="input-error">Not valid format</span>
-      <span *ngIf="addDriverForm.get('password')?.errors?.['minlength']" class="input-error">Must contain atleast 6 characters</span>
-      <span *ngIf="addDriverForm.get('password')?.errors?.['required']" class="input-error">Field is required</span>
-    </mat-error>
-  </mat-form-field>
+            <span *ngIf="addDriverForm.get('password')?.errors?.['minlength']" class="input-error">Must contain atleast 6 characters</span>
+            <span *ngIf="addDriverForm.get('password')?.errors?.['required']"
+                  class="input-error">Field is required</span>
+          </mat-error>
+        </mat-form-field>
 
-  <mat-form-field appearance="outline" class="field">
-    <mat-label>Confirm password</mat-label>
-    <input matInput [type]="hideConfirmPassword ? 'password' : 'text'" name="confirmPassword"
-           formControlName="confirmPassword">
-    <button mat-icon-button matSuffix (click)="hideConfirmPassword = !hideConfirmPassword"
-            [attr.aria-label]="'Hide password'"
-            [attr.aria-pressed]="hideConfirmPassword">
-      <mat-icon>{{hideConfirmPassword ? 'visibility_off' : 'visibility'}}</mat-icon>
-    </button>
-    <mat-error *ngIf="addDriverForm.get('confirmPassword')?.invalid && addDriverForm.get('confirmPassword')?.touched">
+        <mat-form-field appearance="outline" class="field">
+          <mat-label>Confirm password</mat-label>
+          <input matInput [type]="hideConfirmPassword ? 'password' : 'text'" name="confirmPassword"
+                 formControlName="confirmPassword">
+          <button mat-icon-button matSuffix (click)="hideConfirmPassword = !hideConfirmPassword"
+                  [attr.aria-label]="'Hide password'"
+                  [attr.aria-pressed]="hideConfirmPassword">
+            <mat-icon>{{hideConfirmPassword ? 'visibility_off' : 'visibility'}}</mat-icon>
+          </button>
+          <mat-error
+            *ngIf="addDriverForm.get('confirmPassword')?.invalid && addDriverForm.get('confirmPassword')?.touched">
       <span *ngIf="addDriverForm.get('confirmPassword')?.errors?.['matching']"
             class="input-error">Passwords must match</span>
-      <span *ngIf="addDriverForm.get('confirmPassword')?.errors?.['required']"
-            class="input-error">Field is required</span>
-    </mat-error>
-  </mat-form-field>
+            <span *ngIf="addDriverForm.get('confirmPassword')?.errors?.['required']"
+                  class="input-error">Field is required</span>
+          </mat-error>
+        </mat-form-field>
 
-  <button type="submit" id="loginbtn" [disabled]="!addDriverForm.valid">Add</button>
+        <button class="btn" matStepperNext>Next</button>
 
-  <mat-error *ngIf="hasError">
-    <span class="signup-error">Email already exists</span>
-  </mat-error>
-</form>
+        <mat-error *ngIf="emailError" class="signup-error-container">
+          <span class="signup-error">Email already exists</span>
+        </mat-error>
+      </form>
+    </mat-step>
+
+    <mat-step [stepControl]="addVehicleForm" label="Add vehicle">
+      <form [formGroup]="addVehicleForm" (ngSubmit)="signup()" id="addVehicle">
+        <mat-form-field class="field" appearance="outline">
+          <mat-label>Vehicle Type</mat-label>
+          <mat-select name="vehicleType" formControlName="vehicleType">
+            <mat-option value="STANDARD" selected >STANDARD</mat-option>
+            <mat-option value="LUXURY" >LUXURY</mat-option>
+            <mat-option value="VAN" >VAN</mat-option>
+          </mat-select>
+          <mat-error *ngIf="addVehicleForm.get('vehicleType')?.invalid && addVehicleForm.get('addVehicleForm')?.touched">
+            <span *ngIf="addVehicleForm.get('vehicleType')?.errors?.['required']" class="input-error">Field is required</span>
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field class="field" appearance="outline">
+          <mat-label>Model</mat-label>
+          <input matInput type="text" placeholder="Enter model" name="model" formControlName="model">
+          <mat-error *ngIf="addVehicleForm.get('model')?.invalid && addVehicleForm.get('model')?.touched">
+              <span *ngIf="addVehicleForm.get('model')?.errors?.['pattern']"
+                    class="input-error">Not valid format</span>
+            <span *ngIf="addVehicleForm.get('model')?.errors?.['required']"
+                  class="input-error">Field is required</span>
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field class="field" appearance="outline">
+          <mat-label>Licence number</mat-label>
+          <input matInput type="text" placeholder="Enter licence number" name="licenceNumber" formControlName="licenceNumber">
+          <mat-error *ngIf="addVehicleForm.get('licenceNumber')?.invalid && addVehicleForm.get('licenceNumber')?.touched">
+              <span *ngIf="addVehicleForm.get('licenceNumber')?.errors?.['pattern']"
+                    class="input-error">Not valid format</span>
+            <span *ngIf="addVehicleForm.get('licenceNumber')?.errors?.['required']"
+                  class="input-error">Field is required</span>
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field class="field" appearance="outline">
+          <mat-label>Passenger seats</mat-label>
+          <input matInput type="text" placeholder="Enter number of passenger seats" name="numberOfSeats" formControlName="numberOfSeats">
+          <mat-error *ngIf="addVehicleForm.get('numberOfSeats')?.invalid && addVehicleForm.get('numberOfSeats')?.touched">
+              <span *ngIf="addVehicleForm.get('numberOfSeats')?.errors?.['min'] || addVehicleForm.get('numberOfSeats')?.errors?.['max']"
+                    class="input-error">
+                Must be in range 1 - 5
+              </span>
+            <span *ngIf="addVehicleForm.get('numberOfSeats')?.errors?.['required']"
+                  class="input-error">Field is required</span>
+          </mat-error>
+        </mat-form-field>
+
+        <section class="checkbox-section">
+          <mat-checkbox [checked] = "babyTransport" (click)="toggleBabyTransport()">Baby transport</mat-checkbox>
+          <mat-checkbox [checked] = "petTransport" (click)="togglePetTransport()" >Pet transport</mat-checkbox>
+        </section>
+
+        <button type="submit" class="btn" [disabled]="!addVehicleForm.valid">Add</button>
+
+        <mat-error *ngIf="emailError" class="signup-error-container">
+          <span class="signup-error">Email already exists</span>
+        </mat-error>
+        <mat-error *ngIf="vehicleError" class="signup-error-container">
+          <span class="signup-error">Licence number already exists</span>
+        </mat-error>
+      </form>
+    </mat-step>
+  </mat-stepper>
+</div>

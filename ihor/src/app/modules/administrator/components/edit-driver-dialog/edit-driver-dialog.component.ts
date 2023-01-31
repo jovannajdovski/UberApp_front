@@ -11,21 +11,16 @@ import { DriverService } from '../../services/driver.service';
   styleUrls: ['./edit-driver-dialog.component.scss']
 })
 export class EditDriverDialogComponent implements OnInit {
-  hidePassword=true;
-  hideConfirmPassword=true;
   hasError = false;
 
   allTextPattern = "[a-zA-Z][a-zA-Z]*";
-  phoneNumberPattern = "[0-9]*";
-  streetAddressPattern = "^[a-zA-Z0-9,'-]*$"
 
   driverInfoForm = new FormGroup({
     name: new FormControl('', [Validators.pattern(this.allTextPattern), Validators.required]),
     surname: new FormControl('', [Validators.pattern(this.allTextPattern), Validators.required]),
-    phoneNumber: new FormControl('', [Validators.pattern(this.phoneNumberPattern), Validators.minLength(10), Validators.maxLength(10), Validators.required]),
+    phoneNumber: new FormControl('', [Validators.required]),
     streetAddress: new FormControl('', [Validators.required]),
-    email: new FormControl('', [Validators.email, Validators.required]),
-    password: new FormControl('', [Validators.minLength(6), Validators.required])
+    email: new FormControl('', [Validators.email, Validators.required])
   });
 
   constructor(
@@ -39,7 +34,7 @@ export class EditDriverDialogComponent implements OnInit {
       name: this.data.name,
       surname: this.data.surname,
       phoneNumber: this.data.telephoneNumber,
-      streetAddress: this.data.surname,
+      streetAddress: this.data.address,
       email: this.data.email
    });
   }
@@ -51,9 +46,9 @@ export class EditDriverDialogComponent implements OnInit {
       surname: this.driverInfoForm.value.surname!,
       telephoneNumber: this.driverInfoForm.value.phoneNumber!,
       address: this.driverInfoForm.value.streetAddress!,
-      email: this.driverInfoForm.value.email!,
-      password: this.driverInfoForm.value.password!,
-      profilePicture: '',
+      email: this.data.email,
+      password: '',
+      profilePicture: this.data.profilePicture,
       blocked: this.data.blocked,
       active: this.data.active
     }
