@@ -34,6 +34,7 @@ import { LeaveReviewComponent } from 'src/app/modules/history/components/leave-r
 import { ReviewListComponent } from 'src/app/modules/history/components/review-list/review-list.component';
 import { AcceptedRidesComponent } from 'src/app/modules/driver/components/accepted-rides/accepted-rides.component';
 import { AdminHistoryComponent } from 'src/app/modules/history/components/admin-history/admin-history.component';
+import { RouteRechoiceComponent } from 'src/app/modules/history/components/route-rechoice/route-rechoice.component';
 
 const routes: Routes = [
   {path: 'login', component: LoginComponent},
@@ -78,6 +79,7 @@ const routes: Routes = [
   {path:'leave-review', component: LeaveReviewComponent},
   {path:'review-list', component: ReviewListComponent},
   {path:'accepted-rides', component: AcceptedRidesComponent},
+  {path:'route-rechoice', component: RouteRechoiceComponent},
 ];
 
 @NgModule({

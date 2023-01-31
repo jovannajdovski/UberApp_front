@@ -157,10 +157,9 @@ export class PassengerRideDetailComponent implements OnInit {
   seeOffers(): void {
     const start = this.ride.locations[0].departure.address;
     const end = this.ride.locations[0].destination.address;
-    this.routeService.setOffers(true);
     this.routeService.setStartFromOffers(start);
     this.routeService.setFinalFromOffers(end);
-    this.router.navigate(['/passenger']);
+    this.router.navigate(['/route-rechoice']);
   }
 
   getAverage(reviewsList: ReviewsForRideDTO): string {

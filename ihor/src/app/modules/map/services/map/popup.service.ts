@@ -16,8 +16,8 @@ export class PopupService {
 
   makeVehiclePopup(data: any): string {
     return `` +
-      `<div>Model: ${ data.model }</div>` +
-      `<div>Type: ${ data.vehicleType }</div>` +
-      `<div>Address: ${ data.currentLocation.address }</div>`
+      `<div>Model: ${ data.vehicle.model }</div>` +
+      `<div>Type: ${ data.vehicle.vehicleType }</div>` +
+      `<div>Address: ${ data.location.address }</div>`
   }
 }

@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import * as L from 'leaflet';
 import { PopupService } from './popup.service';
@@ -9,6 +9,11 @@ import { environment } from 'src/environments/environment';
   providedIn: 'root'
 })
 export class MarkerService {
+
+  private headers = new HttpHeaders({
+    'Content-Type': 'application/json',
+    skip: 'true',
+  });
 
   vehicles = '/assets/data/vehicles.json';
 
@@ -25,13 +30,22 @@ export class MarkerService {
     });
   }
 
-  makeVehicleMarkers(map: L.Map, redIcon: L.Icon): void { 
-    this.getVehicleCoord().subscribe({
+  getActiveDrivers(): Observable<ActiverDriversListDTO> {
+    return this.http.get<ActiverDriversListDTO>(environment.apiHost + 'driver/active-drivers', {"headers": this.headers});
+  }
+
+  makeVehicleMarkers(map: L.Map, redIcon: L.Icon, greenIcon: L.Icon): void { 
+    this.getActiveDrivers().subscribe({
       next: (result) => {
-        for (const v of JSON.parse(result).vehicles) {
-          const lon = v.currentLocation.longitude;
-          const lat = v.currentLocation.latitude;
-          const marker = L.marker([lat, lon], {icon: redIcon});
+        for (const v of result.results) {
+          const lon = v.location.longitude;
+          const lat = v.location.latitude;
+          let marker;
+          if (v.free){
+            marker = L.marker([lat, lon], {icon: greenIcon});
+          } else {
+            marker = L.marker([lat, lon], {icon: redIcon});
+          }
           marker.bindPopup(this.popupService.makeVehiclePopup(v));
           marker.addTo(map);
           this.markers.push(marker);
@@ -41,16 +55,16 @@ export class MarkerService {
     });
 
     // mokap
-    this.http.get(this.vehicles).subscribe((res: any) => {
-      for (const v of res.vehicles) {
-        const lon = v.currentLocation.longitude;
-        const lat = v.currentLocation.latitude;
-        const marker = L.marker([lat, lon],{icon: redIcon});
-        marker.bindPopup(this.popupService.makeVehiclePopup(v));
-        marker.addTo(map);
-        this.markers.push(marker);
-      }
-    });
+    // this.http.get(this.vehicles).subscribe((res: any) => {
+    //   for (const v of res.vehicles) {
+    //     const lon = v.currentLocation.longitude;
+    //     const lat = v.currentLocation.latitude;
+    //     const marker = L.marker([lat, lon],{icon: redIcon});
+    //     marker.bindPopup(this.popupService.makeVehiclePopup(v));
+    //     marker.addTo(map);
+    //     this.markers.push(marker);
+    //   }
+    // });
   }
 
   removeMarkers(map: L.Map){
@@ -82,4 +96,21 @@ export class MarkerService {
       }
     });
   }
+}
+
+export interface ActiverDriversListDTO{
+  totalCount: number,
+  results: {
+    vehicle: {
+      vehicleType:string,
+      model: string,
+      licenseNumber: string
+    },
+    location: {
+      address: string,
+      latitude: number,
+      longitude: number
+    },
+    free: boolean
+  }[]
 }
