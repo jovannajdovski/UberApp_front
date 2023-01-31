@@ -1,0 +1,183 @@
+.container{
+    box-sizing: border-box;
+    width: 100%;
+    height: 100%;
+    background: #282E33;
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    border-radius: 10px;
+    filter: drop-shadow(0px 4px 4px rgba(64, 58, 16, 0.5));
+    
+    display: flex;
+    flex-direction: column;
+    
+    justify-content: center;
+    align-items: center;
+
+    font-weight: 400;
+    font-size: 16px;
+    color: #FFFFFF;
+}
+#header{
+    position: absolute;
+    top: 0px;
+    width: 100%;
+}
+h1 {
+    margin: 30px 0 30px 100px;
+    font-family: 'nunito';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 36px;
+    line-height: 24px;
+}
+button{
+    cursor: pointer;
+    transition: all .5s ease;
+    border-radius: 20px;
+    height: 45px;
+    width: 20%;
+    text-align: center;
+    align-self: center;
+    letter-spacing: 0.3px;
+    font-weight: 800;
+    font-size: 16px;
+    margin: 20px 80px;
+}
+#continueButton {
+    
+    background: #282E33;
+    border: 3px solid #FFE32B;
+    box-shadow: 0px 4px 4px rgba(255, 248, 54, 0.397);
+    color: #FFE32B;
+}
+
+#continueButton:hover {
+    background: #FFE32B;
+    border: 1px solid rgba(#000, .05);
+    box-shadow: 0px 4px 4px rgba(15, 15, 15, 0.397);
+    color: #282E33;
+}
+
+#cancelButton {
+    background: #FF000040;
+    border: 1px solid rgba(#000, .05);
+    box-shadow: 0px 4px 4px rgba(15, 15, 15, 0.397);
+    
+    color: white;
+}
+#cancelButton:hover {
+    background: #FF0000AA;
+    border: 1px solid rgba(#000, .05);
+    box-shadow: 0px 4px 4px rgba(15, 15, 15, 0.397);
+    color: white;
+}
+hr{
+    width: 100%;
+    color: rgba(255, 255, 255, 0.25);
+}
+
+#footer{
+    position: absolute;
+    bottom: 0px;
+    width: 100%;
+}
+#buttonsArea{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+#content{
+    width: 100%;
+    height: 100%;
+    margin: 120px 0 120px 0;
+    gap: 10%;
+    display: flex;
+    flex-direction: column;
+    
+    justify-content: flex-start;
+    align-items: center;
+}
+#locationBox{
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 5%;
+    width: 80%;
+    height: 25%;
+    margin: 0 auto;
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    border-radius: 5px;
+    background-color: rgb(246, 246, 147);
+    color: #000;
+}
+#location{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 5%;
+}
+#columns{
+    width: 70%;
+    height: 65%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+}
+#verticalLine{
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    height: 100%;
+}
+.rideInfoText{
+    margin: 10px 0 10px 30px;
+    font-family: 'Roboto';
+    font-size: 20px;
+    
+}
+.address{
+    margin: 5px 0 0 30px;
+    font-family: 'nunito';
+    font-size: 26px;
+}
+.column{
+    height: 90%;
+    width: 40%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 10%;
+}
+.rideInfoBox{
+    border: 1px solid #65EA3C;
+    height: 60px;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 5%;
+}
+.rideInfoBoxRed{
+    border: 1px solid #db3232;
+    height: 60px;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 5%;
+}
+svg{
+    margin-left: 20px;
+    width: 50px;
+    height: 100%;
+    color: yellow;
+}
+#flagIcon{
+    margin-left: 50px;
+    color: black;
+}

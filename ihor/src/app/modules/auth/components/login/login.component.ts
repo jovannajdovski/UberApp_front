@@ -20,7 +20,10 @@ export class LoginComponent implements OnInit {
   });
   hasError = false;
 
-  constructor(private authService: AuthService, private router: Router) {
+  constructor(private authService: AuthService, private routeService:RouteService,
+           private router: Router, private workTimeService:WorkTimeService) { 
+            
+    this.authService.setUser();
   }
 
   ngOnInit(): void {
@@ -39,10 +42,12 @@ export class LoginComponent implements OnInit {
           this.authService.setUser();
 
           if (this.authService.getRole() == "DRIVER") {
+            this.workTimeService.startShift();
             this.router.navigate(['/driver']);
           } else if (this.authService.getRole() == "ADMINISTRATOR") {
             this.router.navigate(['/administrator']);
           } else if (this.authService.getRole() == "PASSENGER") {
+            this.routeService.resetRoute();
             this.router.navigate(['/passenger']);
           }
         },

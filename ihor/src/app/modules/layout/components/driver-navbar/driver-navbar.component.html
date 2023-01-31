@@ -1,11 +1,12 @@
 <div id="driver">
     <div id="driver-left-div"></div>
-    <button mat-raised-button id="currentRideBtn" >CURRENT RIDE</button>
+    <button mat-raised-button id="currentRideBtn" (click)="toCurrentRide()">CURRENT RIDE</button>
     <div id="driver-mid-div"></div>
     <button mat-raised-button id="home-button" (click)="toHome()" [ngClass]="selectedPage===enumSP.HOME ? 'navbar-button selected-button': 'navbar-button'">Home</button>
     <button mat-raised-button id="inbox-button" (click)="toInbox()"[ngClass]="selectedPage===enumSP.INBOX ? 'navbar-button selected-button': 'navbar-button'">Inbox</button>
     <button mat-raised-button id="history-button" (click)="toHistory()"[ngClass]="selectedPage===enumSP.HISTORY ? 'navbar-button selected-button': 'navbar-button'">History</button>
     <button mat-raised-button id="profile-button" (click)="toProfile()"[ngClass]="selectedPage===enumSP.PROFILE ? 'navbar-button selected-button': 'navbar-button'">Profile</button>
+    <button mat-raised-button id="next-rides-button" (click)="toAcceptedRides()"[ngClass]="selectedPage===enumSP.ACCEPTEDRIDES ? 'navbar-button selected-button': 'navbar-button'">Next rides</button>
     <div id="driver-right-div"></div>
     <button mat-raised-button class="navbar-button"  id="sign-out-button" (click)="logout()">Sign out</button>
 </div>

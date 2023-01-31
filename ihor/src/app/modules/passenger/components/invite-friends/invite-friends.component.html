@@ -1,0 +1,25 @@
+<div class="container">
+
+    <h1>Invite friends</h1>
+    <div id="topEmptySpace"></div>
+    <div id="addEmailContainer">
+        <mat-form-field appearance="outline" id="email" >
+            <mat-label>Type email of friend</mat-label> 
+            <input matInput  type="text"  [(ngModel)]="currentEmail" name="passengerEmail" >
+            <mat-error class="correct"></mat-error>
+        </mat-form-field>
+        
+        <img id="plus" (click)="addFriend()" src="../../../../../assets/images/add.png">
+    </div>
+    
+    <mat-chip-grid #chipGrid aria-label="Fruit selection">
+        <mat-chip-row *ngFor="let passenger of passengers" (removed)="remove(passenger)">
+          {{passenger.name+" "+passenger.surname}}
+          <button matChipRemove [attr.aria-label]="'remove ' + passenger">
+            <mat-icon>cancel</mat-icon>
+          </button>
+        </mat-chip-row>
+      </mat-chip-grid>
+    <div id="bottomEmptySpace"></div>
+    <button type="button" (click)="nextStep()" id="continueButton">Continue order</button>
+</div>

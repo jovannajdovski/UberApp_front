@@ -1,5 +1,7 @@
-import {Component} from '@angular/core';
-import {Router} from '@angular/router';
+import { Component } from '@angular/core';
+import { Router } from '@angular/router';
+import { AuthService } from 'src/app/modules/auth/services/auth.service';
+import { WorkTimeService } from 'src/app/modules/driver/services/work-time/work-time.service';
 
 @Component({
   selector: 'app-driver-navbar',
@@ -7,15 +9,14 @@ import {Router} from '@angular/router';
   styleUrls: ['./driver-navbar.component.css']
 })
 export class DriverNavbarComponent {
-  public selectedPage: SelectedPage | undefined;
-  public enumSP = SelectedPage;
-
-  constructor(private router: Router) {
+  public selectedPage:any;
+  public enumSP=SelectedPage;
+  constructor(private router:Router, private authService:AuthService, private workTimeService:WorkTimeService) {
     this.toHome();
-  }
-
-  toHome() {
-    this.selectedPage = SelectedPage.HOME;
+    this.authService.setUser();
+  }  
+  toHome(){
+    this.selectedPage=SelectedPage.HOME;
     this.router.navigate(['/driver']);
   }
 
@@ -23,9 +24,9 @@ export class DriverNavbarComponent {
     this.selectedPage = SelectedPage.INBOX;
     this.router.navigate(['/inbox']);
   }
-
-  toHistory() {
-    this.selectedPage = SelectedPage.HISTORY;
+  toHistory(){
+    this.selectedPage=SelectedPage.HISTORY;
+    this.router.navigate(['/driver/history']); 
   }
 
   toProfile() {
@@ -33,11 +34,21 @@ export class DriverNavbarComponent {
     this.router.navigate(['/driver/profile']);
   }
 
-  logout() {
-
+  toAcceptedRides(){
+    this.selectedPage=SelectedPage.ACCEPTEDRIDES;
+    this.router.navigate(['/accepted-rides']);   
+  }
+  logout(){
+    this.workTimeService.endShift();
+    localStorage.removeItem('user');
+    this.router.navigate(['/login']);
+  }
+  toCurrentRide(){
+    this.selectedPage=SelectedPage.CURRENT_RIDE;
+    this.router.navigate(['/current-ride'])
   }
 }
 
 enum SelectedPage {
-  HOME, INBOX, HISTORY, PROFILE
+  CURRENT_RIDE, HOME, INBOX, HISTORY, PROFILE, ACCEPTEDRIDES
 }

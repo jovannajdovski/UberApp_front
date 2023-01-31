@@ -5,7 +5,8 @@
         <div *ngFor="let chat of chats" class="chat">
             <div id="gridContainer" (click)="redirectTo(chat)">
                 <div class="icon">
-                    <img src="../../../assets/images/car_icon.png" alt="Icon">
+                    <img *ngIf="chat.name!=='LIVE SUPPORT'" src="../../../assets/images/car_icon.png" alt="Icon">
+                    <img *ngIf="chat.name==='LIVE SUPPORT'" src="../../../assets/images/info.png" alt="Icon">
                 </div>
                 <p class="name basic-text">{{chat.name}}</p>
                 <p class="message basic-text">{{chat.messages[chat.messages.length-1].content}}</p>

@@ -105,9 +105,9 @@ export class ProfileService {
     };
 
     return this.http.put<string>(
-      environment.apiHost + 'user/' + userId+'/passwordchange',
+      environment.apiHost + 'user/' + userId+'/changePassword',
       {
-        currentPassword: currPassword,
+        oldPassword: currPassword,
         newPassword: newPassword
       },
       options

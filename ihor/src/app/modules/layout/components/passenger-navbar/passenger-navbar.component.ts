@@ -9,48 +9,39 @@ import {AuthService} from "../../../auth/services/auth.service";
   styleUrls: ['./passenger-navbar.component.css']
 })
 export class PassengerNavbarComponent {
-  public selectedPage: SelectedPage | undefined;
-  public enumSP = SelectedPage;
-
-  constructor(private router: Router, private  authService: AuthService) {
+  public selectedPage:any;
+  public enumSP=SelectedPage;
+  constructor(private router:Router, private authService:AuthService) {
     this.toSchedule();
-  }
-
-  toSchedule() {
-    this.selectedPage = SelectedPage.SCHEDULE;
+    this.authService.setUser();
+  }  
+  toSchedule(){
+    this.selectedPage=SelectedPage.SCHEDULE;
+    console.log("toschedule");
     this.router.navigate(['/passenger']);
   }
-
-  toInbox() {
-    this.selectedPage = SelectedPage.INBOX;
-    this.router.navigate(['/inbox']);
+  toInbox(){console.log("inbox");
+    this.selectedPage=SelectedPage.INBOX;
+    this.router.navigate(['/inbox']);   
   }
-
-  toHistory() {
-    this.selectedPage = SelectedPage.HISTORY;
+  toHistory(){console.log("hist");
+    this.selectedPage=SelectedPage.HISTORY;
+    this.router.navigate(['/passenger/history']);
   }
-
-  toProfile() {
-    this.selectedPage = SelectedPage.PROFILE;
-    this.router.navigate(['/passenger/profile']);
+  toProfile(){console.log("profile");
+    this.selectedPage=SelectedPage.PROFILE;
+    this.router.navigate(['/passenger/profile']); 
   }
-
-  logout() {
-    this.authService.logout().subscribe({
-      next: () => {
-        localStorage.clear();
-        this.authService.setDefaultRole();
-        this.router.navigate(['/login'])
-      },
-      error: (error) => {
-        if (error instanceof HttpErrorResponse) {
-          console.log(error.error);
-        }
-      },
-    });
+  logout(){
+    localStorage.removeItem('user');
+    this.router.navigate(['/login']);
+  }
+  toCurrentRide(){
+    this.selectedPage=SelectedPage.CURRENT_RIDE;
+    this.router.navigate(['/current-ride'])
   }
 }
 
 enum SelectedPage {
-  SCHEDULE, INBOX, HISTORY, PROFILE
+  CURRENT_RIDE,SCHEDULE, INBOX, HISTORY, PROFILE
 }

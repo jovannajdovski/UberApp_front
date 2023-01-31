@@ -37,7 +37,7 @@ h1 {
 }
 
 .icon {
-    grid-row: 1/7;
+    grid-row: 2/7;
     grid-column: 1;
     margin: auto auto;
 }
@@ -57,15 +57,16 @@ h1 {
     grid-row: 2/4;
     grid-column: 2; 
     margin-left: 10px;
+    margin-top: 10px;
 }
 .start {
     grid-row: 2;
-    grid-column: 3/7;
+    grid-column: 3/8;
     margin: auto 0 auto 15px ;
 }
 .final {
     grid-row: 3;
-    grid-column: 3/7;
+    grid-column: 3/8;
     margin: auto 0 auto 15px ;
 }
 .cash-icon {
@@ -153,19 +154,19 @@ h1 {
     border: 0.5px solid rgba(255, 255, 255, 0.25);
     
     width:85%;
-    height: 140px;
+    height: 200px;
     margin: auto;
 }
 #gridContainer{
     display: grid;
     grid-template-columns: 20% 10% 10% 10% 10% 10% 10%;
-    grid-template-rows: 20% 12% 12% 20% 10% 20% 20%;
+    grid-template-rows: 20% 18% 18% 20% 10% 17% 17%;
     
     row-gap: 2%;
     column-gap: 2%;
 }
 .new-ride{
-    height: 240px;
+    height: 280px;
 }
 .basic-text{
     justify-self: start;
@@ -197,6 +198,65 @@ img{
     height: 50px;
 }
 #route-img{
-    height: 50px;
+    height: 80px;
     margin-left: 0px;
+}
+.small-grid{
+    display: grid;
+    grid-template-columns: 20% 10% 50% 15%;
+    grid-template-rows: 22% 19% 37% 25%;
+    
+    row-gap: 2%;
+    column-gap: 2%;
+}
+.passenger-new-ride-grid{
+    display: grid;
+    grid-template-columns: 20% 10% 50% 15%;
+    grid-template-rows: 25% 15% 60%;
+    
+    row-gap: 10%;
+    column-gap: 2%;
+}
+.small-icon{
+    grid-row: 2/4;
+    grid-column: 1;
+    margin: auto;
+}
+.small-header {
+    grid-row: 1;
+    grid-column: 2/4;
+    font-style: bold;
+    font-weight: 400;
+    font-size: 18px;
+    margin: auto 0;
+}
+.small-timestamp{
+    grid-row: 1;
+    grid-column: 4;
+}
+.user-icon{
+    grid-row: 2;
+    grid-column: 2;
+margin: auto ;
+}
+.person{
+    grid-row: 2;
+    grid-column: 3/5;
+    margin: auto 10px;
+}
+.car-icon{
+    grid-row: 3;
+    grid-column: 2;
+    margin: auto;
+}
+.ride{
+    grid-row:3;
+    grid-column: 3/5;
+    margin:auto 10px;
+}
+.panic-reason{
+    grid-row: 4;
+    grid-column: 3/5;
+    font-style: italic;
+    font-weight: 600;
 }

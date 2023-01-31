@@ -1,4 +1,4 @@
-import { AfterViewInit, Component } from '@angular/core';
+import { AfterContentInit, AfterViewInit, Component, OnDestroy, OnInit } from '@angular/core';
 import * as L from 'leaflet';
 import 'leaflet-routing-machine'
 import { MarkerService } from 'src/app/modules/map/services/map/marker.service';
@@ -6,6 +6,8 @@ import { ShapeService } from 'src/app/modules/map/services/map/shape.service';
 import { MapService } from 'src/app/modules/map/services/map/map.service';
 import { Observable } from 'rxjs';
 import { RouteService } from '../../../services/route/route.service';
+import { AuthService } from 'src/app/modules/auth/services/auth.service';
+import { OrderRideService } from 'src/app/modules/passenger/services/order-ride/order-ride.service';
 
 
 const greenIcon = L.icon({
@@ -51,17 +53,27 @@ let endMarker = {};
   templateUrl: './map.component.html',
   styleUrls: ['./map.component.css']
 })
-export class MapComponent implements AfterViewInit {
+export class MapComponent implements AfterViewInit, OnDestroy, OnInit {
   constructor(
     private routeService: RouteService,
     private mapService: MapService,
     private markerService: MarkerService,
-    private shapeService: ShapeService
+    private shapeService: ShapeService,
+    private authService:AuthService,
+    private orderRideService:OrderRideService
   ) {
     this.disableMarkers = false;
+    console.log("poziv konstruktora");
+    this.authService.userState$.subscribe((value) => {
+      console.log(value);
+      if(value=="UNREGISTERED_USER")
+        this.unregisteredUser = true;
+      else
+        this.unregisteredUser=false;
+    })
   }
-
-  private map: any;
+  unregisteredUser=true;
+  private map:any;
 
   private disableMarkers: boolean;
 
@@ -75,6 +87,11 @@ export class MapComponent implements AfterViewInit {
   private routes: any;
 
   ngOnInit(): void {
+    // this.initMap();
+  }
+  ngOnDestroy():void{
+    //this.map.off();
+   // this.map.remove();
   }
 
   private initMap(): void {
@@ -96,8 +113,6 @@ export class MapComponent implements AfterViewInit {
 
 
   }
-
-
   search(): void {
     this.mapService.search('Strazilovska 19').subscribe({
       next: (result) => {
@@ -171,39 +186,54 @@ export class MapComponent implements AfterViewInit {
   }
 
   ngAfterViewInit(): void {
+    startMarker={};
+    endMarker={};
+    this.disableMarkers=false;
+    console.log("disabled false");
     this.initMap();
     this.markerService.makeVehicleMarkers(this.map, redIcon);
 
     this.registerOnClick();
     this.findRoute();
   }
+  // ngAfterContentInit():void{
+  //   this.initMap();
+  // }
 
 
   findRoute(): void {
     this.routeService.selectedStart$.subscribe((value) => {
-      if (Object.keys(startMarker).length === 0) {
-        this.mapService.search(value).subscribe({
-          next: (result) => {
-            this.long1 = result[0].lon;
-            this.lat1 = result[0].lat;
-          }
-        });
+      if(JSON.stringify(value)!="{}")
+      {
+        console.log("Value");
+        console.log(value);
+        if (Object.keys(startMarker).length === 0) {
+          this.mapService.search(value).subscribe({
+            next: (result) => {
+              this.long1 = result[0].lon;
+              this.lat1 = result[0].lat;
+            }
+          });
+        }
       }
-
     });
     this.routeService.selectedFinal$.subscribe((value) => {
-      if (Object.keys(endMarker).length === 0) {
-        this.mapService.search(value).subscribe({
-          next: (result) => {
-            this.long2 = result[0].lon;
-            this.lat2 = result[0].lat;
-            this.drawRoute();
-          }
-        });
-      } else {
-        this.drawRoute();
+      if(JSON.stringify(value)!="{}")
+      { 
+        console.log("Value final");
+        console.log(value); 
+        if (Object.keys(endMarker).length === 0) {
+          this.mapService.search(value).subscribe({
+            next: (result) => {
+              this.long2 = result[0].lon;
+              this.lat2 = result[0].lat;
+              this.drawRoute();
+            }
+          });
+        } else {
+          this.drawRoute();
+        }
       }
-
     });
 
   }
@@ -212,7 +242,12 @@ export class MapComponent implements AfterViewInit {
     this.markerService.removeMarkers(this.map);
     this.removePointMarkers();
 
-
+    if(this.unregisteredUser==false)
+    {
+      console.log("LONG2");
+      console.log(this.long2);
+        this.orderRideService.setCoordinates(this.lat1,this.long1,this.lat2,this.long2);
+    }
     this.waypointsNoDrag = [
       L.latLng(this.lat1, this.long1),
       L.latLng(this.lat2, this.long2)
@@ -250,6 +285,7 @@ export class MapComponent implements AfterViewInit {
     }).addTo(this.map);
 
     route.on('routeselected', (e) => {
+      console.log("route selected");
       const r = e.route;
       const line = L.Routing.line(r);
       const bounds = line.getBounds();
@@ -257,6 +293,7 @@ export class MapComponent implements AfterViewInit {
     });
 
     route.on('routesfound', (e) => {
+      console.log("route found");
       this.routes = e.routes;
       this.routeService.setEstimatedRoutes(e.routes);
     });
@@ -267,7 +304,7 @@ export class MapComponent implements AfterViewInit {
       //this.routes[value].selectRoute;
       
     });
-
+    console.log("disabled true");
     this.disableMarkers = true;
   }
 

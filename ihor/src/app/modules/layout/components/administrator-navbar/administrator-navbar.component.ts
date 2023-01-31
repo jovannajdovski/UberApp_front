@@ -9,15 +9,14 @@ import {AuthService} from "../../../auth/services/auth.service";
   styleUrls: ['./administrator-navbar.component.css']
 })
 export class AdministratorNavbarComponent {
-  public selectedPage: SelectedPage | undefined;
-  public enumSP = SelectedPage;
-
-  constructor(private router: Router, private authService: AuthService) {
+  public selectedPage:any;
+  public enumSP=SelectedPage;
+  constructor(private router:Router, private authService:AuthService) {
     this.toHome();
-  }
-
-  toHome() {
-    this.selectedPage = SelectedPage.HOME;
+    this.authService.setUser();
+  }  
+  toHome(){
+    this.selectedPage=SelectedPage.HOME;
     this.router.navigate(['/administrator']);
   }
 
@@ -25,9 +24,9 @@ export class AdministratorNavbarComponent {
     this.selectedPage = SelectedPage.INBOX;
     this.router.navigate(['/inbox']);
   }
-
-  toHistory() {
-    this.selectedPage = SelectedPage.HISTORY;
+  toHistory(){
+    this.selectedPage=SelectedPage.HISTORY;
+    this.router.navigate(['/admin/history']);   
   }
 
   toUsers() {
@@ -43,7 +42,7 @@ export class AdministratorNavbarComponent {
   logout() {
     this.authService.logout().subscribe({
       next: () => {
-        localStorage.clear();
+        localStorage.removeItem('user');
         this.authService.setDefaultRole();
         this.router.navigate(['/login'])
       },

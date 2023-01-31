@@ -7,6 +7,34 @@ import { BehaviorSubject } from 'rxjs';
   providedIn: 'root'
 })
 export class RouteService {
+  private offers = false;
+  private startFromOffers = "";
+  private finalFromOffers = "";
+
+  public getOffers(){
+    return this.offers;
+  }
+
+  public getStartFromOffers(){
+    return this.startFromOffers;
+  }
+
+  public getFinalFromOffers(){
+    return this.finalFromOffers;
+  }
+
+  public setOffers(offer:boolean){
+    this.offers = offer;
+  }
+
+  public setStartFromOffers(start:string){
+    this.startFromOffers = start;
+  }
+
+  public setFinalFromOffers(final:string){
+    this.finalFromOffers = final;
+  }
+
   private start$ = new BehaviorSubject<any>({});
   selectedStart$ = this.start$.asObservable();
 
@@ -52,11 +80,30 @@ export class RouteService {
     this.routeSelect$.next(route);
   }
   
-  constructor(private http: HttpClient) {this.route$.next(false);}
+  constructor(private http: HttpClient) {this.route$.next(0);}
 
   public setRoute(start: string, final: string){
     this.setStart(start);
     this.setFinal(final);
-    this.route$.next(true);
+    this.route$.next(1);
+  }
+  public setRoutePassenger(start: string, final: string){
+    this.setStart(start);
+    this.setFinal(final);
+    this.route$.next(2);
+  }
+  public resetRoute(){
+    this.start$ = new BehaviorSubject<any>({});
+    this.selectedStart$ = this.start$.asObservable();
+
+  this.final$ = new BehaviorSubject<any>({});
+  this.selectedFinal$ = this.final$.asObservable();
+
+  this.startPoint$ = new BehaviorSubject<any>({});
+  this.selectedStartPoint$ = this.startPoint$.asObservable();
+
+  this. finalPoint$ = new BehaviorSubject<any>({});
+  this.selectedFinalPoint$ = this.finalPoint$.asObservable();
+
   }
 }

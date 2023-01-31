@@ -1,0 +1,38 @@
+<div id="alignment">
+    <h1 id="title">Accepted Rides</h1>
+    <div id="container" *ngFor="let ride of rideList?.results; let i = index;">
+        <div id="content">
+
+            <div class="row">
+                <div class="start-row">
+                    <span class="iconify" data-icon="material-symbols:calendar-month"></span>
+                    <div id="start-date">{{getStartDate(ride)}}</div>
+                </div>
+                <div class="end-row">
+                    <span class="iconify" data-icon="ic:baseline-access-time"></span>
+                    <div id="start-time">{{getStartTime(ride)}}</div>
+                </div>
+            </div>
+
+            <div class="row" id="last-row">
+                <div class="start-row">
+                    <span class="iconify route-icon" data-icon="material-symbols:route"></span>
+                    <div class="col">
+                        <div id="start-address">{{getStartPlace(ride)}}</div>
+                        <div id="end-address">{{getEndPlace(ride)}}</div>
+                    </div>
+                </div>
+                <div class="end-row">
+                    <span class="iconify money-icon" data-icon="ic:baseline-attach-money"></span>
+                    <div id="cost">{{getCost(ride)}}</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="btns">
+            <button class="btn-play" (click)="toStart(ride,i)"><i class="fa fa-play" aria-hidden="true"></i></button>
+            <button class="btn-cancel" (click)="toReject(ride,i)"><i class="fa fa-times" aria-hidden="true"></i></button>
+        </div>
+    </div>
+</div>
+<app-snack-bar></app-snack-bar>

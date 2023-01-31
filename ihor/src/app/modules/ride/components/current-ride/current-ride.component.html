@@ -1,0 +1,17 @@
+<div id="content">
+    <div id="container">
+        <app-no-current-ride *ngIf="rideFound===2"></app-no-current-ride>
+        <app-current-ride-finished [rideNoStatus]="rideNoStatus" *ngIf="rideFound===3"></app-current-ride-finished>
+        <app-current-ride-details *ngIf="rideFound===1"
+            [departure]="departure"
+            [destination]="destination"
+            [arrivalTime]="arrivalTime"></app-current-ride-details>
+        <app-current-ride-map *ngIf="rideFound===1"></app-current-ride-map>
+    </div>
+    <div *ngIf="rideFound===1" id="buttonsArea">
+        <button type="button" (click)="openPanicDialog()" id="panicButton">PANIC</button>
+        <button *ngIf="role==='DRIVER'" (click)="finishRide()" type="button"  id="finishButton">FINISH</button>
+        
+    </div>
+</div>
+

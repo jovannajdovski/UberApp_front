@@ -1,0 +1,70 @@
+<div class="container">
+    <div id="content">
+        <div class="row">
+            <div class="start-row" (click)="toReviews()">
+                <span class="iconify star-icon" data-icon="material-symbols:star"></span>
+                <div class="col">
+                    <div id="rating">{{getAverage(reviews)}}</div>
+                    <div class="rate-hint">You can see reviews and rate by yourself</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="start-row">
+                <span class="iconify" data-icon="material-symbols:calendar-month"></span>
+                <div id="start-date">{{getStartDate(ride)}}</div>
+            </div>
+
+        </div>
+
+        <div class="big-row">
+
+            <span class="iconify time-icon" data-icon="ic:baseline-access-time"></span>
+            <div class="col">
+                <div id="start-time">{{getStartTime(ride)}}</div>
+                <div id="end-time">{{getEndTime(ride)}}</div>
+            </div>
+            <span class="iconify route-icon" data-icon="material-symbols:route"></span>
+            <div class="col">
+                <div id="start-address">{{getStartPlace(ride)}}</div>
+                <div id="end-address">{{getEndPlace(ride)}}</div>
+            </div>
+
+
+        </div>
+
+        <div class="row" id="last-row">
+            <div class="start-row">
+                <span class="iconify money-icon" data-icon="ic:baseline-attach-money"></span>
+                <div id="cost">{{getCost(ride)}}</div>
+            </div>
+            <div class="end-row">
+                <span class="iconify distance-icon" data-icon="material-symbols:assistant-navigation"></span>
+                <div id="distance">{{distance}}</div>
+            </div>
+        </div>
+        
+        <div class="info">
+            ALL PASSENGERS
+        </div>
+        <hr />
+
+        <div class="passengers">
+        <div id="last-row" *ngFor="let passenger of passengers; let i = index;">
+            <div class="start-row">
+
+                <img *ngIf="passengersLoaded" src={{getPassengerPicture(passenger)}} id="driver-picture">
+                <div class="col">
+                    <div *ngIf="passengersLoaded" id="driver-name">{{getPassengerName(passenger)}}</div>
+                    <div *ngIf="passengersLoaded" id="driver-phone">{{getPassengerPhone(passenger)}}</div>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+
+    </div>
+
+
+</div>

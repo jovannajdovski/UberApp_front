@@ -1,4 +1,4 @@
-app-map{
+app-map, img{
     position: relative;
     margin: 20px;
     height: 75%;
@@ -6,12 +6,15 @@ app-map{
     min-height: 500px;
 }
 
-app-route-form{
+app-route-form, app-ride-additional-options, app-invite-friends, app-successfull-order-ride{
     height: 75%;
+    min-height: 500px;
 }
 
-app-estimated-routes{
+app-ride-confirmation{
     height: 75%;
+    width: 80%;
+    min-height: 500px;
 }
 
 #container{
@@ -25,17 +28,12 @@ app-estimated-routes{
 }
 
 @media only screen and (max-width: 1390px) {
-    app-route-form{
+    app-route-form, app-ride-additional-options, app-invite-friends, app-successfull-order-ride{
         margin-top: 130px;
         height: 50%;
     }
-    
-    app-estimated-routes{
-        margin-top: 150px;
-        height: 45%;
-    }
 
-    app-map{
+    app-map, img{
         margin: 20px;
         height: 50%;
         width: 90%;

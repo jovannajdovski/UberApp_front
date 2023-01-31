@@ -14,14 +14,24 @@ export class AuthService {
   user$ = new BehaviorSubject(this.defaultRole);
   userState$ = this.user$.asObservable();
 
-  constructor(private http: HttpClient) {}
+  private headers = new HttpHeaders({
+    'Content-Type': 'application/json',
+    skip: 'true',
+  });
+  
+  user$ = new BehaviorSubject("UNREGISTERED_USER");
+  userState$ = this.user$.asObservable();
 
-  login(auth: Credentials): Observable<Token> {
+  constructor(private http: HttpClient) {
+    // this.user$.next(this.getRole());
+  }
+  
+  login(auth: Login): Observable<Token> {
     return this.http.post<Token>(environment.apiHost + "user/login",
-      {
-        email: auth.email,
-        password: auth.password
-      })
+    {
+      email: auth.email, 
+      password: auth.password
+    },{"headers": this.headers})
   }
 
   logout(): Observable<string> {
@@ -44,7 +54,7 @@ export class AuthService {
       return role.split("_")[1];
     }
 
-    return null;
+    return "UNREGISTERED_USER";
   }
 
   getId(): any {
@@ -56,7 +66,16 @@ export class AuthService {
 
     return null;
   }
-
+  getEmail(): any{
+    if (this.isLoggedIn()) {
+      const accessToken: any = localStorage.getItem('user');
+      const helper = new JwtHelperService();
+      const email = helper.decodeToken(accessToken).sub;
+      return email;
+    }
+    
+    return null;
+  }
   isLoggedIn(): boolean {
     return localStorage.getItem('user') != null;
   }

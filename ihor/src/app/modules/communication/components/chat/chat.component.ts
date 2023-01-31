@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
-import { MessageService, Message, MessageType, Chat, MessageRequest} from 'src/app/modules/communication/services/message/message.service';
+import { MessageService} from 'src/app/modules/communication/services/message/message.service';
+import { Chat, MessageType, MessageRequest, Message } from '../../model/message';
 
 @Component({
   selector: 'app-chat',
@@ -33,12 +34,11 @@ export class ChatComponent {
   public sendMessage(messageType:MessageType)
   {
     const messageRequest:MessageRequest={
-      "receiverId": this.chat.receiverId,
       "message": this.message,
       "type": messageType,
       "rideId": this.chat.rideId
     }
-    this.messageService.sendMessage(messageRequest);
+    this.messageService.sendMessage(messageRequest, this.chat.receiverId);
 
   }
   public fullDate(date:Date):string
