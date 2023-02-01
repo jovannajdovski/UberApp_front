@@ -1,4 +1,4 @@
-import {HttpClient} from '@angular/common/http';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Injectable} from '@angular/core';
 import {JwtHelperService} from '@auth0/angular-jwt';
 import {BehaviorSubject, Observable} from 'rxjs';
@@ -10,7 +10,7 @@ import {Credentials} from "../model/credentials";
   providedIn: 'root'
 })
 export class AuthService {
-  defaultRole = "UNREGISTERED";
+  defaultRole = "UNREGISTERED_USER";
   user$ = new BehaviorSubject(this.defaultRole);
   userState$ = this.user$.asObservable();
 
@@ -18,18 +18,15 @@ export class AuthService {
     'Content-Type': 'application/json',
     skip: 'true',
   });
-  
-  user$ = new BehaviorSubject("UNREGISTERED_USER");
-  userState$ = this.user$.asObservable();
 
   constructor(private http: HttpClient) {
     // this.user$.next(this.getRole());
   }
-  
-  login(auth: Login): Observable<Token> {
+
+  login(auth: Credentials): Observable<Token> {
     return this.http.post<Token>(environment.apiHost + "user/login",
     {
-      email: auth.email, 
+      email: auth.email,
       password: auth.password
     },{"headers": this.headers})
   }
@@ -73,7 +70,7 @@ export class AuthService {
       const email = helper.decodeToken(accessToken).sub;
       return email;
     }
-    
+
     return null;
   }
   isLoggedIn(): boolean {

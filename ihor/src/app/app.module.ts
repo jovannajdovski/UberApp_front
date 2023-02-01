@@ -28,6 +28,7 @@ import { BarRatingModule } from "ngx-bar-rating";
 import { FaIconLibrary, FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faStar, faStarHalfAlt, faTimesCircle } from '@fortawesome/free-solid-svg-icons';
 import { faStar as farStar } from '@fortawesome/free-regular-svg-icons';
+import {NgxMaterialTimepickerModule} from "ngx-material-timepicker";
 
 @NgModule({
   declarations: [AppComponent],
@@ -47,7 +48,7 @@ import { faStar as farStar } from '@fortawesome/free-regular-svg-icons';
     RideModule,
     PassengerModule,
     UnregisteredUserModule,
-    StatisticsModule
+    StatisticsModule,
     MatChipsModule,
     NgxMaterialTimepickerModule,
     BarRatingModule,

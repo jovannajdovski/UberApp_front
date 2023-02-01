@@ -30,7 +30,8 @@ export class DriverService {
         surname: driver.surname,
         telephoneNumber: driver.telephoneNumber,
         email: driver.email,
-        address: driver.address
+        address: driver.address,
+        profilePicture: driver.profilePicture
       })
   }
 }

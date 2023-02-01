@@ -4,6 +4,8 @@ import {FormGroup, FormControl, Validators} from '@angular/forms';
 import {Router} from '@angular/router';
 import {AuthService} from '../../services/auth.service';
 import {Credentials} from "../../model/credentials";
+import {WorkTimeService} from "../../../driver/services/work-time/work-time.service";
+import {RouteService} from "../../../map/services/route/route.service";
 
 @Component({
   selector: 'app-login',
@@ -21,8 +23,8 @@ export class LoginComponent implements OnInit {
   hasError = false;
 
   constructor(private authService: AuthService, private routeService:RouteService,
-           private router: Router, private workTimeService:WorkTimeService) { 
-            
+           private router: Router, private workTimeService:WorkTimeService) {
+
     this.authService.setUser();
   }
 

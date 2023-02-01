@@ -127,6 +127,10 @@ h1 {
     color: rgb(173, 171, 171) !important;
 }
 
+::ng-deep .mdc-floating-label mat-label  {
+  color: white !important;
+}
+
 .btn {
     transition: all .5s ease;
     background: #282E33;
@@ -142,9 +146,9 @@ h1 {
     font-weight: 800;
     font-size: 16px;
     color: #FFE32B;
-    cursor: pointer; 
+    cursor: pointer;
   }
-  
+
 
   .btn:hover {
     transform: translateY(-0.25em);
