@@ -16,6 +16,7 @@ import {MatDatepickerModule} from "@angular/material/datepicker";
 import { PassengersComponent } from './components/passengers/passengers.component';
 import { PassengerCardComponent } from './components/passenger-card/passenger-card.component';
 import {MatStepperModule} from "@angular/material/stepper";
+import { AdminMapComponent } from './components/admin-map/admin-map.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,8 @@ import {MatStepperModule} from "@angular/material/stepper";
     DriversComponent,
     AdminProfileComponent,
     PassengersComponent,
-    PassengerCardComponent
+    PassengerCardComponent,
+    AdminMapComponent
   ],
     imports: [
         CommonModule,
