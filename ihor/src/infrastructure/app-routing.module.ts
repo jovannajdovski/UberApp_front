@@ -35,6 +35,7 @@ import { ReviewListComponent } from 'src/app/modules/history/components/review-l
 import { AcceptedRidesComponent } from 'src/app/modules/driver/components/accepted-rides/accepted-rides.component';
 import { AdminHistoryComponent } from 'src/app/modules/history/components/admin-history/admin-history.component';
 import { RouteRechoiceComponent } from 'src/app/modules/history/components/route-rechoice/route-rechoice.component';
+import { AdminMapComponent } from 'src/app/modules/administrator/components/admin-map/admin-map.component';
 
 const routes: Routes = [
   {path: 'login', component: LoginComponent},
@@ -47,12 +48,13 @@ const routes: Routes = [
     component: AdministratorHomeComponent,
     children: [
       {path: 'profile', component: AdminProfileComponent},
+      {path: 'home', component: AdminMapComponent},
       {path: 'drivers', component: DriversComponent},
       {path: 'passengers', component: PassengersComponent},
       {path: 'statistics', component: GlobalStatisticsComponent},
       {path: 'statistics/driver/:id', component: DriverStatisticsComponent},
       {path: 'statistics/passenger/:id', component: PassengerStatisticsComponent},
-      {path: '', redirectTo: 'drivers', pathMatch: 'full'}
+      {path: '', redirectTo: 'home', pathMatch: 'full'}
     ]
   },
   {path:'driver', canActivate:[], component:DriverHomeComponent},
