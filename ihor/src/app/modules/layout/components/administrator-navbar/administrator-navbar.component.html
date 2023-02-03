@@ -9,8 +9,14 @@
   <button mat-raised-button id="history-button" (click)="toHistory()"
           [ngClass]="selectedPage===enumSP.HISTORY ? 'navbar-button selected-button': 'navbar-button'">History
   </button>
+  <button mat-raised-button id="passengers-button" (click)="toPassengers()"
+          [ngClass]="selectedPage===enumSP.PASSENGERS ? 'navbar-button selected-button': 'navbar-button'">Passengers
+  </button>
   <button mat-raised-button id="users-button" (click)="toUsers()"
           [ngClass]="selectedPage===enumSP.USERS ? 'navbar-button selected-button': 'navbar-button'">Drivers
+  </button>
+  <button mat-raised-button id="stats-button" (click)="toStats()"
+          [ngClass]="selectedPage===enumSP.STATS ? 'navbar-button selected-button': 'navbar-button'">Statistics
   </button>
   <button mat-raised-button id="profile-button" (click)="toProfile()"
           [ngClass]="selectedPage===enumSP.PROFILE ? 'navbar-button selected-button': 'navbar-button'">Profile

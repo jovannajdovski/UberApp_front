@@ -14,7 +14,7 @@ export class DriverNavbarComponent {
   constructor(private router:Router, private authService:AuthService, private workTimeService:WorkTimeService) {
     this.toHome();
     this.authService.setUser();
-  }  
+  }
   toHome(){
     this.selectedPage=SelectedPage.HOME;
     this.router.navigate(['/driver']);
@@ -26,7 +26,7 @@ export class DriverNavbarComponent {
   }
   toHistory(){
     this.selectedPage=SelectedPage.HISTORY;
-    this.router.navigate(['/driver/history']); 
+    this.router.navigate(['/driver/history']);
   }
 
   toProfile() {
@@ -36,7 +36,7 @@ export class DriverNavbarComponent {
 
   toAcceptedRides(){
     this.selectedPage=SelectedPage.ACCEPTEDRIDES;
-    this.router.navigate(['/accepted-rides']);   
+    this.router.navigate(['/accepted-rides']);
   }
   logout(){
     this.workTimeService.endShift();
@@ -47,8 +47,14 @@ export class DriverNavbarComponent {
     this.selectedPage=SelectedPage.CURRENT_RIDE;
     this.router.navigate(['/current-ride'])
   }
+
+  toStats() {
+    this.selectedPage=SelectedPage.STATS;
+    const id = this.authService.getId();
+    this.router.navigate(['/statistics/driver/' + id.toString()]);
+  }
 }
 
 enum SelectedPage {
-  CURRENT_RIDE, HOME, INBOX, HISTORY, PROFILE, ACCEPTEDRIDES
+  CURRENT_RIDE, HOME, INBOX, HISTORY, STATS, PROFILE, ACCEPTEDRIDES
 }

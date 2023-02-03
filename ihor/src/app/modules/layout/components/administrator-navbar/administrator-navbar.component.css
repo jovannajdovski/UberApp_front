@@ -24,9 +24,13 @@
   background-color: rgba(38, 50, 56, 0.5);
 }
 
-#home-button, #inbox-button, #history-button, #users-button, #profile-button {
+#home-button, #inbox-button, #history-button, #passengers-button, #users-button, #profile-button, #stats-button {
   border-radius: 0;
   margin: 10px 0;
+}
+
+#passengers-button, #stats-button {
+  padding-inline: 3.5em;
 }
 
 .selected-button {
@@ -105,3 +109,5 @@
     min-width: 75px;
   }
 }
+
+

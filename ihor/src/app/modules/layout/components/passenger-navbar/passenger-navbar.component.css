@@ -1,20 +1,20 @@
 .navbar-button{
     box-sizing: border-box;
-    
+
     font-size: 16px;
     font-weight: 800;
     font-family: 'Nunito';
     letter-spacing: 0.3px;
-    
+
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
     padding: 8px;
-    
+
     width: 94px;
     height: 35px;
     min-width: 94px;
     color: white !important;
     background-color: rgba(38, 50, 56, 0.5) !important;
-    
+
 }
 
 #sign-out-button
@@ -24,13 +24,18 @@
     color: white;
     background-color: rgba(38, 50, 56, 0.5);
 }
-#schedule-button,#inbox-button, #history-button,#profile-button
+#schedule-button,#inbox-button, #history-button, #stats-button, #profile-button
 {
     border-radius: 0;
     margin: 10px 0;
 }
+
+#stats-button {
+  padding-inline: 3.5em;
+}
+
 .selected-button{
-    
+
     color: rgba(38, 50, 56, 0.5) !important;
     background-color: white !important;
 }
@@ -42,7 +47,7 @@
 }
 #currentRideBtn{
     box-sizing: border-box;
-    
+
     font-size: 18px;
     font-weight: 800;
     font-family: 'Nunito';
@@ -52,7 +57,7 @@
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
     border-radius: 8px;
     padding: 8px 16px;
-    
+
     margin: auto 0;
     width: 250px;
     height: 50px;

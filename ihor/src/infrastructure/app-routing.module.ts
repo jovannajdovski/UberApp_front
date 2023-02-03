@@ -80,6 +80,8 @@ const routes: Routes = [
   {path:'review-list', component: ReviewListComponent},
   {path:'accepted-rides', component: AcceptedRidesComponent},
   {path:'route-rechoice', component: RouteRechoiceComponent},
+  {path:'statistics/passenger/:id', component: PassengerStatisticsComponent},
+  {path:'statistics/driver/:id', component: DriverStatisticsComponent}
 ];
 
 @NgModule({

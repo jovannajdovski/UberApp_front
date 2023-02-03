@@ -85,11 +85,11 @@
   border-top: 1px solid gray;
 }
 
-::ng-deep .mat-mdc-paginator-container div { 
+::ng-deep .mat-mdc-paginator-container div {
   color: white !important;
 }
 
-::ng-deep .mat-mdc-paginator-container button { 
+::ng-deep .mat-mdc-paginator-container button {
   color: white !important;
 }
 
@@ -114,5 +114,11 @@
 @media screen and (min-width: 1260px) {
   .main-content {
     grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media screen and (max-height: 1200px) {
+  .center-screen {
+    margin-top: 6em;
   }
 }

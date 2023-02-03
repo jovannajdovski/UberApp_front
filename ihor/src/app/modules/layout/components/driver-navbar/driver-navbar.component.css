@@ -25,9 +25,13 @@
   background-color: rgba(38, 50, 56, 0.5);
 }
 
-#home-button, #inbox-button, #history-button, #profile-button {
+#home-button, #inbox-button, #history-button, #stats-button, #profile-button, #next-rides-button {
   border-radius: 0;
   margin: 10px 0;
+}
+
+#stats-button, #next-rides-button {
+  padding-inline: 3.5em;
 }
 
 .selected-button {

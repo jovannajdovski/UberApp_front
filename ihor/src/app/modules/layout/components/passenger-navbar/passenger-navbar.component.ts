@@ -14,7 +14,7 @@ export class PassengerNavbarComponent {
   constructor(private router:Router, private authService:AuthService) {
     this.toSchedule();
     this.authService.setUser();
-  }  
+  }
   toSchedule(){
     this.selectedPage=SelectedPage.SCHEDULE;
     console.log("toschedule");
@@ -22,7 +22,7 @@ export class PassengerNavbarComponent {
   }
   toInbox(){console.log("inbox");
     this.selectedPage=SelectedPage.INBOX;
-    this.router.navigate(['/inbox']);   
+    this.router.navigate(['/inbox']);
   }
   toHistory(){console.log("hist");
     this.selectedPage=SelectedPage.HISTORY;
@@ -30,7 +30,7 @@ export class PassengerNavbarComponent {
   }
   toProfile(){console.log("profile");
     this.selectedPage=SelectedPage.PROFILE;
-    this.router.navigate(['/passenger/profile']); 
+    this.router.navigate(['/passenger/profile']);
   }
   logout(){
     localStorage.removeItem('user');
@@ -40,8 +40,14 @@ export class PassengerNavbarComponent {
     this.selectedPage=SelectedPage.CURRENT_RIDE;
     this.router.navigate(['/current-ride'])
   }
+
+  toStats() {
+    this.selectedPage=SelectedPage.STATS;
+    const id = this.authService.getId();
+    this.router.navigate(['/statistics/passenger/' + id.toString()]);
+  }
 }
 
 enum SelectedPage {
-  CURRENT_RIDE,SCHEDULE, INBOX, HISTORY, PROFILE
+  CURRENT_RIDE,SCHEDULE, INBOX, HISTORY, STATS, PROFILE
 }

@@ -116,3 +116,9 @@
     grid-template-columns: repeat(3, 1fr);
   }
 }
+
+@media screen and (max-height: 1200px) {
+  .center-screen {
+    margin-top: 6em;
+  }
+}
