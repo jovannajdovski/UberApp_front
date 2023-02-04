@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component, OnDestroy} from '@angular/core';
 import { MessageService} from 'src/app/modules/communication/services/message/message.service';
 import { Chat, MessageType, MessageRequest, Message } from '../../model/message';
 
@@ -7,7 +7,7 @@ import { Chat, MessageType, MessageRequest, Message } from '../../model/message'
   templateUrl: './chat.component.html',
   styleUrls: ['./chat.component.css']
 })
-export class ChatComponent {
+export class ChatComponent implements OnDestroy{
   public message='';
   public chatRideId=-1;
   public chat:Chat={image: '', name: '', messages: [], rideId:-1, receiverId:-1};
@@ -15,7 +15,7 @@ export class ChatComponent {
   constructor(private messageService: MessageService){
     this.messageService.observableChat$.subscribe((chat)=>
     {
-      this.chat=chat; 
+      this.chat=chat;
     });
     this.messageService.observableSelectedChatRideId$.subscribe((value)=>
     {
@@ -48,5 +48,9 @@ export class ChatComponent {
   }
   public equalsPanic(message:Message): boolean{
     return message.type.toString()=="PANIC";
+  }
+
+  ngOnDestroy(): void {
+    this.messageService.reset();
   }
 }

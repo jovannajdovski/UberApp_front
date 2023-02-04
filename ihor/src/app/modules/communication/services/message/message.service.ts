@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import {Injectable, OnDestroy} from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { Observable, BehaviorSubject } from 'rxjs';
@@ -10,14 +10,14 @@ import { Stomp } from '@stomp/stompjs';
 @Injectable({
   providedIn: 'root'
 })
-export class MessageService {
+export class MessageService{
   stompClient:any;
   private chat$ = new BehaviorSubject<Chat>({image: '', name: '', messages: [], rideId:-1, receiverId:-1}); //open chat
   observableChat$ = this.chat$.asObservable();//open chat
 
   private selectedChatRideId$=new BehaviorSubject<number>(-1);//open chat
   observableSelectedChatRideId$=this.selectedChatRideId$.asObservable();//open chat
-  
+
   private chats$=new BehaviorSubject<Chat[]>([]);
   observableChats$=this.chats$.asObservable();
 
@@ -26,7 +26,7 @@ export class MessageService {
    }
 
   openChat(chat:Chat){
-    
+
     this.chat$.next(chat);
     this.selectedChatRideId$.next(chat.rideId);
     //this.initializeWebSocketConnection(chat);
@@ -44,7 +44,7 @@ export class MessageService {
         }
       },
     });
-    
+
   }
   private getChatsFromMessages(result: MessagesResponse) {
     const chats:Chat[]=[];
@@ -54,7 +54,7 @@ export class MessageService {
       if(this.authService.getRole()=="ADMIN")
         loggedUserId=0;
       let firstIndex=0, currentOtherUserId, lastOtherUserId=(result.results.at(0)?.receiverId||0)+(result.results.at(0)?.senderId||0)-loggedUserId;
-      
+
       for (let i = 0; i < result.totalCount; i++) {
 
         currentOtherUserId=(result.results.at(i)?.receiverId||0)+(result.results.at(i)?.senderId||0)-loggedUserId;
@@ -65,7 +65,7 @@ export class MessageService {
           firstIndex=i;
           lastOtherUserId=currentOtherUserId;
         }
-        
+
       }
       chats.push(this.createChat(result,firstIndex,result.totalCount));
     }
@@ -110,7 +110,7 @@ export class MessageService {
         let chats=this.chats$.getValue();
         const chat:Chat=chats.find(object => {return object.rideId === result.rideId && (object.receiverId===result.receiverId || object.receiverId===result.senderId)})||{image: '', name: '', messages: [], rideId:-1, receiverId:-1};
         chat.messages.push({timestamp: toDate(result.timeOfSending), content: result.message, myself: true, type: result.type});
-        
+
         chats = chats.filter(item => item !== chat);
         chats.unshift(chat);
         this.chats$.next(chats);
@@ -119,7 +119,7 @@ export class MessageService {
         //this.openChat(chat);
         const senderId=this.authService.getId();
         this.initializeWebSocketConnection(chat,result.message);
-        
+
       },
       error: (error) => {
         if (error instanceof HttpErrorResponse) {
@@ -137,7 +137,7 @@ export class MessageService {
   initializeWebSocketConnection(chat:Chat, message:string) {
     const  ws = new SockJS('http://localhost:8080/api/socket');
     this.stompClient = Stomp.over(ws);
-    
+
     this.stompClient.connect({},  () => {
       this.openGlobalSocket(chat, message)
     });
@@ -148,7 +148,11 @@ export class MessageService {
     if(this.authService.getRole()=="ADMIN")
       userId=0;
     this.stompClient.send("api/socket-subscriber/send/message/"+chat.rideId+"/"+userId+"/"+chat.receiverId,{}, message);
-        
+
+  }
+
+  reset() {
+    this.selectedChatRideId$.next(-1);
   }
 }
 

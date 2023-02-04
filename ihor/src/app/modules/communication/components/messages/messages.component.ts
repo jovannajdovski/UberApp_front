@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import { MessageService} from 'src/app/modules/communication/services/message/message.service'
 import { Chat, MessageType } from '../../model/message';
 import * as SockJS from 'sockjs-client';
@@ -10,13 +10,13 @@ import { AuthService } from 'src/app/modules/auth/services/auth.service';
   templateUrl: './messages.component.html',
   styleUrls: ['./messages.component.css']
 })
-export class MessagesComponent implements OnInit{
+export class MessagesComponent implements OnInit, OnDestroy {
   public chats: Chat[]=[];
   public messageType=MessageType;
   stompClient:any;
   constructor(private messageService: MessageService, private authService:AuthService){
-    
-    
+
+
   }
   ngOnInit(){
     this.messageService.getMessages();
@@ -45,7 +45,7 @@ export class MessagesComponent implements OnInit{
   initializeWebSocketConnection() {
     const  ws = new SockJS('http://localhost:8080/api/socket');
     this.stompClient = Stomp.over(ws);
-    
+
     this.stompClient.connect({},  () => {
       this.openGlobalSocket()
     });
@@ -68,11 +68,15 @@ export class MessagesComponent implements OnInit{
 
       const chat:Chat=this.chats.find(object => {return object.rideId === userMessage.rideId && (object.receiverId===userMessage.fromId || object.receiverId===Number(this.authService.getId()))})||{image: '', name: '', messages: [], rideId:-1, receiverId:-1};
       chat.messages.push({timestamp: new Date(), content: userMessage.message, myself: false, type: MessageType.RIDE});
-      
+
       this.chats = this.chats.filter(item => item !== chat);
       this.chats.unshift(chat);
-      
+
     }
+  }
+
+  ngOnDestroy() {
+    this.stompClient.disconnect();
   }
 }
 
