@@ -1,42 +1,22 @@
-import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable } from 'rxjs';
-import { environment } from 'src/environments/environment';
-import { Profile } from '../../account/model/profile';
+import {HttpClient} from '@angular/common/http';
+import {Injectable} from '@angular/core';
+import {BehaviorSubject, Observable} from 'rxjs';
+import {environment} from 'src/environments/environment';
+import {Profile, ProfileWPassword} from '../../account/model/profile';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AdminService {
-
-  private value$ = new BehaviorSubject<any>({});
-  selectedValue$ = this.value$.asObservable();
-
-  constructor(private http: HttpClient) { }
-
-  setValue(test: any) {
-    this.value$.next(test);
+  constructor(private http: HttpClient) {
   }
-
 
   getAdmin(adminId: number): Observable<Profile> {
     return this.http.get<Profile>(environment.apiHost + 'admin/' + adminId);
   }
 
-
-  updateReactive(adminId:number, profile: any): Observable<any> {
-    const options: any = {
-      responseType: 'text',
-    };
-    return this.http.put<string>(environment.apiHost + 'admin/' + adminId, profile, options);
-  }
-
-  update(adminId:number, profile: any): Observable<any> {
-    const options: any = {
-      responseType: 'text',
-    };
-
-    return this.http.put<string>(
+  update(adminId: number, profile: ProfileWPassword): Observable<string> {
+    return this.http.put(
       environment.apiHost + 'admin/' + adminId,
       {
         name: profile.name,
@@ -47,7 +27,9 @@ export class AdminService {
         address: profile.address,
         password: profile.password
       },
-      options
+      {
+        responseType: 'text',
+      }
     );
   }
 }

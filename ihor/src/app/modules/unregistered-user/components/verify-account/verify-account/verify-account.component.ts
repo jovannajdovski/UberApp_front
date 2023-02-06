@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-import { Router } from '@angular/router';
+import {Component} from '@angular/core';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-verify-account',
@@ -8,7 +8,8 @@ import { Router } from '@angular/router';
 })
 export class VerifyAccountComponent {
 
-  constructor(private router: Router) { }
+  constructor(private router: Router) {
+  }
 
   toLogin() {
     this.router.navigate(['/login']);

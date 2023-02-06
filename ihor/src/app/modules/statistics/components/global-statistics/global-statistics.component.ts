@@ -99,8 +99,7 @@ export class GlobalStatisticsComponent implements OnInit {
       this.fetchRidesCount(this.chosenStart, this.chosenEnd);
       this.showFirstComponent = true;
       this.showSecondComponent = false;
-    }
-    else if (this.selectedStatisticsType == "2") {
+    } else if (this.selectedStatisticsType == "2") {
       this.fetchRideDistance(this.chosenStart, this.chosenEnd);
       this.showFirstComponent = false;
       this.showSecondComponent = true;

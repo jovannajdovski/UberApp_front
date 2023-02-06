@@ -1,46 +1,24 @@
-import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable } from 'rxjs';
-import { environment } from 'src/environments/environment';
-import { Profile } from '../../account/model/profile';
-import { Vehicle } from '../model/vehicle';
+import {HttpClient} from '@angular/common/http';
+import {Injectable} from '@angular/core';
+import {Observable} from 'rxjs';
+import {environment} from 'src/environments/environment';
+import {Profile, ProfileWPassword} from '../../account/model/profile';
+import {Vehicle} from '../model/vehicle';
 
 
 @Injectable({
   providedIn: 'root'
 })
 export class DriverService {
-
-  private value$ = new BehaviorSubject<any>({});
-  selectedValue$ = this.value$.asObservable();
-
-  constructor(private http: HttpClient) { }
-
-  setValue(test: any) {
-    this.value$.next(test);
-  }
-
-  getAll(): Observable<Profile[]> {
-    return this.http.get<Profile[]>(environment.apiHost + 'driver');
+  constructor(private http: HttpClient) {
   }
 
   getDriver(driverId: number): Observable<Profile> {
     return this.http.get<Profile>(environment.apiHost + 'driver/' + driverId);
   }
 
-  addReactive(profile: any): Observable<any> {
-    const options: any = {
-      responseType: 'text',
-    };
-    return this.http.post<string>(environment.apiHost + 'driver', profile, options);
-  }
-
-  add(profile: any): Observable<any> {
-    const options: any = {
-      responseType: 'text',
-    };
-
-    return this.http.post<string>(
+  add(profile: ProfileWPassword): Observable<string> {
+    return this.http.post(
       environment.apiHost + 'driver',
       {
         name: profile.name,
@@ -51,16 +29,13 @@ export class DriverService {
         address: profile.address,
         password: profile.password
       },
-      options
+      {
+        responseType: 'text',
+      }
     );
   }
 
-  updateReactive(driverId: number, profile: any): Observable<any> {
-    return this.http.put<string>(environment.apiHost + 'driver/' + driverId, profile);
-  }
-
-  update(driverId: number, profile: any): Observable<any> {
-
+  update(driverId: number, profile: ProfileWPassword): Observable<string> {
     return this.http.put<string>(
       environment.apiHost + 'driver/' + driverId,
       {
@@ -79,8 +54,7 @@ export class DriverService {
     return this.http.get<Vehicle>(environment.apiHost + 'driver/' + driverId + '/vehicle');
   }
 
-  updateVehicle(driverId: number, vehicle: any): Observable<any> {
-
+  updateVehicle(driverId: number, vehicle: Vehicle): Observable<string> {
     return this.http.put<string>(
       environment.apiHost + 'driver/' + driverId + '/vehicle',
       {

@@ -1,6 +1,6 @@
-import { Component } from '@angular/core';
-import { Router } from '@angular/router';
-import { AuthService } from 'src/app/modules/auth/services/auth.service';
+import {Component} from '@angular/core';
+import {Router} from '@angular/router';
+import {AuthService} from 'src/app/modules/auth/services/auth.service';
 
 @Component({
   selector: 'app-unregistered-user-navbar',
@@ -8,13 +8,15 @@ import { AuthService } from 'src/app/modules/auth/services/auth.service';
   styleUrls: ['./unregistered-user-navbar.component.css']
 })
 export class UnregisteredUserNavbarComponent {
-  constructor(private router:Router, private authService:AuthService) {
+  constructor(private router: Router, private authService: AuthService) {
     this.authService.setUser()
-  }  
+  }
+
   toLogin() {
     this.router.navigate(['/login']);
   }
+
   toSignup() {
-    this.router.navigate(['/signup']); 
+    this.router.navigate(['/signup']);
   }
 }

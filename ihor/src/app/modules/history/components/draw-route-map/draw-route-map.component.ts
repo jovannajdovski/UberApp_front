@@ -1,7 +1,7 @@
-import { AfterViewInit, Component } from '@angular/core';
+import {AfterViewInit, Component} from '@angular/core';
 import * as L from 'leaflet';
 import 'leaflet-routing-machine'
-import { RideHistoryService } from '../../services/ride-history/ride-history.service';
+import {RideHistoryService} from '../../services/ride-history/ride-history.service';
 
 
 const yellowPin = L.icon({
@@ -23,7 +23,7 @@ L.Marker.prototype.options.icon = yellowPin;
   templateUrl: './draw-route-map.component.html',
   styleUrls: ['./draw-route-map.component.css']
 })
-export class DrawRouteMapComponent implements AfterViewInit{
+export class DrawRouteMapComponent implements AfterViewInit {
   constructor(private rideHistoryService: RideHistoryService
   ) {
     this.long1 = this.rideHistoryService.getLon1();
@@ -70,7 +70,7 @@ export class DrawRouteMapComponent implements AfterViewInit{
     this.waypointsNoDrag = [
       L.latLng(this.lat1, this.long1),
       L.latLng(this.lat2, this.long2)
-    ];    
+    ];
 
     const route = L.Routing.control({
       router: L.Routing.osrmv1({
@@ -78,7 +78,7 @@ export class DrawRouteMapComponent implements AfterViewInit{
       }),
       showAlternatives: false,
       lineOptions: {
-        styles: [{ color: '#fff821', weight: 7 }],
+        styles: [{color: '#fff821', weight: 7}],
         extendToWaypoints: false,
         missingRouteTolerance: 0,
         addWaypoints: false,
@@ -96,7 +96,6 @@ export class DrawRouteMapComponent implements AfterViewInit{
       }),
 
     }).addTo(this.map);
-
 
 
     route.on('routeselected', (e) => {

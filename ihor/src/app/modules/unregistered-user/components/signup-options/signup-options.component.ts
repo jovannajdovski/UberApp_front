@@ -1,5 +1,5 @@
-import { Component, EventEmitter, Output } from '@angular/core';
-import { Router } from '@angular/router';
+import {Component, EventEmitter, Output} from '@angular/core';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-signup-options',
@@ -9,7 +9,8 @@ import { Router } from '@angular/router';
 export class SignupOptionsComponent {
   @Output() signUpWithEmailEvent = new EventEmitter();
 
-  constructor(private router: Router) {}
+  constructor(private router: Router) {
+  }
 
   signUpWithEmail() {
     this.signUpWithEmailEvent.emit();

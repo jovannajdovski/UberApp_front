@@ -91,7 +91,8 @@ export class PassengerStatisticsComponent implements OnInit {
 
   constructor(private route: ActivatedRoute,
               private passengerService: PassengerService,
-              private passengerStatisticsService: PassengerStatisticsService) {}
+              private passengerStatisticsService: PassengerStatisticsService) {
+  }
 
   ngOnInit(): void {
     const id = this.route.snapshot.paramMap.get('id');
@@ -212,7 +213,7 @@ export class PassengerStatisticsComponent implements OnInit {
         this.dashboardRideDistanceComponent.sumValue = result.totalDistance.toString();
         this.dashboardRideDistanceComponent.avgValue = result.averageDistance.toString();
       },
-      error: (error : any) => {
+      error: (error: any) => {
         if (error instanceof HttpErrorResponse) {
           console.log(error);
         }
@@ -237,7 +238,7 @@ export class PassengerStatisticsComponent implements OnInit {
         this.dashboardMoneySpentComponent.sumValue = result.totalAmount.toString();
         this.dashboardMoneySpentComponent.avgValue = result.averageAmount.toString();
       },
-      error: (error : any) => {
+      error: (error: any) => {
         if (error instanceof HttpErrorResponse) {
           console.log(error);
         }

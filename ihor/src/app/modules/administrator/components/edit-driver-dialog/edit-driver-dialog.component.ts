@@ -42,10 +42,10 @@ export class EditDriverDialogComponent implements OnInit {
   editDriver() {
     const driver : Driver = {
       id: this.data.id,
-      name: this.driverInfoForm.value.name!,
-      surname: this.driverInfoForm.value.surname!,
-      telephoneNumber: this.driverInfoForm.value.phoneNumber!,
-      address: this.driverInfoForm.value.streetAddress!,
+      name: this.driverInfoForm.value.name,
+      surname: this.driverInfoForm.value.surname,
+      telephoneNumber: this.driverInfoForm.value.phoneNumber,
+      address: this.driverInfoForm.value.streetAddress,
       email: this.data.email,
       password: '',
       profilePicture: this.data.profilePicture,

@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {DatePipe} from "@angular/common";
 import {Observable} from "rxjs";
@@ -10,7 +10,8 @@ import {RideDistanceStatistics} from "../model/RideDistanceStatistics";
   providedIn: 'root'
 })
 export class DriverStatisticsService {
-  constructor(private http: HttpClient, private datePipe: DatePipe) {}
+  constructor(private http: HttpClient, private datePipe: DatePipe) {
+  }
 
 
   getRideCountStatistics(id: number, from: Date, to: Date): Observable<RideCountStatistics> {

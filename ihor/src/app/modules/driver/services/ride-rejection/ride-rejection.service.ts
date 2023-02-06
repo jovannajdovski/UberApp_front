@@ -1,9 +1,9 @@
-import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { Observable, BehaviorSubject } from 'rxjs';
-import { environment } from 'src/environments/environment';
-import { Token } from '@angular/compiler';
-import { Ride } from 'src/app/modules/passenger/model/ride';
+import {Injectable} from '@angular/core';
+import {HttpClient} from '@angular/common/http';
+import {Observable} from 'rxjs';
+import {environment} from 'src/environments/environment';
+import {Ride} from 'src/app/modules/passenger/model/ride';
+import {RejectionReason} from "../../../communication/components/notifications/notifications.component";
 
 
 @Injectable({
@@ -11,22 +11,24 @@ import { Ride } from 'src/app/modules/passenger/model/ride';
 })
 export class RideRejectionService {
 
-  constructor(private http: HttpClient) { }
-
-  reject(request: any, rideId: number): Observable<Ride>{
-    return this.http.put<Ride>(environment.apiHost+'ride/'+rideId+'/cancel',request);
+  constructor(private http: HttpClient) {
   }
-  accept(rideId: number): Observable<Ride>{
-    return this.http.put<Ride>(environment.apiHost+'ride/'+rideId+'/accept',{});
+
+  reject(request: RejectionReason, rideId: number): Observable<Ride> {
+    return this.http.put<Ride>(environment.apiHost + 'ride/' + rideId + '/cancel', request);
+  }
+
+  accept(rideId: number): Observable<Ride> {
+    return this.http.put<Ride>(environment.apiHost + 'ride/' + rideId + '/accept', {});
   }
 }
- 
+
 
 enum VehicleCategory {
   STANDARD, LUXURY, VAN
 }
-export interface RideRejectionResponse
-{
+
+export interface RideRejectionResponse {
   "id": number,
   "startTime": Date,
   "endTime": Date,

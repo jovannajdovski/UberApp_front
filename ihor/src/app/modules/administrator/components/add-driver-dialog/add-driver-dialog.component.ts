@@ -17,8 +17,6 @@ export class AddDriverDialogComponent {
   hideConfirmPassword = true;
   hasError = false;
   allTextPattern = "[a-zA-Z][a-zA-Z]*";
-  phoneNumberPattern = "[0-9]*";
-
   addDriverForm = new FormGroup({
     name: new FormControl('', [Validators.pattern(this.allTextPattern), Validators.required]),
     surname: new FormControl('', [Validators.pattern(this.allTextPattern), Validators.required]),
@@ -73,11 +71,11 @@ export class AddDriverDialogComponent {
     }
 
     const vehicle: Vehicle = {
-      vehicleType: this.addVehicleForm.value.vehicleType!,
-      model: this.addVehicleForm.value.model!,
-      licenseNumber: this.addVehicleForm.value.licenceNumber!,
+      vehicleType: this.addVehicleForm.value.vehicleType,
+      model: this.addVehicleForm.value.model,
+      licenseNumber: this.addVehicleForm.value.licenceNumber,
       currentLocation: location,
-      passengerSeats: this.addVehicleForm.value.numberOfSeats!,
+      passengerSeats: this.addVehicleForm.value.numberOfSeats,
       babyTransport: this.babyTransport,
       petTransport: this.petTransport
     }

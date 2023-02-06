@@ -1,6 +1,6 @@
-import { Component } from '@angular/core';
-import { Router } from '@angular/router';
-import { RouteService } from 'src/app/modules/map/services/route/route.service';
+import {Component} from '@angular/core';
+import {Router} from '@angular/router';
+import {RouteService} from 'src/app/modules/map/services/route/route.service';
 
 @Component({
   selector: 'app-route-rechoice',
@@ -9,14 +9,15 @@ import { RouteService } from 'src/app/modules/map/services/route/route.service';
 })
 export class RouteRechoiceComponent {
 
-  constructor(private router:Router, private routeService:RouteService){
+  constructor(private router: Router, private routeService: RouteService) {
   }
-  
-  toOffer(){
+
+  toOffer() {
     this.routeService.setOffers(true);
     this.router.navigate(['/passenger']);
   }
-  toFavorites(){
+
+  toFavorites() {
     this.router.navigate(['/passenger/profile']);
   }
 }

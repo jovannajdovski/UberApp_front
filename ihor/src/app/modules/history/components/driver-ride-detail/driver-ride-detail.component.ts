@@ -1,17 +1,17 @@
-import { HttpErrorResponse } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-import { Profile } from 'src/app/modules/account/model/profile';
-import { PassengerService } from 'src/app/modules/passenger/services/passenger.service';
-import { ReviewsForRideDTO, RideNoStatusDTO } from '../../model/RidePageListDTO';
-import { RideHistoryService } from '../../services/ride-history/ride-history.service';
+import {HttpErrorResponse} from '@angular/common/http';
+import {Component, OnInit} from '@angular/core';
+import {Router} from '@angular/router';
+import {Profile} from 'src/app/modules/account/model/profile';
+import {PassengerService} from 'src/app/modules/passenger/services/passenger.service';
+import {ReviewsForRideDTO, RideNoStatusDTO} from '../../model/RidePageListDTO';
+import {RideHistoryService} from '../../services/ride-history/ride-history.service';
 
 @Component({
   selector: 'app-driver-ride-detail',
   templateUrl: './driver-ride-detail.component.html',
   styleUrls: ['./driver-ride-detail.component.scss']
 })
-export class DriverRideDetailComponent implements OnInit{
+export class DriverRideDetailComponent implements OnInit {
 
   public ride!: RideNoStatusDTO;
   public reviews!: ReviewsForRideDTO;
@@ -22,8 +22,8 @@ export class DriverRideDetailComponent implements OnInit{
   public passengersLoaded = false;
 
   constructor(private rideHistoryService: RideHistoryService,
-    private router: Router,
-    private passengerService: PassengerService) {
+              private router: Router,
+              private passengerService: PassengerService) {
 
     this.ride = rideHistoryService.getSettedRide();
     this.reviews = rideHistoryService.getSettedReview();
@@ -31,13 +31,11 @@ export class DriverRideDetailComponent implements OnInit{
   }
 
   ngOnInit(): void {
-
     this.rideHistoryService.selectedEstimatedRoutes$.subscribe((value) => {
       console.log(value.length);
       value.forEach((element: any) => {
         console.log(element);
         this.distance = this.toKM(element.summary.totalDistance)
-        
       });
     });
 
@@ -56,12 +54,12 @@ export class DriverRideDetailComponent implements OnInit{
     this.passengersLoaded = true;
   }
 
-  toKM(disInMeters:number){
-    const distance = Math.floor(disInMeters/100);
-    return distance/10+" km";
+  toKM(disInMeters: number) {
+    const distance = Math.floor(disInMeters / 100);
+    return distance / 10 + " km";
   }
 
-  getDistance(){
+  getDistance() {
     return this.distance;
   }
 
@@ -93,38 +91,30 @@ export class DriverRideDetailComponent implements OnInit{
   getStartDate(ride: RideNoStatusDTO): string {
     const startDateTime = ride.startTime.split("T");
     const datePoints = startDateTime[0].split("-");
-    const startDate = datePoints[2] + "." + datePoints[1] + "." + datePoints[0] + ".";
-
-    return startDate;
+    return datePoints[2] + "." + datePoints[1] + "." + datePoints[0] + ".";
 
   }
 
   getStartTime(ride: RideNoStatusDTO): string {
     const startDateTime = ride.startTime.split("T");
     const timePoints = startDateTime[1].split(":");
-    const startTime = timePoints[0] + ":" + timePoints[1];
-
-    return startTime;
+    return timePoints[0] + ":" + timePoints[1];
   }
 
   getEndTime(ride: RideNoStatusDTO): string {
     const endDateTime = ride.endTime.split("T");
     const timePoints = endDateTime[1].split(":");
-    const endTime = timePoints[0] + ":" + timePoints[1];
-
-    return endTime;
+    return timePoints[0] + ":" + timePoints[1];
   }
 
   getStartPlace(ride: RideNoStatusDTO): string {
     const path = ride.locations[0];
-    const startPlace = path.departure.address;
-    return startPlace;
+    return path.departure.address;
   }
 
   getEndPlace(ride: RideNoStatusDTO): string {
     const path = ride.locations[0];
-    const endPlace = path.destination.address;
-    return endPlace;
+    return path.destination.address;
   }
 
   getCost(ride: RideNoStatusDTO): string {

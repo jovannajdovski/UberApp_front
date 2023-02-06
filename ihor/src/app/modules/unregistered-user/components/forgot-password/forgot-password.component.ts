@@ -1,8 +1,8 @@
-import { Component } from '@angular/core';
-import { Router } from '@angular/router';
-import { FormGroup, FormControl, Validators, FormGroupDirective, NgForm, EmailValidator } from '@angular/forms';
-import { ResetService } from '../../services/reset/reset.service';
-import { HttpErrorResponse } from '@angular/common/http';
+import {Component} from '@angular/core';
+import {Router} from '@angular/router';
+import {FormGroup, FormControl, Validators} from '@angular/forms';
+import {ResetService} from '../../services/reset/reset.service';
+import {HttpErrorResponse} from '@angular/common/http';
 
 @Component({
   selector: 'app-forgot-password',
@@ -11,14 +11,15 @@ import { HttpErrorResponse } from '@angular/common/http';
 })
 export class ForgotPasswordComponent {
   hasError = false;
-  
+
   forgot = new FormGroup({
-    email: new FormControl('',[Validators.email,Validators.required])
+    email: new FormControl('', [Validators.email, Validators.required])
   });
 
 
   constructor(private router: Router,
-    private resetService: ResetService) {}
+              private resetService: ResetService) {
+  }
 
   toReset() {
     if (this.forgot.valid) {
@@ -45,7 +46,7 @@ export class ForgotPasswordComponent {
             this.hasError = true;
           }
         },
-      }); 
+      });
     }
   }
 

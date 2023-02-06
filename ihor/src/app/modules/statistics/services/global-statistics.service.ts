@@ -11,7 +11,8 @@ import {RideDistanceStatistics} from "../model/RideDistanceStatistics";
 })
 export class GlobalStatisticsService {
 
-  constructor(private http: HttpClient, private datePipe: DatePipe) {}
+  constructor(private http: HttpClient, private datePipe: DatePipe) {
+  }
 
 
   getRideCountStatistics(from: Date, to: Date): Observable<RideCountStatistics> {
