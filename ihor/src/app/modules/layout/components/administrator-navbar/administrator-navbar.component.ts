@@ -50,16 +50,8 @@ export class AdministratorNavbarComponent {
   }
 
   logout() {
-    this.authService.logout().subscribe({
-      next: () => {
-        localStorage.removeItem('user');
-        this.authService.setDefaultRole();
-        this.router.navigate(['/login'])
-      },
-      error: (error) => {
-        if (error instanceof HttpErrorResponse) {}
-      },
-    });
+    localStorage.removeItem('user');
+    this.router.navigate(['/login']);
   }
 }
 
