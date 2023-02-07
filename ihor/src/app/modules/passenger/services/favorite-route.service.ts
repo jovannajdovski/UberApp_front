@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {Observable} from "rxjs";
 import {environment} from "../../../../environments/environment";
 import {FavoriteRoute} from "../model/FavoriteRoute";
@@ -9,7 +9,8 @@ import {HttpClient} from "@angular/common/http";
 })
 export class FavoriteRouteService {
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {
+  }
 
 
   getFavoriteRoutes(id: number): Observable<FavoriteRoute[]> {

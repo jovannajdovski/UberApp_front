@@ -1,7 +1,6 @@
-import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
-import { Route } from '@angular/router';
-import { BehaviorSubject } from 'rxjs';
+import {HttpClient} from '@angular/common/http';
+import {Injectable} from '@angular/core';
+import {BehaviorSubject} from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -11,27 +10,27 @@ export class RouteService {
   private startFromOffers = "";
   private finalFromOffers = "";
 
-  public getOffers(){
+  public getOffers() {
     return this.offers;
   }
 
-  public getStartFromOffers(){
+  public getStartFromOffers() {
     return this.startFromOffers;
   }
 
-  public getFinalFromOffers(){
+  public getFinalFromOffers() {
     return this.finalFromOffers;
   }
 
-  public setOffers(offer:boolean){
+  public setOffers(offer: boolean) {
     this.offers = offer;
   }
 
-  public setStartFromOffers(start:string){
+  public setStartFromOffers(start: string) {
     this.startFromOffers = start;
   }
 
-  public setFinalFromOffers(final:string){
+  public setFinalFromOffers(final: string) {
     this.finalFromOffers = final;
   }
 
@@ -59,6 +58,7 @@ export class RouteService {
   setStart(start: any) {
     this.start$.next(start);
   }
+
   setFinal(final: any) {
     this.final$.next(final);
   }
@@ -67,6 +67,7 @@ export class RouteService {
     console.log("set start");
     this.startPoint$.next(start);
   }
+
   setFinalPoint(final: any) {
     console.log("set final");
     this.finalPoint$.next(final);
@@ -79,31 +80,35 @@ export class RouteService {
   setRouteSelect(route: any) {
     this.routeSelect$.next(route);
   }
-  
-  constructor(private http: HttpClient) {this.route$.next(0);}
 
-  public setRoute(start: string, final: string){
+  constructor(private http: HttpClient) {
+    this.route$.next(0);
+  }
+
+  public setRoute(start: string, final: string) {
     this.setStart(start);
     this.setFinal(final);
     this.route$.next(1);
   }
-  public setRoutePassenger(start: string, final: string){
+
+  public setRoutePassenger(start: string, final: string) {
     this.setStart(start);
     this.setFinal(final);
     this.route$.next(2);
   }
-  public resetRoute(){
+
+  public resetRoute() {
     this.start$ = new BehaviorSubject<any>({});
     this.selectedStart$ = this.start$.asObservable();
 
-  this.final$ = new BehaviorSubject<any>({});
-  this.selectedFinal$ = this.final$.asObservable();
+    this.final$ = new BehaviorSubject<any>({});
+    this.selectedFinal$ = this.final$.asObservable();
 
-  this.startPoint$ = new BehaviorSubject<any>({});
-  this.selectedStartPoint$ = this.startPoint$.asObservable();
+    this.startPoint$ = new BehaviorSubject<any>({});
+    this.selectedStartPoint$ = this.startPoint$.asObservable();
 
-  this. finalPoint$ = new BehaviorSubject<any>({});
-  this.selectedFinalPoint$ = this.finalPoint$.asObservable();
+    this.finalPoint$ = new BehaviorSubject<any>({});
+    this.selectedFinalPoint$ = this.finalPoint$.asObservable();
 
   }
 }

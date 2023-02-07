@@ -1,10 +1,10 @@
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { FormGroup, FormControl, Validators, FormGroupDirective, NgForm, EmailValidator } from '@angular/forms';
-import { match } from '../signup-form/signup-form.component';
-import { HttpErrorResponse } from '@angular/common/http';
-import { ResetService } from '../../services/reset/reset.service';
-import { ResetPasswordDTO } from '../../model/ResetPasswordDTO';
+import {Component, OnInit} from '@angular/core';
+import {ActivatedRoute, Router} from '@angular/router';
+import {FormGroup, FormControl, Validators} from '@angular/forms';
+import {match} from '../signup-form/signup-form.component';
+import {HttpErrorResponse} from '@angular/common/http';
+import {ResetService} from '../../services/reset/reset.service';
+import {ResetPasswordDTO} from '../../model/ResetPasswordDTO';
 
 @Component({
   selector: 'app-reset-password',
@@ -21,12 +21,12 @@ export class ResetPasswordComponent implements OnInit {
   reset = new FormGroup({
     password: new FormControl('', [Validators.minLength(6), Validators.required]),
     confirmPassword: new FormControl('', [Validators.required]),
-  }, { validators: [match('password', 'confirmPassword')] });
+  }, {validators: [match('password', 'confirmPassword')]});
 
 
   constructor(private router: Router,
-    private route: ActivatedRoute,
-    private resetService: ResetService) {
+              private route: ActivatedRoute,
+              private resetService: ResetService) {
     this.token = '';
     this.id = 0;
     this.hasError = false;
@@ -35,16 +35,16 @@ export class ResetPasswordComponent implements OnInit {
   ngOnInit(): void {
     this.route.queryParams
       .subscribe(params => {
-        this.token = params['token'];
-        this.id = params['id'];
-      }
-    );
+          this.token = params['token'];
+          this.id = params['id'];
+        }
+      );
   }
 
   toChange() {
     if (this.reset.valid) {
       const resetPasswordDTO: ResetPasswordDTO = {
-        code : this.token,
+        code: this.token,
         newPassword: this.reset.value.password as string
       }
       this.resetService.changePasswordWithResetCode(this.id, resetPasswordDTO).subscribe({
@@ -58,7 +58,7 @@ export class ResetPasswordComponent implements OnInit {
         },
       });
 
-      
+
     }
   }
 

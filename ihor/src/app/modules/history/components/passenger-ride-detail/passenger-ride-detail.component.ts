@@ -1,14 +1,14 @@
-import { HttpErrorResponse } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-import { Profile } from 'src/app/modules/account/model/profile';
-import { DriverService } from 'src/app/modules/driver/services/driver.service';
-import { RouteService } from 'src/app/modules/map/services/route/route.service';
-import { PassengerService } from 'src/app/modules/passenger/services/passenger.service';
-import { CreateFavoriteDTO } from '../../model/FavoriteDTO';
-import { ReviewsForRideDTO, RideNoStatusDTO } from '../../model/RidePageListDTO';
-import { FavoritesService } from '../../services/favorites/favorites.service';
-import { RideHistoryService } from '../../services/ride-history/ride-history.service';
+import {HttpErrorResponse} from '@angular/common/http';
+import {Component, OnInit} from '@angular/core';
+import {Router} from '@angular/router';
+import {Profile} from 'src/app/modules/account/model/profile';
+import {DriverService} from 'src/app/modules/driver/services/driver.service';
+import {RouteService} from 'src/app/modules/map/services/route/route.service';
+import {PassengerService} from 'src/app/modules/passenger/services/passenger.service';
+import {CreateFavoriteDTO} from '../../model/FavoriteDTO';
+import {ReviewsForRideDTO, RideNoStatusDTO} from '../../model/RidePageListDTO';
+import {FavoritesService} from '../../services/favorites/favorites.service';
+import {RideHistoryService} from '../../services/ride-history/ride-history.service';
 
 @Component({
   selector: 'app-passenger-ride-detail',
@@ -29,11 +29,11 @@ export class PassengerRideDetailComponent implements OnInit {
   public passengersLoaded = false;
 
   constructor(private rideHistoryService: RideHistoryService,
-    private router: Router,
-    private favoritesService: FavoritesService,
-    private driverService: DriverService,
-    private passengerService: PassengerService,
-    private routeService: RouteService) {
+              private router: Router,
+              private favoritesService: FavoritesService,
+              private driverService: DriverService,
+              private passengerService: PassengerService,
+              private routeService: RouteService) {
 
     this.ride = rideHistoryService.getSettedRide();
     this.reviews = rideHistoryService.getSettedReview();
@@ -43,34 +43,32 @@ export class PassengerRideDetailComponent implements OnInit {
   }
 
   ngOnInit(): void {
-
     this.rideHistoryService.selectedEstimatedRoutes$.subscribe((value) => {
       console.log(value.length);
       value.forEach((element: any) => {
         console.log(element);
         this.distance = this.toKM(element.summary.totalDistance)
-        
       });
     });
 
 
     this.favoritesService.isRideFavorite(this.ride.locations[0].departure.address,
       this.ride.locations[0].destination.address).subscribe({
-        next: (result) => {
-          this.favoriteId = result.favoriteId;
-          if (this.favoriteId!=0) {
-            this.isFavorite = true;
-            const favv = document.getElementById("favvv");
-            if (favv != null)
-              favv.setAttribute("data-icon", "material-symbols:favorite-rounded");
-          }
-        },
-        error: (error) => {
-          if (error instanceof HttpErrorResponse) {
-            this.hasError = true;
-          }
-        },
-      });
+      next: (result) => {
+        this.favoriteId = result.favoriteId;
+        if (this.favoriteId != 0) {
+          this.isFavorite = true;
+          const favv = document.getElementById("favvv");
+          if (favv != null)
+            favv.setAttribute("data-icon", "material-symbols:favorite-rounded");
+        }
+      },
+      error: (error) => {
+        if (error instanceof HttpErrorResponse) {
+          this.hasError = true;
+        }
+      },
+    });
 
     this.driverService.getDriver(this.ride.driver.id).subscribe({
       next: (result) => {
@@ -141,12 +139,12 @@ export class PassengerRideDetailComponent implements OnInit {
     }
   }
 
-  toKM(disInMeters:number){
-    const distance = Math.floor(disInMeters/100);
-    return distance/10+" km";
+  toKM(disInMeters: number) {
+    const distance = Math.floor(disInMeters / 100);
+    return distance / 10 + " km";
   }
 
-  getDistance(){
+  getDistance() {
     return this.distance;
   }
 
@@ -185,38 +183,29 @@ export class PassengerRideDetailComponent implements OnInit {
   getStartDate(ride: RideNoStatusDTO): string {
     const startDateTime = ride.startTime.split("T");
     const datePoints = startDateTime[0].split("-");
-    const startDate = datePoints[2] + "." + datePoints[1] + "." + datePoints[0] + ".";
-
-    return startDate;
-
+    return datePoints[2] + "." + datePoints[1] + "." + datePoints[0] + ".";
   }
 
   getStartTime(ride: RideNoStatusDTO): string {
     const startDateTime = ride.startTime.split("T");
     const timePoints = startDateTime[1].split(":");
-    const startTime = timePoints[0] + ":" + timePoints[1];
-
-    return startTime;
+    return timePoints[0] + ":" + timePoints[1];
   }
 
   getEndTime(ride: RideNoStatusDTO): string {
     const endDateTime = ride.endTime.split("T");
     const timePoints = endDateTime[1].split(":");
-    const endTime = timePoints[0] + ":" + timePoints[1];
-
-    return endTime;
+    return timePoints[0] + ":" + timePoints[1];
   }
 
   getStartPlace(ride: RideNoStatusDTO): string {
     const path = ride.locations[0];
-    const startPlace = path.departure.address;
-    return startPlace;
+    return path.departure.address;
   }
 
   getEndPlace(ride: RideNoStatusDTO): string {
     const path = ride.locations[0];
-    const endPlace = path.destination.address;
-    return endPlace;
+    return path.destination.address;
   }
 
   getCost(ride: RideNoStatusDTO): string {

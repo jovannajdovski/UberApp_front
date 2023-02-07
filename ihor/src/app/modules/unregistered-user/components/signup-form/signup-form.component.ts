@@ -1,8 +1,8 @@
-import { HttpErrorResponse } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl, Validators, ValidatorFn, AbstractControl } from '@angular/forms';
-import { Router } from '@angular/router';
-import { RegistrationService } from 'src/app/modules/unregistered-user/services/registration/registration.service';
+import {HttpErrorResponse} from '@angular/common/http';
+import {Component, OnInit} from '@angular/core';
+import {FormGroup, FormControl, Validators, ValidatorFn, AbstractControl} from '@angular/forms';
+import {Router} from '@angular/router';
+import {RegistrationService} from 'src/app/modules/unregistered-user/services/registration/registration.service';
 
 @Component({
   selector: 'app-signup-form',
@@ -10,8 +10,8 @@ import { RegistrationService } from 'src/app/modules/unregistered-user/services/
   styleUrls: ['./signup-form.component.scss']
 })
 export class SignupFormComponent implements OnInit {
-  hidePassword=true;
-  hideConfirmPassword=true;
+  hidePassword = true;
+  hideConfirmPassword = true;
   hasError = false;
 
   allTextPattern = "[a-zA-Z][a-zA-Z]*";
@@ -26,22 +26,24 @@ export class SignupFormComponent implements OnInit {
     email: new FormControl('', [Validators.email, Validators.required]),
     password: new FormControl('', [Validators.minLength(6), Validators.required]),
     confirmPassword: new FormControl('', [Validators.required])
-  }, { validators: [match('password', 'confirmPassword')] });
+  }, {validators: [match('password', 'confirmPassword')]});
 
-  constructor(private router: Router, 
-    private registrationService: RegistrationService) {}
+  constructor(private router: Router,
+              private registrationService: RegistrationService) {
+  }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+  }
 
   signup() {
-    const registration : Registration = {
+    const registration: Registration = {
       name: this.signupForm.value.name,
       surname: this.signupForm.value.surname,
       telephoneNumber: this.signupForm.value.phoneNumber,
       streetAddress: this.signupForm.value.streetAddress,
       email: this.signupForm.value.email,
       address: this.signupForm.value.streetAddress,
-      password:this.signupForm.value.password
+      password: this.signupForm.value.password
     }
 
     if (this.signupForm.valid) {
@@ -73,8 +75,8 @@ export function match(controlName: string, checkControlName: string): ValidatorF
     }
 
     if (control?.value !== checkControl?.value) {
-      controls.get(checkControlName)?.setErrors({ matching: true });
-      return { matching: true };
+      controls.get(checkControlName)?.setErrors({matching: true});
+      return {matching: true};
     } else {
       return null;
     }
@@ -88,5 +90,5 @@ export interface Registration {
   streetAddress?: string | null,
   email?: string | null,
   address?: string | null,
-  password?:string | null
+  password?: string | null
 }

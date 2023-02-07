@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component} from '@angular/core';
 
 @Component({
   selector: 'app-dashboard-money-spent',
@@ -9,5 +9,6 @@ export class DashboardMoneySpentComponent {
   sumValue = "0";
   avgValue = "0";
 
-  constructor() {}
+  constructor() {
+  }
 }

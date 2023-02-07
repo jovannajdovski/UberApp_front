@@ -6,7 +6,7 @@ import {AuthService} from "../../../auth/services/auth.service";
   templateUrl: './passenger-profile.component.html',
   styleUrls: ['./passenger-profile.component.css']
 })
-export class PassengerProfileComponent implements OnInit{
+export class PassengerProfileComponent implements OnInit {
   id!: number;
 
   constructor(private authService: AuthService) {

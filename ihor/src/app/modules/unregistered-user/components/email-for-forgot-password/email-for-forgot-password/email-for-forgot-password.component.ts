@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-import { Router } from '@angular/router';
+import {Component} from '@angular/core';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-email-for-forgot-password',
@@ -7,7 +7,8 @@ import { Router } from '@angular/router';
   styleUrls: ['./email-for-forgot-password.component.scss']
 })
 export class EmailForForgotPasswordComponent {
-  constructor(private router: Router) { }
+  constructor(private router: Router) {
+  }
 
   toLogin() {
     this.router.navigate(['/login']);

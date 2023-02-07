@@ -1,18 +1,18 @@
-import { HttpErrorResponse } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-import { Profile } from 'src/app/modules/account/model/profile';
-import { AuthService } from 'src/app/modules/auth/services/auth.service';
-import { DriverService } from 'src/app/modules/driver/services/driver.service';
-import { ReviewsForRideDTO, RideNoStatusDTO, RidePageListDTO } from '../../model/RidePageListDTO';
-import { RideHistoryService } from '../../services/ride-history/ride-history.service';
+import {HttpErrorResponse} from '@angular/common/http';
+import {Component, OnInit} from '@angular/core';
+import {Router} from '@angular/router';
+import {Profile} from 'src/app/modules/account/model/profile';
+import {AuthService} from 'src/app/modules/auth/services/auth.service';
+import {DriverService} from 'src/app/modules/driver/services/driver.service';
+import {ReviewsForRideDTO, RideNoStatusDTO, RidePageListDTO} from '../../model/RidePageListDTO';
+import {RideHistoryService} from '../../services/ride-history/ride-history.service';
 
 @Component({
   selector: 'app-passenger-history',
   templateUrl: './passenger-history.component.html',
   styleUrls: ['./passenger-history.component.scss']
 })
-export class PassengerHistoryComponent implements OnInit{
+export class PassengerHistoryComponent implements OnInit {
 
   public rideList: RidePageListDTO | undefined;
   public reviewsList: ReviewsForRideDTO[] = [];
@@ -24,19 +24,16 @@ export class PassengerHistoryComponent implements OnInit{
   public reviewsLoaded = false;
 
   constructor(private router: Router,
-    private rideHistoryService: RideHistoryService,
-    private authService: AuthService,
-    private driverService: DriverService) {
+              private rideHistoryService: RideHistoryService,
+              private authService: AuthService,
+              private driverService: DriverService) {
     this.hasError = false;
   }
 
   ngOnInit(): void {
     const passengerId = this.authService.getId();
-    let d = new Date();
-    d = new Date(d.getTime() - d.getTimezoneOffset() * 60000)
-    const to = d.toISOString().slice(0, -1);
-    d.setFullYear(d.getFullYear() - 1);
-    const from = d.toISOString().slice(0, -1);
+    if (!passengerId)
+      return;
 
     this.rideHistoryService.getPassengerFinishedRides(passengerId, 0, 100, "startTime,desc").subscribe({
       next: (result) => {
@@ -58,7 +55,7 @@ export class PassengerHistoryComponent implements OnInit{
             });
 
           }
-          
+
 
           this.rideHistoryService.getReviewsForMultipleRide(this.idRides).subscribe({
             next: (result) => {
@@ -82,7 +79,7 @@ export class PassengerHistoryComponent implements OnInit{
         }
       },
     });
-    
+
   }
 
   getAverage(reviewsList: ReviewsForRideDTO): string {
@@ -108,42 +105,35 @@ export class PassengerHistoryComponent implements OnInit{
   getStartDate(ride: RideNoStatusDTO): string {
     const startDateTime = ride.startTime.split("T");
     const datePoints = startDateTime[0].split("-");
-    const startDate = datePoints[2] + "." + datePoints[1] + "." + datePoints[0] + ".";
-
-    return startDate;
-    
+    return datePoints[2] + "." + datePoints[1] + "." + datePoints[0] + ".";
   }
 
   getStartTime(ride: RideNoStatusDTO): string {
     const startDateTime = ride.startTime.split("T");
     const timePoints = startDateTime[1].split(":");
-    const startTime = timePoints[0] + ":" + timePoints[1];
-
-    return startTime;
+    return timePoints[0] + ":" + timePoints[1];
   }
 
   getStartPlace(ride: RideNoStatusDTO): string {
     const path = ride.locations[0];
-    const startPlace = path.departure.address;
-    return startPlace;
+    return path.departure.address;
   }
 
   getEndPlace(ride: RideNoStatusDTO): string {
     const path = ride.locations[0];
-    const endPlace = path.destination.address;
-    return endPlace;
+    return path.destination.address;
   }
 
   getCost(ride: RideNoStatusDTO): string {
-    return ride.totalCost+" RSD";
+    return ride.totalCost + " RSD";
   }
 
   getDriverName(driver: Profile): string {
-    return driver.name+" "+driver.surname;
+    return driver.name + " " + driver.surname;
   }
 
   getDriverPicture(driver: Profile): string {
-    if (!driver.profilePicture){
+    if (!driver.profilePicture) {
       return "assets/images/user.png"
     }
     return driver.profilePicture;
@@ -159,7 +149,7 @@ export class PassengerHistoryComponent implements OnInit{
       ride.locations[0].destination.longitude,
       ride.locations[0].departure.latitude,
       ride.locations[0].destination.latitude);
-      
+
     this.router.navigate(['/ride-detail']);
   }
 }

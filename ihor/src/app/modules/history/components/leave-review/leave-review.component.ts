@@ -1,16 +1,12 @@
-import { Component } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
-import { RideHistoryService } from '../../services/ride-history/ride-history.service';
-import { BarRatingModule } from "ngx-bar-rating";
+import {Component} from '@angular/core';
+import {FormControl, FormGroup, Validators} from '@angular/forms';
+import {Router} from '@angular/router';
+import {RideHistoryService} from '../../services/ride-history/ride-history.service';
 
-import { FaIconLibrary, FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { faStar, faStarHalfAlt, faTimesCircle } from '@fortawesome/free-solid-svg-icons';
-import { faStar as farStar } from '@fortawesome/free-regular-svg-icons';
-import { AuthService } from 'src/app/modules/auth/services/auth.service';
-import { ReviewRequestDTO, ReviewsForRideDTO, RideNoStatusDTO } from '../../model/RidePageListDTO';
-import { HttpErrorResponse } from '@angular/common/http';
-import { SharedService } from 'src/app/modules/shared/services/shared.service';
+import {AuthService} from 'src/app/modules/auth/services/auth.service';
+import {ReviewRequestDTO, ReviewsForRideDTO, RideNoStatusDTO} from '../../model/RidePageListDTO';
+import {HttpErrorResponse} from '@angular/common/http';
+import {SharedService} from 'src/app/modules/shared/services/shared.service';
 
 @Component({
   selector: 'app-leave-review',
@@ -43,8 +39,8 @@ export class LeaveReviewComponent {
     this.reviews = rideHistoryService.getSettedReview();
   }
 
-  navigate(){
-    if (this.authService.getRole()==="PASSENGER"){
+  navigate() {
+    if (this.authService.getRole() === "PASSENGER") {
       this.router.navigate(['/passenger/history']);
     } else {
       this.router.navigate(['/driver/history']);
@@ -55,23 +51,23 @@ export class LeaveReviewComponent {
   toReview() {
     if (this.reviewForm.valid) {
       let commentDriverValue = '';
-      if (this.reviewForm.value.commentDriver){
+      if (this.reviewForm.value.commentDriver) {
         commentDriverValue = this.reviewForm.value.commentDriver;
-      } 
+      }
 
       let commentVehicleValue = '';
-      if (this.reviewForm.value.commentVehicle){
+      if (this.reviewForm.value.commentVehicle) {
         commentVehicleValue = this.reviewForm.value.commentVehicle;
-      } 
-      
+      }
+
       const driverReview: ReviewRequestDTO = {
-        rating:this.driverRate,
-        comment:commentDriverValue,
+        rating: this.driverRate,
+        comment: commentDriverValue,
       }
 
       const vehicleReview: ReviewRequestDTO = {
-        rating:this.vehicleRate,
-        comment:commentVehicleValue,
+        rating: this.vehicleRate,
+        comment: commentVehicleValue,
       }
 
       this.rideHistoryService.leaveReviewForDriver(this.ride.id, driverReview).subscribe({
@@ -91,7 +87,7 @@ export class LeaveReviewComponent {
         }
       });
 
-      
+
     }
   }
 }

@@ -1,11 +1,11 @@
-import { HttpErrorResponse } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-import { Profile } from 'src/app/modules/account/model/profile';
-import { AuthService } from 'src/app/modules/auth/services/auth.service';
-import { PassengerService } from 'src/app/modules/passenger/services/passenger.service';
-import { ReviewsForRideDTO, RideNoStatusDTO } from '../../model/RidePageListDTO';
-import { RideHistoryService } from '../../services/ride-history/ride-history.service';
+import {HttpErrorResponse} from '@angular/common/http';
+import {Component, OnInit} from '@angular/core';
+import {Router} from '@angular/router';
+import {Profile} from 'src/app/modules/account/model/profile';
+import {AuthService} from 'src/app/modules/auth/services/auth.service';
+import {PassengerService} from 'src/app/modules/passenger/services/passenger.service';
+import {ReviewsForRideDTO, RideNoStatusDTO} from '../../model/RidePageListDTO';
+import {RideHistoryService} from '../../services/ride-history/ride-history.service';
 
 @Component({
   selector: 'app-review-list',
@@ -25,9 +25,9 @@ export class ReviewListComponent implements OnInit {
   public vehicleRate = 0;
 
   constructor(private router: Router,
-    private passengerService: PassengerService,
-    private rideHistoryService: RideHistoryService,
-    private authService: AuthService) {
+              private passengerService: PassengerService,
+              private rideHistoryService: RideHistoryService,
+              private authService: AuthService) {
     this.isDriver = rideHistoryService.getIsDriver();
     this.ride = rideHistoryService.getSettedRide();
     this.reviews = rideHistoryService.getSettedReview();
@@ -65,7 +65,7 @@ export class ReviewListComponent implements OnInit {
       const d = new Date();
       d.setDate(d.getDate() - 3);
       const rideDate = new Date(this.ride.startTime);
-      if (alreadyRate === false && rideDate > d) {
+      if (!alreadyRate && rideDate > d) {
         this.canReview = true;
       }
     }

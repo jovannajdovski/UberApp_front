@@ -44,7 +44,7 @@ export class EditVehicleComponent implements OnInit {
     private authService: AuthService,
     private router: Router,
     private driverService: DriverService
-  ) { 
+  ) {
     this.id=0;
   }
 
@@ -75,7 +75,6 @@ export class EditVehicleComponent implements OnInit {
             this.vehicle.currentLocation = vehicle.currentLocation;
             this.driverService.updateVehicle(this.id, this.vehicle).subscribe({
               next: () => {
-                //this.ngOnInit();
                 this.router.navigate(["/driver/profile"]);
               },
               error: (error) => {
@@ -87,7 +86,7 @@ export class EditVehicleComponent implements OnInit {
           console.log(error);
         },
       });
-      
+
     }
   }
 }

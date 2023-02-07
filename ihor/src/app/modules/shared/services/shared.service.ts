@@ -1,21 +1,22 @@
 import {Injectable} from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import {BehaviorSubject} from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
-export class SharedService{
-  private snackMessage$ = new BehaviorSubject<any>({});
+export class SharedService {
+  private snackMessage$ = new BehaviorSubject<string | null>(null);
   newSnackMessage$ = this.snackMessage$.asObservable();
 
-  constructor() {}
+  constructor() {
+  }
 
   openSnack(message: string) {
     this.snackMessage$.next(message);
   }
 
   dismiss() {
-    this.snackMessage$ = new BehaviorSubject<any>({})
+    this.snackMessage$ = new BehaviorSubject<string | null>(null);
     this.newSnackMessage$ = this.snackMessage$.asObservable();
   }
 

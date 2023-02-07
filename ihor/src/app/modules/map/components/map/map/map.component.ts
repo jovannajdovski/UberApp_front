@@ -1,13 +1,13 @@
-import { AfterContentInit, AfterViewInit, Component, OnDestroy, OnInit } from '@angular/core';
+import {AfterContentInit, AfterViewInit, Component, OnDestroy, OnInit} from '@angular/core';
 import * as L from 'leaflet';
 import 'leaflet-routing-machine'
-import { MarkerService } from 'src/app/modules/map/services/map/marker.service';
-import { ShapeService } from 'src/app/modules/map/services/map/shape.service';
-import { MapService } from 'src/app/modules/map/services/map/map.service';
-import { Observable } from 'rxjs';
-import { RouteService } from '../../../services/route/route.service';
-import { AuthService } from 'src/app/modules/auth/services/auth.service';
-import { OrderRideService } from 'src/app/modules/passenger/services/order-ride/order-ride.service';
+import {MarkerService} from 'src/app/modules/map/services/map/marker.service';
+import {ShapeService} from 'src/app/modules/map/services/map/shape.service';
+import {MapService} from 'src/app/modules/map/services/map/map.service';
+import {Observable} from 'rxjs';
+import {RouteService} from '../../../services/route/route.service';
+import {AuthService} from 'src/app/modules/auth/services/auth.service';
+import {OrderRideService} from 'src/app/modules/passenger/services/order-ride/order-ride.service';
 
 
 const greenIcon = L.icon({
@@ -59,21 +59,22 @@ export class MapComponent implements AfterViewInit, OnDestroy, OnInit {
     private mapService: MapService,
     private markerService: MarkerService,
     private shapeService: ShapeService,
-    private authService:AuthService,
-    private orderRideService:OrderRideService
+    private authService: AuthService,
+    private orderRideService: OrderRideService
   ) {
     this.disableMarkers = false;
     console.log("poziv konstruktora");
     this.authService.userState$.subscribe((value) => {
       console.log(value);
-      if(value=="UNREGISTERED_USER")
+      if (value == "UNREGISTERED_USER")
         this.unregisteredUser = true;
       else
-        this.unregisteredUser=false;
+        this.unregisteredUser = false;
     })
   }
-  unregisteredUser=true;
-  private map:any;
+
+  unregisteredUser = true;
+  private map: any;
 
   private disableMarkers: boolean;
 
@@ -89,9 +90,10 @@ export class MapComponent implements AfterViewInit, OnDestroy, OnInit {
   ngOnInit(): void {
     // this.initMap();
   }
-  ngOnDestroy():void{
+
+  ngOnDestroy(): void {
     //this.map.off();
-   // this.map.remove();
+    // this.map.remove();
   }
 
   private initMap(): void {
@@ -113,6 +115,7 @@ export class MapComponent implements AfterViewInit, OnDestroy, OnInit {
 
 
   }
+
   search(): void {
     this.mapService.search('Strazilovska 19').subscribe({
       next: (result) => {
@@ -122,7 +125,8 @@ export class MapComponent implements AfterViewInit, OnDestroy, OnInit {
           .bindPopup('Pozdrav iz Strazilovske 19.')
           .openPopup();
       },
-      error: () => { },
+      error: () => {
+      },
     });
   }
 
@@ -137,34 +141,34 @@ export class MapComponent implements AfterViewInit, OnDestroy, OnInit {
           const lng = coord.lng;
 
           if (Object.keys(startMarker).length === 0) {
-            startMarker = L.marker([lat, lng], { draggable: true });
+            startMarker = L.marker([lat, lng], {draggable: true});
 
             (startMarker as L.Marker).on('dragend', (event: any) => {
               const cord = event.target._latlng;
               const latdrag = cord.lat;
               const lngdrag = cord.lng;
-              this.routeService.setStartPoint({ lat: latdrag, lon: lngdrag });
+              this.routeService.setStartPoint({lat: latdrag, lon: lngdrag});
             });
 
             (startMarker as L.Marker).addTo(this.map);
-            this.routeService.setStartPoint({ lat: lat, lon: lng });
+            this.routeService.setStartPoint({lat: lat, lon: lng});
             this.long1 = (startMarker as L.Marker).getLatLng().lng;
             this.lat1 = (startMarker as L.Marker).getLatLng().lat;
             return;
           }
 
           if (Object.keys(endMarker).length === 0) {
-            endMarker = L.marker([lat, lng], { draggable: true });
+            endMarker = L.marker([lat, lng], {draggable: true});
 
             (endMarker as L.Marker).on('dragend', (event: any) => {
               const cord = event.target._latlng;
               const latdrag = cord.lat;
               const lngdrag = cord.lng;
-              this.routeService.setFinalPoint({ lat: latdrag, lon: lngdrag });
+              this.routeService.setFinalPoint({lat: latdrag, lon: lngdrag});
             });
 
             (endMarker as L.Marker).addTo(this.map);
-            this.routeService.setFinalPoint({ lat: lat, lon: lng });
+            this.routeService.setFinalPoint({lat: lat, lon: lng});
             this.long2 = (endMarker as L.Marker).getLatLng().lng;
             this.lat2 = (endMarker as L.Marker).getLatLng().lat;
             return;
@@ -186,9 +190,9 @@ export class MapComponent implements AfterViewInit, OnDestroy, OnInit {
   }
 
   ngAfterViewInit(): void {
-    startMarker={};
-    endMarker={};
-    this.disableMarkers=false;
+    startMarker = {};
+    endMarker = {};
+    this.disableMarkers = false;
     console.log("disabled false");
     this.initMap();
     this.markerService.makeVehicleMarkers(this.map, redIcon, greenIcon);
@@ -196,6 +200,7 @@ export class MapComponent implements AfterViewInit, OnDestroy, OnInit {
     this.registerOnClick();
     this.findRoute();
   }
+
   // ngAfterContentInit():void{
   //   this.initMap();
   // }
@@ -203,8 +208,7 @@ export class MapComponent implements AfterViewInit, OnDestroy, OnInit {
 
   findRoute(): void {
     this.routeService.selectedStart$.subscribe((value) => {
-      if(JSON.stringify(value)!="{}")
-      {
+      if (JSON.stringify(value) != "{}") {
         console.log("Value");
         console.log(value);
         if (Object.keys(startMarker).length === 0) {
@@ -218,10 +222,9 @@ export class MapComponent implements AfterViewInit, OnDestroy, OnInit {
       }
     });
     this.routeService.selectedFinal$.subscribe((value) => {
-      if(JSON.stringify(value)!="{}")
-      { 
+      if (JSON.stringify(value) != "{}") {
         console.log("Value final");
-        console.log(value); 
+        console.log(value);
         if (Object.keys(endMarker).length === 0) {
           this.mapService.search(value).subscribe({
             next: (result) => {
@@ -242,11 +245,10 @@ export class MapComponent implements AfterViewInit, OnDestroy, OnInit {
     this.markerService.removeMarkers(this.map);
     this.removePointMarkers();
 
-    if(this.unregisteredUser==false)
-    {
+    if (this.unregisteredUser == false) {
       console.log("LONG2");
       console.log(this.long2);
-        this.orderRideService.setCoordinates(this.lat1,this.long1,this.lat2,this.long2);
+      this.orderRideService.setCoordinates(this.lat1, this.long1, this.lat2, this.long2);
     }
     this.waypointsNoDrag = [
       L.latLng(this.lat1, this.long1),
@@ -259,7 +261,7 @@ export class MapComponent implements AfterViewInit, OnDestroy, OnInit {
       }),
       showAlternatives: true,
       lineOptions: {
-        styles: [{ color: '#fff821', weight: 7 }],
+        styles: [{color: '#fff821', weight: 7}],
         extendToWaypoints: false,
         missingRouteTolerance: 0,
         addWaypoints: false,
@@ -267,7 +269,7 @@ export class MapComponent implements AfterViewInit, OnDestroy, OnInit {
 
       fitSelectedRoutes: false,
       altLineOptions: {
-        styles: [{ color: '#949494', weight: 7 }],
+        styles: [{color: '#949494', weight: 7}],
         extendToWaypoints: false,
         missingRouteTolerance: 0
       },
@@ -300,9 +302,9 @@ export class MapComponent implements AfterViewInit, OnDestroy, OnInit {
 
     this.routeService.selectedRouteSelect$.subscribe((value) => {
       console.log(value);
-      
+
       //this.routes[value].selectRoute;
-      
+
     });
     console.log("disabled true");
     this.disableMarkers = true;

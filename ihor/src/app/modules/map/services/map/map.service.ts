@@ -1,13 +1,14 @@
-import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { map, Observable } from 'rxjs';
+import {Injectable} from '@angular/core';
+import {HttpClient} from '@angular/common/http';
+import {Observable} from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class MapService {
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {
+  }
 
   search(street: string): Observable<any> {
     return this.http.get(
@@ -27,7 +28,7 @@ export class MapService {
     const params = {
       q: address,
       format: 'json',
-      countrycodes:'rs'
+      countrycodes: 'rs'
     }
 
     const queryString = new URLSearchParams(params).toString();

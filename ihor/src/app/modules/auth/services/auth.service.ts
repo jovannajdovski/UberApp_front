@@ -19,16 +19,14 @@ export class AuthService {
     skip: 'true',
   });
 
-  constructor(private http: HttpClient) {
-    // this.user$.next(this.getRole());
-  }
+  constructor(private http: HttpClient) {}
 
   login(auth: Credentials): Observable<Token> {
     return this.http.post<Token>(environment.apiHost + "user/login",
-    {
-      email: auth.email,
-      password: auth.password
-    },{"headers": this.headers})
+      {
+        email: auth.email,
+        password: auth.password
+      }, {"headers": this.headers})
   }
 
   logout(): Observable<string> {
@@ -43,9 +41,11 @@ export class AuthService {
     this.user$.next(this.defaultRole);
   }
 
-  getRole(): any {
+  getRole(): string {
     if (this.isLoggedIn()) {
-      const accessToken: any = localStorage.getItem('user');
+      const accessToken: string | null = localStorage.getItem('user');
+      if (!accessToken)
+        return "UNREGISTERED_USER";
       const helper = new JwtHelperService();
       const role = helper.decodeToken(accessToken).role;
       return role.split("_")[1];
@@ -54,25 +54,29 @@ export class AuthService {
     return "UNREGISTERED_USER";
   }
 
-  getId(): any {
+  getId(): number {
     if (this.isLoggedIn()) {
-      const accessToken: any = localStorage.getItem('user');
+      const accessToken: string | null = localStorage.getItem('user');
+      if (!accessToken)
+        return 0;
       const helper = new JwtHelperService();
       return helper.decodeToken(accessToken).jti;
     }
-
-    return null;
+    return 0;
   }
-  getEmail(): any{
+
+  getEmail(): string {
     if (this.isLoggedIn()) {
-      const accessToken: any = localStorage.getItem('user');
+      const accessToken: string | null = localStorage.getItem('user');
+      if (!accessToken)
+        return "";
       const helper = new JwtHelperService();
-      const email = helper.decodeToken(accessToken).sub;
-      return email;
+      return helper.decodeToken(accessToken).sub;
     }
 
-    return null;
+    return "";
   }
+
   isLoggedIn(): boolean {
     return localStorage.getItem('user') != null;
   }

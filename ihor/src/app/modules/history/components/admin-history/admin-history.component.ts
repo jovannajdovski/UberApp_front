@@ -1,11 +1,11 @@
-import { HttpErrorResponse } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-import { Profile } from 'src/app/modules/account/model/profile';
-import { AuthService } from 'src/app/modules/auth/services/auth.service';
-import { DriverService } from 'src/app/modules/driver/services/driver.service';
-import { ReviewsForRideDTO, RideNoStatusDTO, RidePageListDTO } from '../../model/RidePageListDTO';
-import { RideHistoryService } from '../../services/ride-history/ride-history.service';
+import {HttpErrorResponse} from '@angular/common/http';
+import {Component, OnInit} from '@angular/core';
+import {Router} from '@angular/router';
+import {Profile} from 'src/app/modules/account/model/profile';
+import {AuthService} from 'src/app/modules/auth/services/auth.service';
+import {DriverService} from 'src/app/modules/driver/services/driver.service';
+import {ReviewsForRideDTO, RideNoStatusDTO, RidePageListDTO} from '../../model/RidePageListDTO';
+import {RideHistoryService} from '../../services/ride-history/ride-history.service';
 
 @Component({
   selector: 'app-admin-history',
@@ -30,11 +30,11 @@ export class AdminHistoryComponent implements OnInit{
   }
 
   ngOnInit(): void {
-    let d = new Date();
-    d = new Date(d.getTime() - d.getTimezoneOffset() * 60000)
-    const to = d.toISOString().slice(0, -1);
-    d.setFullYear(d.getFullYear() - 1);
-    const from = d.toISOString().slice(0, -1);
+    // let d = new Date();
+    // d = new Date(d.getTime() - d.getTimezoneOffset() * 60000)
+    // const to = d.toISOString().slice(0, -1);
+    // d.setFullYear(d.getFullYear() - 1);
+    // const from = d.toISOString().slice(0, -1);
 
     this.rideHistoryService.getAdminFinishedRides(0, 100, "startTime,desc").subscribe({
       next: (result) => {
@@ -56,7 +56,7 @@ export class AdminHistoryComponent implements OnInit{
             });
 
           }
-          
+
 
           this.rideHistoryService.getReviewsForMultipleRide(this.idRides).subscribe({
             next: (result) => {
@@ -80,7 +80,7 @@ export class AdminHistoryComponent implements OnInit{
         }
       },
     });
-    
+
   }
 
   getAverage(reviewsList: ReviewsForRideDTO): string {
@@ -106,30 +106,24 @@ export class AdminHistoryComponent implements OnInit{
   getStartDate(ride: RideNoStatusDTO): string {
     const startDateTime = ride.startTime.split("T");
     const datePoints = startDateTime[0].split("-");
-    const startDate = datePoints[2] + "." + datePoints[1] + "." + datePoints[0] + ".";
+    return datePoints[2] + "." + datePoints[1] + "." + datePoints[0] + ".";
 
-    return startDate;
-    
   }
 
   getStartTime(ride: RideNoStatusDTO): string {
     const startDateTime = ride.startTime.split("T");
     const timePoints = startDateTime[1].split(":");
-    const startTime = timePoints[0] + ":" + timePoints[1];
-
-    return startTime;
+    return timePoints[0] + ":" + timePoints[1];
   }
 
   getStartPlace(ride: RideNoStatusDTO): string {
     const path = ride.locations[0];
-    const startPlace = path.departure.address;
-    return startPlace;
+    return path.departure.address;
   }
 
   getEndPlace(ride: RideNoStatusDTO): string {
     const path = ride.locations[0];
-    const endPlace = path.destination.address;
-    return endPlace;
+    return path.destination.address;
   }
 
   getCost(ride: RideNoStatusDTO): string {
@@ -157,7 +151,7 @@ export class AdminHistoryComponent implements OnInit{
       ride.locations[0].destination.longitude,
       ride.locations[0].departure.latitude,
       ride.locations[0].destination.latitude);
-      
+
     this.router.navigate(['/ride-detail']);
   }
 }

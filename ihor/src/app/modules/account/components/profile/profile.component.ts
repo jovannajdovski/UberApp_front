@@ -1,9 +1,8 @@
-import { Component, OnInit } from '@angular/core';
-import { Profile, ProfileWPassword } from '../../model/profile';
-import { AuthService } from 'src/app/modules/auth/services/auth.service';
-import { Router } from '@angular/router';
-import { HttpErrorResponse } from '@angular/common/http';
-import { ProfileService } from '../../services/profile.service';
+import {Component, OnInit} from '@angular/core';
+import {ProfileWPassword} from '../../model/profile';
+import {AuthService} from 'src/app/modules/auth/services/auth.service';
+import {Router} from '@angular/router';
+import {ProfileService} from '../../services/profile.service';
 
 @Component({
   selector: 'app-profile',
@@ -43,11 +42,7 @@ export class ProfileComponent implements OnInit {
         this.profile.telephoneNumber = profile.telephoneNumber;
         this.profile.email = profile.email;
         this.profile.address = profile.address;
-        if (profile.profilePicture != null) {
-          this.isImageSaved = true;
-        } else {
-          this.isImageSaved = false;
-        }
+        this.isImageSaved = profile.profilePicture != null;
       },
       error: (error) => {
         console.log(error);

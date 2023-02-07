@@ -1,9 +1,9 @@
-import { HttpErrorResponse } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-import { AuthService } from 'src/app/modules/auth/services/auth.service';
-import { ReviewsForRideDTO, RideNoStatusDTO, RidePageListDTO } from '../../model/RidePageListDTO';
-import { RideHistoryService } from '../../services/ride-history/ride-history.service';
+import {HttpErrorResponse} from '@angular/common/http';
+import {Component, OnInit} from '@angular/core';
+import {Router} from '@angular/router';
+import {AuthService} from 'src/app/modules/auth/services/auth.service';
+import {ReviewsForRideDTO, RideNoStatusDTO, RidePageListDTO} from '../../model/RidePageListDTO';
+import {RideHistoryService} from '../../services/ride-history/ride-history.service';
 
 @Component({
   selector: 'app-driver-history',
@@ -19,18 +19,18 @@ export class DriverHistoryComponent implements OnInit {
   hasError: boolean;
 
   constructor(private router: Router,
-    private rideHistoryService: RideHistoryService,
-    private authService: AuthService) {
+              private rideHistoryService: RideHistoryService,
+              private authService: AuthService) {
     this.hasError = false;
   }
 
   ngOnInit(): void {
     const driverId = this.authService.getId();
-    let d = new Date();
-    d = new Date(d.getTime() - d.getTimezoneOffset() * 60000)
-    const to = d.toISOString().slice(0, -1);
-    d.setFullYear(d.getFullYear() - 1);
-    const from = d.toISOString().slice(0, -1);
+    // let d = new Date();
+    // d = new Date(d.getTime() - d.getTimezoneOffset() * 60000)
+    // const to = d.toISOString().slice(0, -1);
+    // d.setFullYear(d.getFullYear() - 1);
+    // const from = d.toISOString().slice(0, -1);
 
     this.rideHistoryService.getDriverFinishedRides(driverId, 0, 100, "startTime,desc").subscribe({
       next: (result) => {
@@ -86,34 +86,28 @@ export class DriverHistoryComponent implements OnInit {
   getStartDate(ride: RideNoStatusDTO): string {
     const startDateTime = ride.startTime.split("T");
     const datePoints = startDateTime[0].split("-");
-    const startDate = datePoints[2] + "." + datePoints[1] + "." + datePoints[0] + ".";
+    return datePoints[2] + "." + datePoints[1] + "." + datePoints[0] + ".";
 
-    return startDate;
-    
   }
 
   getStartTime(ride: RideNoStatusDTO): string {
     const startDateTime = ride.startTime.split("T");
     const timePoints = startDateTime[1].split(":");
-    const startTime = timePoints[0] + ":" + timePoints[1];
-
-    return startTime;
+    return timePoints[0] + ":" + timePoints[1];
   }
 
   getStartPlace(ride: RideNoStatusDTO): string {
     const path = ride.locations[0];
-    const startPlace = path.departure.address;
-    return startPlace;
+    return path.departure.address;
   }
 
   getEndPlace(ride: RideNoStatusDTO): string {
     const path = ride.locations[0];
-    const endPlace = path.destination.address;
-    return endPlace;
+    return path.destination.address;
   }
 
   getCost(ride: RideNoStatusDTO): string {
-    return ride.totalCost+" RSD";
+    return ride.totalCost + " RSD";
   }
 
   toRideDetail(ride: RideNoStatusDTO, reviewsForRide: ReviewsForRideDTO) {

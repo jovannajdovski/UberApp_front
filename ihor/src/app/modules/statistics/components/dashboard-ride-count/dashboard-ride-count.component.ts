@@ -9,5 +9,6 @@ export class DashboardRideCountComponent {
   sumValue = "0";
   avgValue = "0";
 
-  constructor() {}
+  constructor() {
+  }
 }

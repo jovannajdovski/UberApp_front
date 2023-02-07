@@ -1,6 +1,6 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
-import { MatSnackBar } from '@angular/material/snack-bar';
-import { SharedService } from '../../services/shared.service';
+import {MatSnackBar} from '@angular/material/snack-bar';
+import {SharedService} from '../../services/shared.service';
 
 @Component({
   selector: 'app-snack-bar',
@@ -11,10 +11,11 @@ export class SnackBarComponent implements OnInit, OnDestroy {
   constructor(
     private _snackBar: MatSnackBar,
     private sharedService: SharedService
-  ) {}
+  ) {
+  }
 
   ngOnInit(): void {
-    this.sharedService.newSnackMessage$.subscribe((value) =>{
+    this.sharedService.newSnackMessage$.subscribe((value) => {
       if (typeof value == "string") {
         this.openSnackBar(value, "Ok");
       }

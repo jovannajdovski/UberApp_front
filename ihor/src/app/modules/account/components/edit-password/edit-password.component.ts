@@ -1,10 +1,10 @@
-import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-import { FormGroup, FormControl, Validators, FormGroupDirective, NgForm, EmailValidator } from '@angular/forms';
-import { AuthService } from 'src/app/modules/auth/services/auth.service';
-import { ProfileService } from '../../services/profile.service';
-import { SharedService } from 'src/app/modules/shared/services/shared.service';
-import { HttpErrorResponse } from '@angular/common/http';
+import {Component, OnInit} from '@angular/core';
+import {Router} from '@angular/router';
+import {FormGroup, FormControl, Validators, FormGroupDirective, NgForm, EmailValidator} from '@angular/forms';
+import {AuthService} from 'src/app/modules/auth/services/auth.service';
+import {ProfileService} from '../../services/profile.service';
+import {SharedService} from 'src/app/modules/shared/services/shared.service';
+import {HttpErrorResponse} from '@angular/common/http';
 
 @Component({
   selector: 'app-edit-password',
@@ -28,7 +28,6 @@ export class EditPasswordComponent {
   });
 
   private id: number;
-  oldPassword = '';
 
   constructor(
     private authService: AuthService,
@@ -48,12 +47,12 @@ export class EditPasswordComponent {
         next: () => {
           this.router.navigate(['/edit-profile']);
         },
-        error: (error:HttpErrorResponse) => {
-          if(error.status===400){            
+        error: (error: HttpErrorResponse) => {
+          if (error.status === 400) {
             this.wrongPassword();
-         } else {
-          console.log(error);
-         }
+          } else {
+            console.log(error);
+          }
         }
       })
     }

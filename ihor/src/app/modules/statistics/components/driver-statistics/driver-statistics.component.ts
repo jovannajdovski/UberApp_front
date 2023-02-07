@@ -88,7 +88,8 @@ export class DriverStatisticsComponent implements OnInit {
 
   constructor(private route: ActivatedRoute,
               private driverService: DriverService,
-              private driverStatisticsService: DriverStatisticsService) {}
+              private driverStatisticsService: DriverStatisticsService) {
+  }
 
   ngOnInit(): void {
     const id = this.route.snapshot.paramMap.get('id');
