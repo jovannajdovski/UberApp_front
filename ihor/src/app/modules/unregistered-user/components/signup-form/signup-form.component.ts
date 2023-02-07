@@ -13,6 +13,7 @@ export class SignupFormComponent implements OnInit {
   hidePassword = true;
   hideConfirmPassword = true;
   hasError = false;
+  submitted = false;
 
   allTextPattern = "[a-zA-Z][a-zA-Z]*";
   phoneNumberPattern = "[0-9 +]?[0-9]+[0-9 \\-]+";
@@ -36,6 +37,7 @@ export class SignupFormComponent implements OnInit {
   }
 
   signup() {
+    this.submitted = true;
     const registration: Registration = {
       name: this.signupForm.value.name,
       surname: this.signupForm.value.surname,

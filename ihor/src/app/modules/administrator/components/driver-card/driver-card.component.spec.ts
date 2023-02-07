@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { MatDialogModule } from '@angular/material/dialog';
 
 import { DriverCardComponent } from './driver-card.component';
 
@@ -8,7 +9,9 @@ describe('DriverCardComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ DriverCardComponent ]
+      declarations: [ DriverCardComponent ],
+      imports: [MatDialogModule]
+
     })
     .compileComponents();
 

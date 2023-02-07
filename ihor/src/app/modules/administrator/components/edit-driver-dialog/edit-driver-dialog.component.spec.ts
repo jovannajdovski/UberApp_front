@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { MatDialogModule } from '@angular/material/dialog';
 
 import { EditDriverDialogComponent } from './edit-driver-dialog.component';
 
@@ -8,7 +9,8 @@ describe('EditDriverDialogComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ EditDriverDialogComponent ]
+      declarations: [ EditDriverDialogComponent ],
+      imports: [MatDialogModule]
     })
     .compileComponents();
 
