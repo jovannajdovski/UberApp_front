@@ -1,4 +1,6 @@
+import { HttpClientModule } from '@angular/common/http';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { MatDialogModule } from '@angular/material/dialog';
 
 import { DriversComponent } from './drivers.component';
 
@@ -8,7 +10,8 @@ describe('DriversComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ DriversComponent ]
+      declarations: [ DriversComponent ],
+      imports: [HttpClientModule, MatDialogModule]
     })
     .compileComponents();
 

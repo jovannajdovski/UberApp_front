@@ -13,6 +13,7 @@ export class SignupFormComponent implements OnInit {
   hidePassword = true;
   hideConfirmPassword = true;
   hasError = false;
+  submitted = false;
 
   allTextPattern = "[a-zA-Z][a-zA-Z]*";
   phoneNumberPattern = "[0-9 +]?[0-9]+[0-9 \\-]+";
@@ -33,9 +34,13 @@ export class SignupFormComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.registrationService.hasErrorObs.subscribe((value)=>{
+      this.hasError=value;
+    })
   }
 
   signup() {
+    this.submitted = true;
     const registration: Registration = {
       name: this.signupForm.value.name,
       surname: this.signupForm.value.surname,
@@ -47,16 +52,8 @@ export class SignupFormComponent implements OnInit {
     }
 
     if (this.signupForm.valid) {
-      this.registrationService.registerPassenger(registration).subscribe({
-        next: (result) => {
-          this.router.navigate(['/verify-account']);
-        },
-        error: (error) => {
-          if (error instanceof HttpErrorResponse) {
-            this.hasError = true;
-          }
-        },
-      });
+
+      this.registrationService.registerPassengerObs(registration);
     }
   }
 

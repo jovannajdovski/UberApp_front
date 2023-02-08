@@ -1,4 +1,6 @@
+import { HttpClientModule } from '@angular/common/http';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { MatFormField, MatFormFieldModule } from '@angular/material/form-field';
 
 import { PassengersComponent } from './passengers.component';
 
@@ -8,7 +10,8 @@ describe('PassengersComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ PassengersComponent ]
+      declarations: [ PassengersComponent ],
+      imports: [HttpClientModule, MatFormFieldModule]
     })
     .compileComponents();
 

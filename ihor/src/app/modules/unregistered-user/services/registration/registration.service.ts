@@ -1,25 +1,39 @@
 import {Injectable} from '@angular/core';
-import {HttpClient, HttpHeaders} from '@angular/common/http';
+import {HttpClient, HttpErrorResponse, HttpHeaders} from '@angular/common/http';
 import {environment} from 'src/environments/environment';
-import {Observable} from 'rxjs';
+import {BehaviorSubject, Observable} from 'rxjs';
 import {Registration} from '../../components/signup-form/signup-form.component';
 import {Vehicle} from "../../../administrator/model/Vehicle";
 import {Driver} from "../../../administrator/model/Driver";
 import {Message} from '../../model/Message';
+import {Router} from "@angular/router";
 
 @Injectable({
   providedIn: 'root'
 })
 export class RegistrationService {
 
+  private hasError=new BehaviorSubject<boolean>(false);
+  hasErrorObs=this.hasError.asObservable();
   private headers = new HttpHeaders({
     'Content-Type': 'application/json',
     skip: 'true',
   });
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, private router:Router) {
   }
-
+  registerPassengerObs(registration:Registration):any{
+    this.registerPassenger(registration).subscribe({
+      next: (result) => {
+        this.router.navigate(['/verify-account']);
+      },
+      error: (error) => {
+        if (error instanceof HttpErrorResponse) {
+          this.hasError.next(true);
+        }
+      },
+    });
+  }
   registerPassenger(registration: Registration): Observable<Registration> {
     return this.http.post<Registration>(environment.apiHost + "passenger",
       {

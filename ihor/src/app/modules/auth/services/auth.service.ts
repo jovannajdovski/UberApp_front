@@ -1,10 +1,13 @@
-import {HttpClient, HttpHeaders} from '@angular/common/http';
+import {HttpClient, HttpErrorResponse, HttpHeaders} from '@angular/common/http';
 import {Injectable} from '@angular/core';
 import {JwtHelperService} from '@auth0/angular-jwt';
 import {BehaviorSubject, Observable} from 'rxjs';
 import {environment} from 'src/environments/environment';
 import {Token} from "../model/token";
 import {Credentials} from "../model/credentials";
+import {WorkTimeService} from "../../driver/services/work-time/work-time.service";
+import {Router} from "@angular/router";
+import {RouteService} from "../../map/services/route/route.service";
 
 @Injectable({
   providedIn: 'root'
@@ -14,20 +17,7 @@ export class AuthService {
   user$ = new BehaviorSubject(this.defaultRole);
   userState$ = this.user$.asObservable();
 
-  private headers = new HttpHeaders({
-    'Content-Type': 'application/json',
-    skip: 'true',
-  });
-
   constructor(private http: HttpClient) {}
-
-  login(auth: Credentials): Observable<Token> {
-    return this.http.post<Token>(environment.apiHost + "user/login",
-      {
-        email: auth.email,
-        password: auth.password
-      }, {"headers": this.headers})
-  }
 
   logout(): Observable<string> {
     return this.http.get(environment.apiHost + "user/logout", {responseType: 'text'});
