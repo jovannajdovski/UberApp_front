@@ -20,7 +20,7 @@ describe('LoginComponent', () => {
   let de: DebugElement;
   let el: HTMLElement;
   let loginService: LoginService;
-  let authServiceSpy: jasmine.Spy;
+  let loginServiceSpy: jasmine.Spy;
   const response  = {
     accessToken: "abcdefghi",
     refreshToken: "abcdefghi"
@@ -36,7 +36,7 @@ describe('LoginComponent', () => {
     .compileComponents();
 
     loginService=TestBed.inject(LoginService);
-    authServiceSpy = spyOn(loginService, 'loginUserObs').and.returnValue(response);
+    loginServiceSpy = spyOn(loginService, 'loginUserObs').and.returnValue(response);
 
 
     fixture = TestBed.createComponent(LoginComponent);
@@ -86,10 +86,10 @@ describe('LoginComponent', () => {
     component.loginForm.controls['email'].setValue('perrra@gmail.com');
     component.loginForm.controls['password'].setValue('asdasdasd');
     expect(component.loginForm.valid).toBeTruthy();
-    expect(authServiceSpy).toHaveBeenCalled();
-
     component.login();
-    const value = authServiceSpy.calls.mostRecent().returnValue;
+
+    expect(loginServiceSpy).toHaveBeenCalled();
+    const value = loginServiceSpy.calls.mostRecent().returnValue;
     expect(value.accessToken).toBe(response.accessToken);
   });
 });
